@@ -44,12 +44,6 @@
     "roumen/sitemap": "2.6.*",
     "ezyang/htmlpurifier" : "4.*.*"
   },
-  "require-dev": {
-
-  },
-  "repositories": [
-
-  ],
   "autoload": {
     "psr-0": {
       "Finetune\\Finetune\\": "src/",
@@ -59,8 +53,5 @@
       "Finetune\\Finetune\\": "src/",
       "Finetune\\Finetune\\Services\\": "src/Finetune/Services/"
     }
-  },
-  "config": {
-    "preferred-install": "dist"
   }
 }
