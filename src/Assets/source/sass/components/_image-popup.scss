@@ -1,0 +1,24 @@
+// Not sure where this goes so made its own component
+
+.image-popup{
+  width: 100%;
+  list-style: none;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+
+
+
+  .insert-image {
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+}
+
+.image-popup-header{
+  margin-bottom:$gutter;
+}

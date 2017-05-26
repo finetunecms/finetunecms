@@ -1,0 +1,17 @@
+.folder-block{
+  background-color:$absolute-white;
+  padding: 20px 40px;
+  .folder{
+    background-color:$white;
+    height:40px;
+    padding:$gutter;
+    &.active{
+      background-color:$brand-primary;
+      a{
+        color:$absolute-white;
+      }
+    }
+  }
+
+}
+

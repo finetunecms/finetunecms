@@ -1,0 +1,49 @@
+
+.table {
+
+  tbody > tr > td, thead > tr > th, thead > tr.active > th  {
+    border: none;
+    position: relative;
+    vertical-align: middle;
+    &.th-actions {
+      text-align: right;
+    }
+  }
+
+  .title {
+    font-weight: 400;
+  }
+
+  thead > tr > th, thead > tr.active > th {
+    background: $white;
+    font-weight: 300;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 11px;
+
+    &:first-child {
+      padding-left:0;
+    }
+  }
+
+  .th-publish, .th-select {
+    width: 30px
+  }
+
+  .th-manage, .th-actions, .actions {
+    text-align: right;
+  }
+
+  .selected {
+    td {
+      background: $menu-hover;
+    }
+  }
+
+  .sortable-chosen {
+    td {
+      background: rgba($menu-hover, .7);
+    }
+  }
+
+}

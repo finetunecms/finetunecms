@@ -1,0 +1,180 @@
+.images, .files {
+  .image, file {
+    padding: $gutter;
+    &.selected {
+      background-color: $brand-success;
+      color: $absolute-white;
+      .text-muted {
+        color: $white !important;
+      }
+    }
+  }
+}
+
+.media-header {
+  background:  #cccccc;
+  height: 65px;
+  padding: $gutter 40px;
+
+  .media-search {
+    padding: 0;
+    width: 45%;
+    float: right;
+
+  }
+
+  .media-filter {
+    width: 10%;
+    float: left;
+    padding: 0;
+    .btn {
+      padding: 11px;
+    }
+  }
+  .media-actions {
+    float: right;
+    padding: $gutter 0 0 $gutter;
+    p {
+      float: left;
+      padding: ($gutter /2) $gutter;
+      font-weight: 400;
+      color: $white;
+    }
+  }
+  .media-groups {
+    float: left;
+    width: 25%;
+    padding: 0 ($gutter /2) 0 0;
+
+    .v-select {
+      .form-control {
+        width: 1px !important;
+      }
+    }
+  }
+  .group-buttons {
+    float: left;
+    width: 20%;
+    padding: 0 ($gutter /2) 0 0;
+    .btn-group {
+      width: 100%;
+    }
+    .btn {
+      padding: ($gutter - 1) $gutter;
+      width: 50%;
+    }
+    .btn-block {
+      width: 100%;
+    }
+
+
+  }
+  .search-icon {
+    background-color: #FFF;
+    border: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 100;
+    padding: 6px 20px;
+  }
+}
+
+.media-area {
+  height: 100%;
+  position: relative;
+  padding: 0 $gutter;
+
+  .media-attributes {
+    float: left;
+    width: 30%;
+    .img-wrap{
+      margin: $gutter auto 0 auto;
+      border: 1px solid #CCC;
+      padding: $gutter;
+      width: 75%;
+      display: block;
+    }
+    img {
+      display: block;
+      width: 100%;
+      margin: 0;
+      clear: both;
+    }
+    .tabs {
+      background: #fafafa;
+      padding-top: ($gutter * 2);
+    }
+    .nav-tabs {
+      padding: 0 $gutter;
+    }
+    .tab-content {
+      border-left: 1px solid #ddd;
+      background: $absolute-white;
+      padding: $gutter;
+      @extend .clearfix;
+    }
+    .form-group{
+      clear:both;
+    }
+  }
+  .media-table {
+    float: left;
+    width: 70%;
+  }
+
+  .fixed {
+    position: fixed;
+    overflow: scroll;
+    background-color: $absolute-white;
+    width: 350px;
+    top: 186px;
+    bottom: 0;
+    right: 0;
+
+  }
+  .attribute-item {
+    clear: both;
+    margin-bottom: ($gutter * 2);
+  }
+  .absolute {
+    position: absolute;
+    width: 70%;
+  }
+  .cog {
+    position: absolute;
+    right: 5px;
+  }
+
+  .click-header{
+    cursor: pointer;
+  }
+}
+
+
+.media-main {
+  .controls {
+    height: 115px;
+  }
+  .manage {
+      height: calc(100% - 185px);
+  }
+}
+
+
+.preview-image{
+  width:200px;
+  height:200px;
+  overflow:hidden;
+}
+
+.preview-image-wrap {
+  height: 200px;
+  width: 100%;
+  margin-bottom: ($gutter * 2);
+}
+
+.crop-item {
+  margin-bottom: $gutter;
+  @extend .clearfix;
+}

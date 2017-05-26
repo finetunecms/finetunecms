@@ -1,0 +1,50 @@
+@mixin _assert-ascending($map, $map-name) {
+  $prev-key: null;
+  $prev-num: null;
+  @each $key, $num in $map {
+    @if $prev-num == null {
+      // Do nothing
+    } @else if not comparable($prev-num, $num) {
+      @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    } @else if $prev-num >= $num {
+      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    }
+    $prev-key: $key;
+    $prev-num: $num;
+  }
+}
+
+
+$bootstrap-sass-asset-helper: false !default;
+
+// Core Vars
+$enable-flex:               false !default;
+$enable-rounded:            false !default;
+$enable-shadows:            false !default;
+$enable-gradients:          false !default;
+$enable-transitions:        false !default;
+$enable-hover-media-query:  false !default;
+$enable-grid-classes:       true !default;
+$enable-print-styles:       true !default;
+
+@import "colours";
+@import "grid";
+@import "zindex";
+@import "typography";
+
+
+// Component Vars
+@import "alerts";
+@import "buttons";
+@import "cards";
+@import "dropdown";
+@import "forms";
+@import "list";
+@import "media";
+@import "modal";
+@import "nav";
+@import "popover";
+@import "tables";
+@import "tags";
+@import "tooltips";
+

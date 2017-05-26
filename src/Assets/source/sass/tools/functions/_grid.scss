@@ -1,0 +1,18 @@
+// Column Width Calculator
+// -------------------------------------------------------
+
+// Get the base width for each column
+
+@function column-width($columns: $column-count ) {
+  @return ( 100% / $columns );
+}
+
+
+// Column Calculation
+// -------------------------------------------------------
+
+// Return the required width based on the width needed minus the gutters
+
+@function column-calc($column, $column-count: $column-count) {
+  @return ( column-width($column-count) * $column);
+}

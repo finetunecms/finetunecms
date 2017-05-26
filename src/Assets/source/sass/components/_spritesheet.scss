@@ -1,0 +1,54 @@
+.ic {
+  background: transparent url(/finetune/assets/fonts/icon-sprite.svg) no-repeat 0 0;
+  background-size: 500px 500px;
+  background-position: -20px -20px;
+  background-repeat: no-repeat ;
+  display: inline-block;
+  height: 16px;
+  width: 20px;
+
+  &.ic-type {
+    background-position: -20px -20px;
+  }
+
+  &.ic-site {
+    background-position: -20px -50px;
+  }
+
+  &.ic-content {
+    background-position: -20px -80px;
+  }
+
+  &.ic-media {
+    background-position: -20px -110px;
+  }
+
+  &.ic-tags {
+    background-position: -20px -140px;
+  }
+
+  &.ic-snips {
+    background-position: -20px -171px;
+  }
+
+  &.ic-pub {
+    background-position: -20px -203px;
+  }
+
+  &.ic-spare {
+    background-position: -20px -231px;
+  }
+
+  &.ic-unpub {
+    background-position: -20px -261px;
+  }
+
+  &.ic-sort1 {
+    background-position: -20px -20px;
+  }
+
+  &.ic-sort2 {
+    background-position: -20px -20px;
+  }
+
+}

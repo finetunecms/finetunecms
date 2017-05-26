@@ -1,0 +1,28 @@
+.form-control {
+  padding: $input-padding-x;
+  font-size: $font-size-base + 1;
+  &:focus {
+    border-color: $focus-border;
+  }
+}
+
+label {
+  display: block;
+  position: relative;
+}
+
+.custom-field{
+  margin:$gutter 0;
+}
+
+.content-image-btns {
+  width: 100%;
+  display: inline-block;
+  .btn {
+    border: none;
+    float: left;
+    width: 50%;
+    margin: 0;
+    padding: 10px;
+  }
+}

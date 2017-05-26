@@ -1,0 +1,29 @@
+.top-bar {
+
+  .title {
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    background: #fff;
+    height: 70px;
+    padding: 20px 40px;
+    width: 100%;
+
+    .title{
+      float: left;
+    }
+
+    nav {
+      float: right;
+    }
+
+  }
+}

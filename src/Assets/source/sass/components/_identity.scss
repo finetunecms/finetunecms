@@ -1,0 +1,28 @@
+
+.identity {
+  margin: 0;
+
+  a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .logo {
+    display: inline-block;
+    margin: 0 11px 0 0;
+    width: 30px;
+  }
+
+  .closed &{
+    span {
+      display: none;
+    }
+  }
+
+  &.large {
+    .logo {
+      margin:40px auto 0 auto;
+      width: 50px;
+    }
+  }
+}

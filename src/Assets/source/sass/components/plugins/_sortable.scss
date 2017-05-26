@@ -1,0 +1,35 @@
+.placeholder {
+  outline: 1px dashed #4183C4;
+}
+
+ol.sortable,ol.sortable ol {
+  list-style-type: none;
+}
+
+.disclose, .expandEditor {
+  cursor: pointer;
+  width: 20px;
+  display: none;
+}
+
+.sortable{
+  .mjs-nestedSortable-expanded{
+    li{
+      background-color:$grey;
+    }
+  }
+  span.ui-icon {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  li.mjs-nestedSortable-branch > div > .disclose {
+    display: inline-block;
+  }
+  li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
+    border-color: #999;
+  }
+  li.mjs-nestedSortable-collapsed > ol {
+    display: none;
+  }
+}

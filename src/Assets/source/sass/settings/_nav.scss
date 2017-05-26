@@ -1,0 +1,84 @@
+
+
+// Navbar
+
+$navbar-border-radius:              $border-radius !default;
+$navbar-padding-x:                  $spacer !default;
+$navbar-padding-y:                  ($spacer / 2) !default;
+
+$navbar-brand-padding-y:            .25rem !default;
+
+$navbar-divider-padding-y:          .425rem !default;
+
+$navbar-toggler-padding-x:           .75rem !default;
+$navbar-toggler-padding-y:           .5rem !default;
+$navbar-toggler-font-size:           $font-size-lg !default;
+$navbar-toggler-border-radius:       $btn-border-radius !default;
+$navbar-toggler-padding-x:           .75rem !default;
+$navbar-toggler-padding-y:           .5rem !default;
+
+$navbar-dark-color:                 rgba(255,255,255,.5) !default;
+$navbar-dark-hover-color:           rgba(255,255,255,.75) !default;
+$navbar-dark-active-color:          rgba(255,255,255,1) !default;
+$navbar-dark-disabled-color:        rgba(255,255,255,.25) !default;
+$navbar-dark-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+$navbar-dark-toggler-border:        rgba(255,255,255,.1) !default;
+
+$navbar-light-color:                rgba(0,0,0,.5) !default;
+$navbar-light-hover-color:          rgba(0,0,0,.7) !default;
+$navbar-light-active-color:         rgba(0,0,0,.9) !default;
+$navbar-light-disabled-color:       rgba(0,0,0,.3) !default;
+$navbar-light-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+$navbar-light-toggler-border:       rgba(0,0,0,.1) !default;
+
+// Navs
+
+$nav-item-margin:               .2rem !default;
+$nav-item-inline-spacer:        1rem !default;
+$nav-link-padding:              .5em 1em !default;
+$nav-link-hover-bg:             $gray-lighter !default;
+$nav-disabled-link-color:       $gray-light !default;
+$nav-disabled-link-hover-color: $gray-light !default;
+$nav-disabled-link-hover-bg:    transparent !default;
+
+$nav-tabs-border-color:                       #ddd !default;
+$nav-tabs-border-width:                       $border-width !default;
+$nav-tabs-border-radius:                      $border-radius !default;
+$nav-tabs-link-hover-border-color:            $gray-lighter !default;
+$nav-tabs-active-link-hover-color:            $gray !default;
+$nav-tabs-active-link-hover-bg:               $body-bg !default;
+$nav-tabs-active-link-hover-border-color:     #ddd !default;
+$nav-tabs-justified-link-border-color:        #ddd !default;
+$nav-tabs-justified-active-link-border-color: $body-bg !default;
+
+$nav-pills-border-radius:     $border-radius !default;
+$nav-pills-active-link-color: $component-active-color !default;
+$nav-pills-active-link-bg:    $component-active-bg !default;
+
+
+// Pagination
+
+$pagination-padding-x:                .75rem !default;
+$pagination-padding-y:                .5rem !default;
+$pagination-padding-x-sm:             .75rem !default;
+$pagination-padding-y-sm:             .275rem !default;
+$pagination-padding-x-lg:             1.5rem !default;
+$pagination-padding-y-lg:             .75rem !default;
+
+
+$pagination-color:                     $link-color !default;
+$pagination-bg:                        #fff !default;
+$pagination-border-width:              $border-width !default;
+$pagination-border-color:              #ddd !default;
+
+$pagination-hover-color:               $link-hover-color !default;
+$pagination-hover-bg:                  $gray-lighter !default;
+$pagination-hover-border:              #ddd !default;
+
+$pagination-active-color:              #fff !default;
+$pagination-active-bg:                 $brand-primary !default;
+$pagination-active-border:             $brand-primary !default;
+
+$pagination-disabled-color:            $gray-light !default;
+$pagination-disabled-bg:               #fff !default;
+$pagination-disabled-border:           #ddd !default;

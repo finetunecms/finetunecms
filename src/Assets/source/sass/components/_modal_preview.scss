@@ -1,0 +1,17 @@
+.modal-preview {
+  .modal-lg {
+    width:95%;
+  }
+  iframe{
+    width:100%;
+    min-height:800px;
+  }
+}
+.device-buttons {
+  display: none;
+
+  @include respond-to($bp-med) {
+    display: block;
+  }
+}
+

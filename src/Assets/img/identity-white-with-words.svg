@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="918.5px" height="200px" viewBox="0 0 918.5 200" enable-background="new 0 0 918.5 200" xml:space="preserve">
+<g>
+	<path fill="#FFFFFF" d="M459.249,19.979l43.264,43.256l-43.264,43.265l-43.261-43.263L459.249,19.979 M459.249,3.752l-8.111,8.113
+		l-43.26,43.262l-8.112,8.108l8.112,8.114l43.26,43.254l8.111,8.116l8.116-8.115l43.263-43.257l8.106-8.112l-8.11-8.108
+		l-43.259-43.262L459.249,3.752L459.249,3.752z"/>
+	
+		<rect x="450.25" y="69.16" transform="matrix(0.707 0.7073 -0.7073 0.707 190.4309 -301.9)" fill="#FFFFFF" width="18.572" height="19.387"/>
+	<polygon fill="#FFFFFF" points="459.249,34.036 430.05,63.236 439.788,72.968 459.249,53.504 478.719,72.968 488.45,63.234 	"/>
+</g>
+<text transform="matrix(1 0 0 1 319.5625 180.0098)" fill="#FFFFFF" font-family="'ProximaNovaT-Thin'" font-size="70.2478">Finetune </text>
+</svg>

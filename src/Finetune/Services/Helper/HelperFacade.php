@@ -1,0 +1,12 @@
+<?php
+
+namespace Finetune\Finetune\Services\Helper;
+
+use \Illuminate\Support\Facades\Facade;
+
+class HelperFacade extends Facade {
+
+    protected static function getFacadeAccessor(){
+        return 'HelperService';
+    }
+}

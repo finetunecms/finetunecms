@@ -1,0 +1,76 @@
+.auth {
+  background: darken($menu-header-bg, 5);
+}
+
+.login{
+  margin: 0 auto;
+  padding: 40px 0;
+  position: relative;
+  text-align: center;
+  width: 350px;
+  @include clearfix();
+
+  input:-webkit-autofill {
+    background-color: $menu-header-bg !important;
+    -webkit-text-fill-color: $white !important;
+    -webkit-box-shadow: 0 0 0px 1000px $menu-header-bg inset !important;
+  }
+
+  textarea:-webkit-autofill {
+    background-color: $menu-header-bg !important;
+    -webkit-text-fill-color: $white !important;
+    -webkit-box-shadow: 0 0 0px 1000px $menu-header-bg inset !important;
+  }
+
+  select:-webkit-autofill {
+    background-color: $menu-header-bg !important;
+    -webkit-text-fill-color: $white !important;
+    -webkit-box-shadow: 0 0 0px 1000px $menu-header-bg inset !important;
+  }
+
+  .intro, .auth-form {
+    float: left;
+    display: block;
+  }
+  .intro {
+    height: 100%;
+    width: 100%;
+  }
+  .auth-form {
+    padding: 50px;
+    height: 100%;
+    width: 100%;
+
+    label, a {
+      color: $white;
+    }
+    label {
+      display: none;
+    }
+
+    .form-control {
+      background: $menu-header-bg;
+      border: none;
+      color: $white;
+
+      &::-webkit-input-placeholder {
+        color: $white;
+      }
+      &:-moz-placeholder {
+        color: $white;
+      }
+      &::-moz-placeholder {
+        color: $white;
+      }
+      &:-ms-input-placeholder {
+        color: $white;
+      }
+
+      &:focus {
+        background: darken($menu-header-bg, 2);
+        box-shadow: none;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,69 @@
+// Grid mixins
+// -------------------------------------------------------
+
+// Returns the css needed to make a container
+@mixin container($width: 100%) {
+  @extend .pie-clearfix;
+  margin: 0 auto;
+  position: relative;
+  width: $width;
+}
+
+
+// Returns a grid setup
+@mixin grid ($prefix: '', $columns: $column-count) {
+  @for $i from 1 through $columns {
+    .col-#{$prefix}#{$i} {
+      width       : column-calc($i, $columns);
+    }
+  }
+}
+
+
+// Returns a push grid setup
+@mixin push ($prefix: '', $columns: $column-count) {
+  @for $i from 1 through $columns {
+    .push-#{$prefix}#{$i} {
+      margin-left: column-calc($i, $columns);
+    }
+  }
+}
+
+// Returns a push halved grid setup
+@mixin push-half ($prefix: '', $columns: $column-count) {
+  @for $i from 1 through $columns {
+    .push-half-#{$prefix}#{$i} {
+      margin-left: column-calc(($i/2), $columns);
+    }
+  }
+}
+
+
+
+// Returns a push grid setup
+@mixin pull ($prefix: '', $columns: $column-count) {
+  @for $i from 1 through $columns {
+    .pull-#{$prefix}#{$i} {
+      margin-right: column-calc($i, $columns);
+    }
+  }
+}
+
+// Returns a push halved grid setup
+@mixin pull-half ($prefix: '', $columns: $column-count) {
+  @for $i from 1 through $columns {
+    .pull-half-#{$prefix}#{$i} {
+      margin-right: column-calc(($i/2), $columns);
+    }
+  }
+}
+
+// Returns the css needed for the a single column
+@mixin column($columns, $prepend : 0, $append : 0) {
+  float           : left;
+  margin-left     : column-calc($prepend);
+  margin-right    : column-calc($append);
+  position        : relative;
+  width           : column-calc($columns);
+  padding         : 0 $gutter;
+}

@@ -1,0 +1,97 @@
+
+.sidemenu {
+  background: $menu-bg;
+  color: $absolute-white;
+  display: none;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+
+  a {
+    color: $absolute-white;
+    display: block;
+    text-decoration: none;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+
+    @include clearfix();
+
+    &:hover {
+      color: $menu-hover;
+    }
+  }
+
+  .header {
+    background: $menu-header-bg;
+    padding: ($gutter * 2);
+    height: 70px;
+  }
+
+  .footer {
+    background: $menu-header-bg;
+    padding: $gutter;
+    height: 35px;
+    text-align: center;
+  }
+
+  .ic, .fa {
+    display: block;
+    float: left;
+    margin-right: $gutter;
+  }
+
+  .active {
+    color: $menu-hover;
+    background: lighten($menu-header-bg, 3);
+  }
+
+  nav {
+    padding: ($gutter * 2) 0;
+    width:100%;
+    float: left;
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: block;
+    }
+
+    a {
+      padding: $gutter ($gutter * 2) $gutter (($gutter * 2) + ($gutter /2));
+    }
+
+    span {
+      display: block;
+      float: left;
+    }
+
+  }
+
+  @include media-breakpoint-up(md) {
+    display: block;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    .closed & {
+      width: 75px;
+      flex: 0;
+
+      nav {
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .footer {
+      bottom: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,159 @@
+
+//
+// Variables
+// --------------------------------------------------
+
+// SET UP YOUR GLOBAL VARIABLES IN THIS FILE
+
+// Fonts
+// ------------------------------------------------------------
+
+// Fonts size and line height defaults for our calculations
+
+$base-font-size								: 16px; 				// Sets the browser default size. Shouldn't need to change this.
+$base-font-weight                           : 300;
+$base-font-bold-weight                      : bold;
+$base-line-height							: 6px;					// Baseline grid. Set to a sensible, small size.
+$round-to-nearest-half-line					: false;  				// Round the line height to the nearest half line height. Off by default
+$rhythm-unit                                : "rem";
+
+$font-family-sans-serif:  "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       "Raleway", Georgia, "Times New Roman", Times, serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$gray-base:              #222222 !default;
+$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:              lighten($gray-base, 20%) !default;   // #333
+$gray:                   lighten($gray-base, 33.5%) !default; // #555
+$gray-light:             lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:           lighten($gray-base, 65%) !default;
+$gray-lightest:          lighten($gray-base, 80%) !default;
+
+$brand-primary:          #26547C !default;
+$brand-success:          #1BBC9B !default;
+$brand-caution:          #ffb100 !default;
+
+$brand-sub-1:            #52c0c5;
+$brand-sub-2:            #52a0c5;
+$brand-sub-3:            #e24545;
+
+$brand-info:             #ff3356 !default;
+$brand-warning:          #eec700 !default;
+$brand-danger:           #e64939 !default;
+$white:                  #FAFAFA !default;
+$absolute-white:         #FFF !default;
+$grey:                   #f3f3f4 !default;
+$brand-inverse:          $gray-dark !default;
+
+$menu-bg:                #1C334C;
+$menu-bg-lighter:        #E6E8EA;
+$menu-color:             $white;
+$menu-hover:             #50E3C2;
+$menu-header-bg:         #0E2238;
+$navbar-default-color:   $menu-header-bg;
+
+$focus-border:           $brand-success;
+$input-border-color:     #CCCCCC;
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:               $white !default;
+$body-color:            $gray-dark !default;
+
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:            $brand-primary !default;
+$link-decoration:       none !default;
+$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-decoration: underline !default;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$line-height-lg:         (4 / 3) !default;
+$line-height-sm:         1.5 !default;
+
+$border-radius:          .25rem !default;
+$border-radius-lg:       .3rem !default;
+$border-radius-sm:       .2rem !default;
+
+$component-active-color: #fff !default;
+$component-active-bg:    $brand-primary !default;
+
+$caret-width:            .3em !default;
+$caret-width-lg:         $caret-width !default;
+
+
+// Jumbotron
+
+$jumbotron-padding:              2rem !default;
+$jumbotron-bg:                   $gray-lighter !default;
+
+
+// Form states and alerts
+//
+// Define colors for form feedback states and, by default, alerts.
+
+$state-success-text:             #3c763d !default;
+$state-success-bg:               #dff0d8 !default;
+$state-success-border:           darken($state-success-bg, 5%) !default;
+
+$state-info-text:                #31708f !default;
+$state-info-bg:                  #d9edf7 !default;
+$state-info-border:              darken($state-info-bg, 7%) !default;
+
+$state-warning-text:             #8a6d3b !default;
+$state-warning-bg:               #fcf8e3 !default;
+$mark-bg:                        $state-warning-bg !default;
+$state-warning-border:           darken($state-warning-bg, 5%) !default;
+
+$state-danger-text:              #a94442 !default;
+$state-danger-bg:                #f2dede !default;
+$state-danger-border:            darken($state-danger-bg, 5%) !default;
+
+
+// Breadcrumbs
+
+$breadcrumb-padding-y:          .75rem !default;
+$breadcrumb-padding-x:          1rem !default;
+$breadcrumb-item-padding:       .5rem !default;
+
+$breadcrumb-bg:                 $gray-lighter !default;
+$breadcrumb-divider-color:      $gray-light !default;
+$breadcrumb-active-color:       $gray-light !default;
+$breadcrumb-divider:            "/" !default;
+
+// Close
+
+$close-font-weight:           bold !default;
+$close-color:                 #000 !default;
+$close-text-shadow:           0 1px 0 #fff !default;
+
+
+// Code
+
+$code-font-size:              90% !default;
+$code-padding-x:              .4rem !default;
+$code-padding-y:              .2rem !default;
+$code-color:                  #bd4147 !default;
+$code-bg:                     #f7f7f9 !default;
+
+$kbd-color:                   #fff !default;
+$kbd-bg:                      #333 !default;
+
+$pre-bg:                      #f7f7f9 !default;
+$pre-color:                   $gray-dark !default;
+$pre-border-color:            #ccc !default;
+$pre-scrollable-max-height:   340px !default;

@@ -1,0 +1,26 @@
+
+.controls {
+  background: rgba($menu-bg-lighter, .5);
+  position: relative;
+
+  @include media-breakpoint-up(md) {
+    height: 50px;
+
+    .actions {
+      padding: 8px 40px 9px 40px;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      .dropdown {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.footer-controls {
+  bottom: 20px;
+  position: absolute;
+  right: 40px;
+}

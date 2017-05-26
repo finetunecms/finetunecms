@@ -1,0 +1,12 @@
+
+
+.dropdown {
+  &.v-select {
+    .dropdown-toggle::after {
+      width: 0;
+      height: 0;
+      margin-left: 0;
+      border: none;
+    }
+  }
+}

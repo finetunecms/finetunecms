@@ -1,0 +1,1 @@
+<tinymce block="{{ $blockId }}" content="{{ $content }}"></tinymce>

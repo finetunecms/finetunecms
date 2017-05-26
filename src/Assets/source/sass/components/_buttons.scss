@@ -1,0 +1,46 @@
+.btn-group {
+  form{
+    float:left;
+  }
+
+  .btn-button {
+    background: none;
+  }
+}
+
+.btn {
+  text-transform: capitalize;
+  &.active, &:active {
+    box-shadow: none;
+  }
+}
+
+.btn-plain {
+  background: none;
+}
+
+.btn-info {
+  background: transparent;
+  border: 1px solid $gray-base;
+  border-radius: 50%;
+  color: $gray-base;
+  font-size: 10px;
+  height: 15px;
+  padding: 2px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 15px;
+
+  &:hover {
+    background:$gray-base;
+    border: 1px solid $gray-base;
+    color: $white !important;
+  }
+}
+
+.btn-caution {
+  background: $brand-caution;
+  border-color: $brand-caution;
+}

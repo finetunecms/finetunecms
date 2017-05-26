@@ -1,0 +1,14 @@
+
+.block {
+  border-bottom: 1px solid $nav-tabs-border-color;
+  margin: 0 0 20px 0;
+  padding: 20px 0;
+
+  &:first-child {
+    padding: 0 0 20px 0;
+  }
+
+  &:last-child {
+    border: none;
+  }
+}

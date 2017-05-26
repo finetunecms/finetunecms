@@ -1,0 +1,22 @@
+.nav-tabs {
+  padding: 0 40px;
+  text-transform: capitalize;
+  @include clearfix();
+
+  .nav-link {
+    display: block;
+    padding: 10px;
+    border: 1px solid transparent;
+
+    &:focus,
+    &:active,
+    &:hover {
+      border-color: lighten($nav-tabs-active-link-hover-color, 20) lighten($nav-tabs-active-link-hover-color, 20) transparent;
+    }
+  }
+
+  .nav-link.active {
+    background-color: #FFFFFF;
+    border-color: $nav-tabs-border-color $nav-tabs-border-color transparent;
+  }
+}

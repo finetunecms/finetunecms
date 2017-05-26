@@ -1,0 +1,25 @@
+.preview {
+  background: $white;
+  border: 1px solid $gray-light;
+  display: block;
+  height:95%;
+  margin: 0 auto;
+}
+
+.previewArea {
+  background: rgba(#000000, .8);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  padding: 24px;
+  top: 0;
+  z-index:90000;
+}
+
+.previewContainer{
+  height: 100%;
+  float: left;
+  width: 100%;
+  overflow:scroll;
+}
