@@ -1,4 +1,4 @@
-<p align="center"><img src="http://finetunecms.co.uk/admingui/finetune/assets/img/identity.svg"></p>
+<p align="center"><img src="http://finetunecms.co.uk/admingui/finetune/assets/img/identity.svg" style="width:200px;"></p>
 
 [![Latest Stable Version](https://poser.pugx.org/finetune/finetune/v/stable)](https://packagist.org/packages/finetune/finetune)
 [![Total Downloads](https://poser.pugx.org/finetune/finetune/downloads)](https://packagist.org/packages/finetune/finetune)
