@@ -38,7 +38,6 @@ class User extends Command {
      */
     public function fire()
     {
-        $hash = new Hash();
         $this->info("Making a new Superuser");
         $username = $this->ask('Username');
         $firstname = $this->ask('firstname');
@@ -52,7 +51,7 @@ class User extends Command {
         $user->firstname = $firstname;
         $user->lastname = $lastname;
         $user->email = $email;
-        $user->password = $hash->make($password);
+        $user->password = Hash::make($password);
         $user->save();
         $user->role()->attach(1);
     }
