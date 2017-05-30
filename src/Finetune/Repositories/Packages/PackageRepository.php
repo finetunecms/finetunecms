@@ -6,7 +6,7 @@ use \View;
 
 class PackageRepository implements PackageInterface
 {
-    public function find($area, $node = null){
+    public function find($site, $area, $node = null){
         $packages = config('packages.'.$area);
         $jsonArray = [];
         foreach($packages as $indexPackage => $package){

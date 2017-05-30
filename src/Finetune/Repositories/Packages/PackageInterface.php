@@ -6,5 +6,5 @@
  */
 interface PackageInterface
 {
-    public function find($type);
+    public function find($site, $type, $node = null);
 }

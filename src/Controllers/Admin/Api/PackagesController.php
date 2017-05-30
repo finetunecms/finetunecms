@@ -21,7 +21,7 @@ class PackagesController extends BaseController
     }
 
     public function show($packageArea){
-        $packages = $this->packages->find($packageArea);
+        $packages = $this->packages->find($this->site, $packageArea);
         return response()->json($packages);
     }
 
@@ -29,7 +29,7 @@ class PackagesController extends BaseController
 
             $packageArea = $request->get('area');
             $node = $request->get('node');
-            $packages = $this->packages->find($packageArea, $node);
+            $packages = $this->packages->find($this->site, $packageArea, $node);
             return response()->json($packages);
     }
 }
