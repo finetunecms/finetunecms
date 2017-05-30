@@ -52,6 +52,6 @@ interface NodeInterface
 
     public function frontEndSearch($site, $searchTerm);
 
-    public function savePackages($node, $packages);
+    public function savePackages($site, $node, $packages);
 
 }

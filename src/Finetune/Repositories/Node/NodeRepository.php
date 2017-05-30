@@ -143,7 +143,7 @@ class NodeRepository implements NodeInterface
         $this->customFields($node, $request);
         if (isset($request['packages'])) {
             $packages = $request['packages'];
-            $this->savePackages($node, $packages);
+            $this->savePackages($site, $node, $packages);
         }
         if (config('finetune.cache')) {
             $this->clearCache($node, $site);
@@ -199,7 +199,7 @@ class NodeRepository implements NodeInterface
 
         if (isset($request['packages'])) {
             $packages = $request['packages'];
-            $this->savePackages($node, $packages);
+            $this->savePackages($site, $node, $packages);
         }
         if (config('finetune.cache')) {
             $this->clearCache($node, $site);
@@ -555,11 +555,11 @@ class NodeRepository implements NodeInterface
         return $this->eagerLoad($nodes, true, $nodes->first());
     }
 
-    public function savePackages($node, $packages)
+    public function savePackages($site, $node, $packages)
     {
         foreach ($packages as $package) {
-            $class = new $package['class'];
-            $class->{$package['function']}($node, $package['fields']);
+            $class = resolve($package['class']);
+            $class->{$package['function']}($site, $node, $package['fields']);
         }
     }
 
