@@ -20,7 +20,7 @@ class PackageRepository implements PackageInterface
             if(isset($node)){
                 foreach($packages as $indexPackage => $package){
                     $class = resolve($package['class']);
-                    $values = $class->{$package['values']}($node);
+                    $values = $class->{$package['values']}($site, $node);
                     foreach($package['fields'] as $index => $field){
                         foreach($values as $value){
                             if($value['name'] == $field['name']){
