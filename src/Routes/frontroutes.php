@@ -1,5 +1,7 @@
 <?php
 
+$api = [];
+
 $web = [
     \Illuminate\Cookie\Middleware\EncryptCookies::class,
     \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,

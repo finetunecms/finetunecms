@@ -20,7 +20,6 @@ $adminWeb = [
     \Finetune\Finetune\Middleware\Authenticate::class,
     \Finetune\Finetune\Middleware\Restrict::class,
 ];
-$api = [];
 
 Route::group(['middleware' => $adminApi, 'prefix' => 'admin/api'], function () {
     require ('adminApi.php');
