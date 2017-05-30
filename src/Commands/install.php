@@ -49,7 +49,6 @@ class Install extends Command {
         $password = $this->secret('Password');
         $this->info("Adding a Superuser");
         $user = new User();
-        $user->site_id = 0;
         $user->username = $userUsername;
         $user->firstname = $userFirstname;
         $user->lastname = $userLastname;
