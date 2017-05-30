@@ -19,9 +19,8 @@ class PackageRepository implements PackageInterface
             }
             if(isset($node)){
                 foreach($packages as $indexPackage => $package){
-                    $valueFunction = explode('@',$package['values']);
-                    $repo = new $valueFunction[0];
-                    $values = $repo->{$valueFunction[1]}($node);
+                    $class = resolve($package['class']);
+                    $values = $class->{$package['values']}($node);
                     foreach($package['fields'] as $index => $field){
                         foreach($values as $value){
                             if($value['name'] == $field['name']){
