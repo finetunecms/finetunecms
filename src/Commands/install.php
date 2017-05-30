@@ -1,6 +1,7 @@
 <?php
 namespace Finetune\Finetune\Commands;
 use Finetune\Finetune\Entities\Site;
+use Finetune\Finetune\Entities\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
