@@ -37,12 +37,11 @@ class CreateNodeTable extends Migration {
             $table->string('image')->nullable();
             $table->string('redirect')->nullable();
             $table->string('meta_title');
-            $table->timestamp('publish_on');
+            $table->timestamp('publish_on')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->index('dscpn');
             $table->index('keywords');
-
         });
 
         Schema::create('ft_node_roles', function(Blueprint $table)
