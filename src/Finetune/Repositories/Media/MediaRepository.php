@@ -39,7 +39,7 @@ class MediaRepository implements MediaInterface
         if ($request->hasFile('file')) {
             if ($request->file('file')->isValid()) {
                 $file = $request->file('file');
-                $destinationPath = base_path() . '/uploads/' . $site->tag; // upload path
+                $destinationPath = storage_path() . '/uploads/' . $site->tag; // upload path
                 $extension = $file->getClientOriginalExtension(); // getting image extension
                 $fileNameExplode = explode('.', $file->getClientOriginalName());
                 if (!empty($fileNameExplode)) {
@@ -125,7 +125,7 @@ class MediaRepository implements MediaInterface
             $extension = $extensionExploder[1];
             $fileNameMain = $this->checkNewFileName($site, $fileNameMain, $extension);
             $fileLink = '/image/' . $site->tag . '/' . $fileNameMain . '.' . $extension;
-            $destinationPath = base_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '.' . $extension;
+            $destinationPath = storage_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '.' . $extension;
             rename($file->path, $destinationPath);
             $file->filename = $fileNameMain . '.' . $extension;
             $file->external = $fileLink;
@@ -176,7 +176,7 @@ class MediaRepository implements MediaInterface
 
     public function saveRender($site, $name, $img, $quality)
     {
-        $path = base_path('uploads/' . $site->tag . '/resized/' . $name);
+        $path = storage_path('uploads/' . $site->tag . '/resized/' . $name);
         $img->save($path, intval($quality));
         return $img;
     }
@@ -206,7 +206,7 @@ class MediaRepository implements MediaInterface
         }
         $img->crop($crop->width, $crop->height, $crop->x, $crop->y);
 
-        $destinationPath = base_path() . '/uploads/' . $site->tag; // upload path
+        $destinationPath = storage_path() . '/uploads/' . $site->tag; // upload path
         $width = $img->width();
         $height = $img->height();
         $fileName = 'a_' . $media->filename;
@@ -307,9 +307,9 @@ class MediaRepository implements MediaInterface
     private function checkNewFileName($site, $fileNameMain, $extension, $level = 0)
     {
         if ($level == 0) {
-            $destinationPath = base_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '.' . $extension;
+            $destinationPath = storage_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '.' . $extension;
         } else {
-            $destinationPath = base_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '-' . $level . '.' . $extension;
+            $destinationPath = storage_path() . '/uploads/' . $site->tag . '/' . $fileNameMain . '-' . $level . '.' . $extension;
         }
         if (file_exists($destinationPath)) {
             $level = $level + 1;
