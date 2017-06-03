@@ -76,9 +76,9 @@ class NodeService
         return $this->bread[$node->id];
     }
 
-    public function areas($siteId = null, $ignore = null)
+    public function areas($site, $ignore = null)
     {
-        $areas = $this->all($siteId, 0, 1);
+        $areas = $this->all($site, 0, 1);
         if (is_array($ignore)) {
             foreach ($ignore as $ignoreItem) {
                 foreach ($areas as $index => $area) {
