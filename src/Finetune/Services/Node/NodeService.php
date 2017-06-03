@@ -2,7 +2,6 @@
 
 namespace Finetune\Finetune\Services\Node;
 
-use Finetune\Finetune\Repositories\Type\TypeRepository;
 use Finetune\Finetune\Repositories\Node\NodeInterface;
 
 
@@ -15,9 +14,9 @@ class NodeService
         $this->nodeRepo = $node;
     }
 
-    public function all($siteId = null, $parent = 0, $area = 0)
+    public function all($site, $parent = 0, $area = 0)
     {
-        return $this->nodeRepo->all($parent, $area, $siteId, true);
+        return $this->nodeRepo->all($site, $parent, $area, true);
     }
 
     public function find($id)
@@ -25,21 +24,9 @@ class NodeService
         return $this->nodeRepo->find($id);
     }
 
-    public function findByTag($tag, $area = 0)
+    public function findByTag($site, $tag, $area = 0)
     {
-        return $this->nodeRepo->findByTag($tag, $area, true);
-    }
-
-    public function findByType($typeTitle){
-        $typeRepo = new TypeRepository($this->nodeRepo);
-        $type = $typeRepo->findByTitle($typeTitle);
-        $nodes = [];
-        foreach($type->node as $node){
-            if($node->publish == 1 && empty($node->deleted_at)){
-                $nodes[] = $node;
-            }
-        }
-        return $nodes;
+        return $this->nodeRepo->findByTag($site, $tag, $area, true);
     }
 
     public function childTags($tag, $area = 0, $tags = null)

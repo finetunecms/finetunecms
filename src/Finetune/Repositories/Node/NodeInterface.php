@@ -4,7 +4,7 @@ namespace Finetune\Finetune\Repositories\Node;
 interface NodeInterface
 {
 
-    public function all($site, $parent = 0, $area = 0, $siteId = null, $frontend = false);
+    public function all($site, $parent = 0, $area = 0, $frontend = false, $noEager = false);
 
     public function find($id, $frontend = false);
 
