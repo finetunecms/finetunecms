@@ -55,7 +55,7 @@ class Install extends Command {
         $user->email = $userEmail;
         $user->password = \Hash::make($password);
         $user->save();
-        $user->role()->attach(1);
+        $user->attachRole(1);
         $this->info("Adding the new site");
         $this->info('Site details,everything below can be changed later, but cannot be left empty at this stage');
         $this->info("Dont include the protocol or www, you may include sub-domains");
