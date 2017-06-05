@@ -62,7 +62,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $loader->alias('Helper', 'Finetune\Finetune\Services\Helper\HelperFacade');
         $loader->alias('Node', 'Finetune\Finetune\Services\Node\NodeFacade');
         $loader->alias('Purifier', 'Finetune\Finetune\Services\Purifier\PurifierFacade');
-        $loader->alias('Snippet', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
+        $loader->alias('Snippets', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
         $loader->alias('Tagging', 'Finetune\Finetune\Services\Tagging\TaggingFacade');
 
         $loader->alias('Lang', '\Illuminate\Support\Facades\Lang');
@@ -71,7 +71,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->commands($this->commands);
     }
 
-    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation)
+    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation, \Illuminate\View\Compilers\BladeCompiler $bladeCompiler, Illuminate\Database\Schema\Builder $schema)
     {
         if ($this->app->runningInConsole()) {
 
@@ -100,7 +100,8 @@ class FinetuneServiceProvider extends ServiceProvider{
 
         $this->publishes([
             $this->path.'/Views/themes' => public_path('themes'),
-            $this->path.'/Assets' => public_path('finetune/assets')
+            $this->path.'/Assets' => public_path('finetune/assets'),
+            $this->path.'/Public' => public_path('.')
         ], 'public');
 
 
@@ -156,6 +157,45 @@ class FinetuneServiceProvider extends ServiceProvider{
             return true;
         });
 
+        $schema->defaultStringLength(191);
 
+        $bladeCompiler->extend(function($view, $compiler)
+        {
+            $pattern = "/(?<!\w)(\s*)@var\(\s*'([A-Za-z1-9_]*)',\s*(.*)\)/";
+            $view = preg_replace($pattern, "<?php \$$2 = $3 ?>", $view);
+            return $view;
+        });
+
+        $bladeCompiler->directive('group', function($expression) {
+            $expression = str_replace('(', '', $expression);
+            $expression = str_replace(')', '', $expression);
+            $expression = str_replace("'", '', $expression);
+            $expression = str_replace('"', '', $expression);
+            return \Snippets::renderGroup($expression);
+        });
+
+        $bladeCompiler->directive('snippet', function($expression){
+            $expression = str_replace('(', '', $expression);
+            $expression = str_replace(')', '', $expression);
+            $expression = str_replace("'", '', $expression);
+            $expression = str_replace('"', '', $expression);
+            return \Snippets::renderSnippet($expression);
+        });
+
+        $bladeCompiler->directive('gallery', function($expression){
+            $expression = str_replace('(', '', $expression);
+            $expression = str_replace(')', '', $expression);
+            $expression = str_replace("'", '', $expression);
+            $expression = str_replace('"', '', $expression);
+            return \Gallery::renderGallery($expression);
+        });
+
+        $bladeCompiler->directive('filebank', function($expression){
+            $expression = str_replace('(', '', $expression);
+            $expression = str_replace(')', '', $expression);
+            $expression = str_replace("'", '', $expression);
+            $expression = str_replace('"', '', $expression);
+            return \Files::renderFileBank($expression);
+        });
     }
 }
