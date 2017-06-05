@@ -51,7 +51,6 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->app->register('Finetune\Finetune\Services\Tagging\TaggingServiceProvider');
         $this->app->register('Finetune\Finetune\Services\Gallery\GalleryServiceProvider');
 
-
         $this->app->register('\Zizaco\Entrust\EntrustServiceProvider');
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
 
@@ -64,14 +63,12 @@ class FinetuneServiceProvider extends ServiceProvider{
         $loader->alias('Purifier', 'Finetune\Finetune\Services\Purifier\PurifierFacade');
         $loader->alias('Snippets', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
         $loader->alias('Tagging', 'Finetune\Finetune\Services\Tagging\TaggingFacade');
-
-        $loader->alias('Lang', '\Illuminate\Support\Facades\Lang');
         $loader->alias('Entrust', '\Zizaco\Entrust\EntrustFacade');
 
         $this->commands($this->commands);
     }
 
-    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation, \Illuminate\View\Compilers\BladeCompiler $bladeCompiler, Illuminate\Database\Schema\Builder $schema)
+    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation, \Illuminate\View\Compilers\BladeCompiler $bladeCompiler, \Illuminate\Database\Schema\Builder $schema)
     {
         if ($this->app->runningInConsole()) {
 

@@ -53,7 +53,7 @@ class Install extends Command {
         $user->firstname = $userFirstname;
         $user->lastname = $userLastname;
         $user->email = $userEmail;
-        $user->password = \Hash::make($password);
+        $user->password = \Hash::make($password);  //TODO FIND A SERVICE PROVIDER / CONTRACT /LIBRARY
         $user->save();
         $user->attachRole(1);
         $this->info("Adding the new site");
