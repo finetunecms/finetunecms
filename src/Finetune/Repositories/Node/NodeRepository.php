@@ -462,7 +462,7 @@ class NodeRepository implements NodeInterface
         return null;
     }
 
-    public function makeBreadFrontend($node, $request)
+    public function makeBreadFrontend($site, $node)
     {
         $this->url[] = $node;
         $this->slugRecursive($node);
@@ -471,16 +471,13 @@ class NodeRepository implements NodeInterface
         $currentIndex = 0;
         $bread = [];
         $urlString = '';
-        $segments = $request->segments();
-        end($segments);
-        $key = key($segments);
         foreach ($outputs as $index => $output) {
             if (isset($this->url[$currentIndex])) {
                 $index = $currentIndex;
                 switch ($output) {
                     case 'list':
                         $urlString = $urlString . '/' . $this->url[$currentIndex]->tag;
-                        if ($key == $index) {
+                        if ($this->url[$currentIndex]->tag == $node->tag) {
                             $bread['last'] = $this->url[$currentIndex]->title;
                         } else {
                             $bread[$urlString] = $this->url[$currentIndex]->title;
@@ -496,7 +493,7 @@ class NodeRepository implements NodeInterface
                         break;
                     default:
                         $urlString = $urlString . '/' . $this->url[$currentIndex]->tag;
-                        if ($key == $index) {
+                        if ($this->url[$currentIndex]->tag == $node->tag){
 
                             $bread['last'] = $this->url[$currentIndex]->title;
                         } else {
@@ -508,13 +505,12 @@ class NodeRepository implements NodeInterface
                 unset($this->url[$index]);
             } else {
                 if ($output == 'list_date') {
-                    if ($key == $index) {
-                        $bread['last'] = $segments[$key];
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
+                        //$bread['last'] = $segments[$key];
                     }
                 } else {
                     $urlString = $urlString . '/' . $node->tag;
-                    if ($key == $index) {
-
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
                         $bread['last'] = $node->title;
                     } else {
                         $bread[$urlString] = $node->title;
@@ -526,7 +522,7 @@ class NodeRepository implements NodeInterface
         if (!empty($this->url)) {
             foreach ($this->url as $index => $url) {
                 $urlString = $urlString . '/' . $url->tag;
-                if ($key == $index) {
+                if ($url->tag == $node->tag) {
                     $bread['last'] = $url->title;
                 } else {
                     $bread[$urlString] = $url->title;
