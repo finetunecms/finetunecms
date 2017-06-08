@@ -503,13 +503,19 @@ class NodeRepository implements NodeInterface
                 }
                 unset($this->url[$index]);
             } else {
-                $urlString = $urlString . '/' . $node->tag;
-                if ($this->url[$currentIndex]->tag == $node->tag) {
-                    $bread['last'] = $node->title;
+                if ($output == 'list_date') {
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
+
+                    }
                 } else {
-                    $bread[$urlString] = $node->title;
+                    $urlString = $urlString . '/' . $node->tag;
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
+                        $bread['last'] = $node->title;
+                    } else {
+                        $bread[$urlString] = $node->title;
+                    }
+                    $currentIndex = $currentIndex + 1;
                 }
-                $currentIndex = $currentIndex + 1;
             }
         }
         if (!empty($this->url)) {
