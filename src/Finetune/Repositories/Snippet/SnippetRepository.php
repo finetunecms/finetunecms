@@ -66,7 +66,7 @@ class SnippetRepository implements SnippetInterface
             $input['tag'] = $input['title'];
         }
         $input['tag'] = $this->helper->buildTag($input['tag']);
-        $input['tag'] = $this->_buildTag($input, $id);
+        $input['tag'] = $this->_buildTag($site, $input, $id);
         $input['body'] = str_replace('@snippet(' . $input['tag'] . ')', 'Error - Snippet Referenced it self', $input['body']);
         $input['site_id'] = $site->id;
         $input['image'] = (isset($input['media']['id']) ? $input['media']['id'] : null);

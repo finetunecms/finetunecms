@@ -105,7 +105,7 @@ class NodeRepository implements NodeInterface
             $request['tag'] = $request['title'];
         }
         if ($node->area == 1) {
-            $node->tag = $this->tagMaker($site,[], $node, $request['tag']);
+            $node->tag = $this->tagMaker($site, [], $node, $request['tag']);
         } else {
             $area = $this->find($node->area_fk);
             $node->tag = $this->tagMaker($site, $area, $node, $request['tag']);
@@ -193,7 +193,7 @@ class NodeRepository implements NodeInterface
 
         $this->blocks($node, $request['blocks']);
         if ($request['homepage'] == 1) {
-            $this->setHomePage($site,$node);
+            $this->setHomePage($site, $node);
         }
         $this->customFields($node, $request);
 
@@ -287,7 +287,7 @@ class NodeRepository implements NodeInterface
 
     public function links($site)
     {
-        $nodes = $this->all($site,0, 0, false, true);
+        $nodes = $this->all($site, 0, 0, false, true);
         return $nodes;
     }
 
@@ -493,8 +493,7 @@ class NodeRepository implements NodeInterface
                         break;
                     default:
                         $urlString = $urlString . '/' . $this->url[$currentIndex]->tag;
-                        if ($this->url[$currentIndex]->tag == $node->tag){
-
+                        if ($this->url[$currentIndex]->tag == $node->tag) {
                             $bread['last'] = $this->url[$currentIndex]->title;
                         } else {
                             $bread[$urlString] = $this->url[$currentIndex]->title;
@@ -504,19 +503,13 @@ class NodeRepository implements NodeInterface
                 }
                 unset($this->url[$index]);
             } else {
-                if ($output == 'list_date') {
-                    if ($this->url[$currentIndex]->tag == $node->tag) {
-                        //$bread['last'] = $segments[$key];
-                    }
+                $urlString = $urlString . '/' . $node->tag;
+                if ($this->url[$currentIndex]->tag == $node->tag) {
+                    $bread['last'] = $node->title;
                 } else {
-                    $urlString = $urlString . '/' . $node->tag;
-                    if ($this->url[$currentIndex]->tag == $node->tag) {
-                        $bread['last'] = $node->title;
-                    } else {
-                        $bread[$urlString] = $node->title;
-                    }
-                    $currentIndex = $currentIndex + 1;
+                    $bread[$urlString] = $node->title;
                 }
+                $currentIndex = $currentIndex + 1;
             }
         }
         if (!empty($this->url)) {
