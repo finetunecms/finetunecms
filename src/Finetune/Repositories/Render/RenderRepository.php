@@ -470,12 +470,15 @@ class RenderRepository implements RenderInterface
     {
         if ($this->contentArray['type']->pagination == 1) {
             $page = LengthAwarePaginator::resolveCurrentPage();
+            dd($this->contentArray['children']);
             $collection = new Collection($this->contentArray['children']);
             $perPage = $this->contentArray['type']->pagination_limit;
-
             $currentPageResults = $collection->slice($page * $perPage, $perPage)->all();
-
-            $this->contentArray['list'] = new LengthAwarePaginator($currentPageResults, count($collection), $perPage,  ['path' => $this->contentArray['path'], 'query' => $request->query()]);
+            $this->contentArray['list'] = new LengthAwarePaginator(
+                $currentPageResults,
+                count($collection),
+                $perPage,
+                ['path' => $this->contentArray['path'], 'query' => $request->query()]);
         } else {
             $this->contentArray['list'] = $this->contentArray['children'];
         }
