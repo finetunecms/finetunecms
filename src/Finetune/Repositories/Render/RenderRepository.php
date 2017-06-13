@@ -14,7 +14,7 @@ use Finetune\Finetune\Entities\Redirect as RedirectOBj;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator as LengthAwarePaginator;
 use Illuminate\Contracts\Routing\UrlGenerator as URL;
 use Illuminate\Contracts\Container\Container as App;
 use Illuminate\Support\Collection as Collection;
