@@ -467,6 +467,7 @@ class RenderRepository implements RenderInterface
 
     private function _list($request)
     {
+        dd($request);
         if ($this->contentArray['type']->pagination == 1) {
             $page = $request->get('page', 1);
             $perPage = $this->contentArray['type']->pagination_limit;
