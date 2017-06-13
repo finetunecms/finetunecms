@@ -471,7 +471,7 @@ class RenderRepository implements RenderInterface
         if ($this->contentArray['type']->pagination == 1) {
             $page = LengthAwarePaginator::resolveCurrentPage();
             $perPage = $this->contentArray['type']->pagination_limit;
-            $currentPageResults = $this->contentArray['children']->slice($page * $perPage, $perPage)->all();
+            $currentPageResults = $this->contentArray['children']->slice(($page - 1) * $perPage, $perPage)->all();
             $this->contentArray['list'] = new LengthAwarePaginator(
                 $currentPageResults,
                 count($this->contentArray['children']),
