@@ -17,6 +17,7 @@ use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginator;
 use Illuminate\Contracts\Routing\UrlGenerator as URL;
 use Illuminate\Contracts\Container\Container as App;
+use Illuminate\Support\Collection as Collection;
 
 class RenderRepository implements RenderInterface
 {
@@ -468,16 +469,13 @@ class RenderRepository implements RenderInterface
     private function _list($request)
     {
         if ($this->contentArray['type']->pagination == 1) {
-            $page = $request->get('page', 1);
+            $page = LengthAwarePaginator::resolveCurrentPage();
+            $collection = new Collection($this->contentArray['children']);
             $perPage = $this->contentArray['type']->pagination_limit;
-            dd($page. ' -'. $perPage);
-            $this->contentArray['list'] = new LengthAwarePaginator(
-                $this->contentArray['children']->forPage($page, $perPage),
-                count($this->contentArray['children']),
-                $perPage,
-                $page,
-                ['path' => $this->contentArray['path'], 'query' => $request->query()]
-            );
+
+            $currentPageResults = $collection->slice($page * $perPage, $perPage)->all();
+
+            $this->contentArray['list'] = new LengthAwarePaginator($currentPageResults, count($collection), $perPage,  ['path' => $this->contentArray['path'], 'query' => $request->query()]);
         } else {
             $this->contentArray['list'] = $this->contentArray['children'];
         }
