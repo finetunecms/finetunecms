@@ -468,7 +468,7 @@ class RenderRepository implements RenderInterface
     private function _list($request)
     {
         if ($this->contentArray['type']->pagination == 1) {
-            $page = $this->request->get('page', 1);
+            $page = $request->get('page', 1);
             $perPage = $this->contentArray['type']->pagination_limit;
             $this->contentArray['list'] = new LengthAwarePaginator(
                 $this->contentArray['children']->forPage($page, $perPage),
