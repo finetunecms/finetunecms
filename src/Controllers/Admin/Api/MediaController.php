@@ -123,4 +123,25 @@ class MediaController extends BaseController
         $mediaArray = config('media');
         return Response()->json($mediaArray, 200);
     }
+
+    public function order(NormalRequest $request){
+        if (Entrust::ability([config('auth.superadminRole')], ['can_manage_media'])) {
+            $this->validate($request, [
+                'media' => 'required',
+                'folder' => 'required',
+            ]);
+            $medias = $request->get('media');
+            $folder = $request->get('folder');
+
+            $this->media->saveOrder($medias, $folder);
+
+            $array = [
+                'alertType' => 'success',
+                'alertMessage' => $this->lang->trans('finetune::media.notifications.updated')
+            ];
+            return Response()->json($array, 200);
+        } else {
+            return response()->json(['No Permissions for managing media'], 403);
+        }
+    }
 }

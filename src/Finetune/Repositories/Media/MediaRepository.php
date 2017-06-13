@@ -304,6 +304,16 @@ class MediaRepository implements MediaInterface
         return $img;
     }
 
+    public function saveOrder($media, $folder){
+        $order = 0;
+        foreach($media as $item){
+            $mediaItem = $this->find($item['id']);
+            $mediaItem->order = $order;
+            $mediaItem->save();
+            $order = $order + 1;
+        }
+    }
+
     private function checkNewFileName($site, $fileNameMain, $extension, $level = 0)
     {
         if ($level == 0) {

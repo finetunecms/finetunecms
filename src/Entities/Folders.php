@@ -38,6 +38,6 @@ class Folders extends Model
 
     public function media()
     {
-        return $this->belongsToMany('\Finetune\Finetune\Entities\Media', 'ft_media_folders', 'folders_id', 'media_id');
+        return $this->belongsToMany('\Finetune\Finetune\Entities\Media', 'ft_media_folders', 'folders_id', 'media_id')->orderBy('order');
     }
 }
