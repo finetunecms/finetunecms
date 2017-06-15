@@ -1,12 +1,15 @@
 <?php
 namespace Finetune\Finetune\Commands;
+
 use Finetune\Finetune\Entities\Site;
 use Finetune\Finetune\Entities\User;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class Install extends Command {
+class Install extends Command
+{
 
     /**
      * The console command name.
@@ -39,8 +42,8 @@ class Install extends Command {
      */
     public function fire()
     {
-       $databaseSeeder = new \Finetune\Finetune\Seeder\DatabaseSeeder();
-       $databaseSeeder->run();
+        $databaseSeeder = new \Finetune\Finetune\Seeder\DatabaseSeeder();
+        $databaseSeeder->run();
         $this->info("Making a new Superuser");
         $userUsername = $this->ask('Username');
         $userFirstname = $this->ask('firstname');
@@ -93,5 +96,14 @@ class Install extends Command {
         $site->tag = $siteTag;
         $site->key = $siteTag;
         $site->save();
+
+        $user->sites()->attach($site->id);
+
+        $this->info("Creating uploads folder");
+        $fileSystem = new Filesystem();
+        $path = storage_path().'/uploads';
+        $fileSystem->makeDirectory($path, 0777, true, true);
+        $fileSystem->makeDirectory($path.'/'.$site->tag, 0777, true, true);
+        $fileSystem->makeDirectory($path.'/'.$site->tag.'/resized', 0777, true, true);
     }
 }
