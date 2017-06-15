@@ -22,7 +22,7 @@ tinymce.PluginManager.add('image', function (editor) {
             if(value.type == 'image'){
                 string = string + '<div class="imageBlock"><div class="inner">'
                 string = string +  '<img data-original="'+value.thumb+'" alt="'+value.title+'" id="'+value.id+'"/>';
-                if(value.title.length > 0){
+                if(value.title != null){
                     string = string + '<span>' + truncate(value.title, 20) + '</span>';
                 }else{
                     string = string + '<span>' + truncate(value.filename, 20) + '</span>';
