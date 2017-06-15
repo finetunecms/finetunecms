@@ -59,7 +59,7 @@ class UserRepository implements UserInterface
         $user->save();
         $user->attachRole($request['roles']);
 
-        $this->addSites($notSuper, $user,$site);
+        $this->addSites($user,$request);
         return $this->all($notSuper, $site);
     }
 
@@ -76,7 +76,7 @@ class UserRepository implements UserInterface
         $user->save();
         $user->roles()->sync([]);
         $user->attachRole($request['roles']);
-        $this->addSites($notSuper, $user,$site);
+        $this->addSites($user,$request);
         return $this->all($notSuper, $site);
     }
 
@@ -119,16 +119,12 @@ class UserRepository implements UserInterface
         return false;
     }
 
-    private function addSites($notSuper, $user, $site){
-        if($notSuper){
-            $user->sites()->attach($site->id);
-        }else{
+    private function addSites($user, $request){
             if (isset($request['sites'])) {
                 $user->sites()->sync([]);
                 foreach ($request['sites'] as $site) {
                     $user->sites()->attach($site['id']);
                 }
             }
-        }
     }
 }

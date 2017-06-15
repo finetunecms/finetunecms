@@ -72,7 +72,6 @@ class SitesController extends BaseController
             ];
             return response()->json($array, 200);
         }else{
-
             $array = [
                 'sites'=> $userSites->toArray(),
                 'alertType'=> 'success',
