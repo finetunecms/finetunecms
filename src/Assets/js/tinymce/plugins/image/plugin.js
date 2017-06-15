@@ -22,7 +22,7 @@ tinymce.PluginManager.add('image', function (editor) {
             if(value.type == 'image'){
                 string = string + '<div class="imageBlock"><div class="inner">'
                 string = string +  '<img data-original="'+value.thumb+'" alt="'+value.title+'" id="'+value.id+'"/>';
-                if(value.title != ''){
+                if(value.title.length > 0){
                     string = string + '<span>' + truncate(value.title, 20) + '</span>';
                 }else{
                     string = string + '<span>' + truncate(value.filename, 20) + '</span>';
@@ -34,11 +34,14 @@ tinymce.PluginManager.add('image', function (editor) {
     }
 
     function truncate(string, length){
-        var newString = string.substring(0,length);
-        if(string != newString){
-            newString = newString + '...';
+        if(string.length > 0){
+            var newString = string.substring(0,length);
+            if(string != newString){
+                newString = newString + '...';
+            }
+            return newString;
         }
-        return newString;
+        return '';
     }
 
     function lazyLoad(){
