@@ -229,6 +229,10 @@ window.Vue.directive('tinymce', {
                     'insertdatetime media table contextmenu directionality',
                     'paste', 'columnbreak', 'definitionlist', 'gallery', 'snippet', 'files', 'filebank'
                 ],
+                alignleft: {selector : 'p,h1,h2,h3,h4,h5,h6,ul,ol,li,table,img', classes : 'left'},
+                aligncenter: {selector : 'p,h1,h2,h3,h4,h5,h6,ul,ol,li,table,img', classes : 'center'},
+                alignright: {selector : 'p,h1,h2,h3,h4,h5,h6,ul,ol,li,table,img', classes : 'right'},
+                alignjustify: {selector : 'p,h1,h2,h3,h4,h5,h6,ul,ol,li,table,img', classes : 'justify'},
                 browser_spellcheck: true,
                 toolbar1: 'undo redo | styleselect | bold italic | bullist numlist | alignleft aligncenter alignright alignjustify |  outdent indent | link | media image file | gallery filebank snippet ',
                 menu: {

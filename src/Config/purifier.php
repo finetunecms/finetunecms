@@ -19,7 +19,7 @@ return [
             'HTML.Doctype' => 'XHTML 1.0 Transitional',
             'HTML.DefinitionID' => '1',
             'HTML.AllowedComments' => array('pagebreak'),
-            'HTML.Allowed' => 'h1[class],h2[class],h3[class],h4[class],h5[class],h6[class],hr,div[class],b,strong,i,em,span[class|style],a[href|title|class|id|target],ul,ol,li,p[class|style],br,img[alt|src|class],dl[class],dt[class],dd[class],iframe[width|height|src|frameborder|class],table[id|class],tbody,td[id|class],tfoot,th[id|class],thead,tr[id|class],blockquote,code,header[id|class],footer[id|class],article[id|class],section[id|class],del',
+            'HTML.Allowed' => 'h1[class],h2[class],h3[class],h4[class],h5[class],h6[class],hr,div[class],b,strong,i,em,span[class|style],a[href|title|class|id|target],ul,ol,li,p[class],br,img[alt|src|class],dl[class],dt[class],dd[class],iframe[width|height|src|frameborder|class],table[id|class],tbody,td[id|class],tfoot,th[id|class],thead,tr[id|class],blockquote,code,sub,sup,pre,header[id|class],footer[id|class],article[id|class],section[id|class],del',
             'CSS.AllowedProperties' => 'font-size,font-weight,font-style,text-decoration,text-align,margin-left,margin-right',
             'Attr.AllowedFrameTargets' => array('_blank', '_self', '_parent', '_top'),
             'AutoFormat.AutoParagraph' => true,
