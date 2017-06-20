@@ -548,6 +548,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         items = this.media;
                     } else {
                         items = this.allMedia.filter(function (media) {
+                            console.log(media);
                             if (that.searchTerm.length === 0) {
                                 return true;
                             } else {
