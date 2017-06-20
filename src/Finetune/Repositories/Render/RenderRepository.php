@@ -222,7 +222,7 @@ class RenderRepository implements RenderInterface
         }
     }
 
-    public function renderPage($site, $node, $request)
+    public function renderPage($site, $node, $request, $path = null)
     {
         if (!empty($path)) {
             $this->pathSplit($path);

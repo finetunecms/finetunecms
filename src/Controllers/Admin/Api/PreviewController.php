@@ -38,6 +38,6 @@ class PreviewController  extends BaseController
 
         $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);
 
-        return $this->render->renderPage($this->site, $node, $node->url_slug);
+        return $this->render->renderPage($this->site, $node, $request, $node->url_slug);
     }
 }
