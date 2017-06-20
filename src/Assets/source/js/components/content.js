@@ -542,26 +542,30 @@ if (typeof(content) != 'undefined' && content != null) {
                     });
                 },
                 search: function search(filter) {
-                    console.log('searching');
+
                     var that = this;
                     var items = [];
                     if (this.searchTerm.length === 0) {
                         items = this.media;
                     } else {
                         items = this.allMedia.filter(function (media) {
-                            console.log(media);
                             if (that.searchTerm.length === 0) {
                                 return true;
                             } else {
                                 if (media.filename.indexOf(that.searchTerm) !== -1) {
                                     return true;
                                 } else {
-                                    return media.title.indexOf(that.searchTerm) !== -1;
+                                    if(media.title != null){
+                                        return media.title.indexOf(that.searchTerm) !== -1;
+                                    }else{
+                                        return false;
+                                    }
+
                                 }
                             }
                         });
                     }
-                    console.log(items);
+
                     if (filter == 'all') {
                         return items;
                     } else {

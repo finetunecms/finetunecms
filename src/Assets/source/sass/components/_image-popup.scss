@@ -7,16 +7,25 @@
   overflow: hidden;
   margin: 0;
   padding: 0;
-
-
+  .col-md-2{
+    padding-bottom:15px;
+  }
 
   .insert-image {
+    background: $menu-bg-lighter;
+    padding: 0;
+    display: block;
+    width: 100%;
     img {
       display: block;
       width: 100%;
     }
   }
-
+  p.tiny {
+    padding: ($gutter/2);
+    margin: 0;
+    font-size: $gutter;
+  }
 }
 
 .image-popup-header{
