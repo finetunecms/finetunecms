@@ -34,6 +34,7 @@ tinymce.PluginManager.add('image', function (editor) {
     }
 
     function truncate(string, length){
+        console.log(string);
         if(string.length > 0){
             var newString = string.substring(0,length);
             if(string != newString){

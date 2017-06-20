@@ -22,7 +22,6 @@
                 @include('finetune::partials.notifications')
                 @yield('manage')
             </div>
-
             @yield('actions')
         </div>
     </div>

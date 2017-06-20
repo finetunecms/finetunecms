@@ -272,11 +272,9 @@
                             </popover>
                         </label>
 
-                        <select v-if="field.type == 'select'" v-model="field.value" :id="field.name" class="form-control">
-                            <option v-for="(value, key) in field.values" :value="key">
-                                @{{ value }}
-                            </option>
-                        </select>
+                        <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value" label="title" :multiple="true"
+                                  :options="field.values" :placeholder="field.name"></v-select>
+
                         <input v-if="field.type == 'text'" type="text" v-model="field.value" :id="field.name" class="form-control" />
 
                     </div>
