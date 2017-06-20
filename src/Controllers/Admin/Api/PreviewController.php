@@ -7,7 +7,7 @@ use Finetune\Finetune\Repositories\Site\SiteInterface;
 use \Illuminate\Http\Request as NormalRequest;
 use \Illuminate\Contracts\View\Factory as View;
 
-class PreviewController extends Controller
+class PreviewController  extends BaseController
 {
     protected $node;
     protected $render;
