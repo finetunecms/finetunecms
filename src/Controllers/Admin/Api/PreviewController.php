@@ -1,6 +1,7 @@
 <?php
 namespace Finetune\Finetune\Controllers\Admin\Api;
 
+use Finetune\Finetune\Controllers\BaseController;
 use Finetune\Finetune\Repositories\Node\NodeInterface;
 use Finetune\Finetune\Repositories\Render\RenderRepository;
 use Finetune\Finetune\Repositories\Site\SiteInterface;
