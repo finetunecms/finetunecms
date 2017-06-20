@@ -42,16 +42,12 @@
 
                         <img :src="snippet.media.external" class="full-width" v-if="snippet.media != null">
                         <div class="form-group">
-                            <div class="btn-group">
-                                <div class="btn-group">
+                                <div class="content-image-btns">
                                     <a href="#" class="btn btn-success btn-block" @click='changeImage()' v-if="
                                     snippet.media == null">{{ trans('finetune::snippets.image.add') }}</a>
-                                    <a href="#" class="btn btn-success" @click='changeImage()' v-else
-                                    >{{ trans('finetune::snippets.image.change') }}</a>
-                                    <a href="#" class="btn btn-danger hidden" @click='removeImage()' v-if="
-                                    snippet.media != null">{{ trans('finetune::snippets.image.remove') }}</a>
+                                    <a href="#" class="btn btn-success" @click='changeImage()' v-else>{{ trans('finetune::snippets.image.change') }}</a>
+                                    <a href="#" class="btn btn-danger hidden" @click='removeImage()' v-if="snippet.media != null">{{ trans('finetune::snippets.image.remove') }}</a>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
