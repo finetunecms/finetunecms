@@ -542,6 +542,7 @@ if (typeof(content) != 'undefined' && content != null) {
                     });
                 },
                 search: function search(filter) {
+                    console.log('searching');
                     var that = this;
                     var items = [];
                     if (this.searchTerm.length === 0) {
@@ -560,6 +561,7 @@ if (typeof(content) != 'undefined' && content != null) {
                             }
                         });
                     }
+                    console.log(items);
                     if (filter == 'all') {
                         return items;
                     } else {
