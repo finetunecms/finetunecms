@@ -288,7 +288,15 @@ class NodeRepository implements NodeInterface
     public function links($site)
     {
         $nodes = $this->all($site, 0, 0, false, true);
-        return $nodes;
+
+        $links = [];
+        foreach($nodes as $node){
+            $links[] = [
+                'title' => $node->title,
+                'id' => $node->id
+            ];
+        }
+        return $links;
     }
 
     public function eagerLoad($collection, $frontend = false, $itemWithType = null)
