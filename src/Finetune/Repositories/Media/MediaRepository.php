@@ -86,7 +86,7 @@ class MediaRepository implements MediaInterface
                     $media->save();
                     return $media;
                 } elseif (in_array($mime, $allowedFileMemeTypes)) {
-                    $newDestinationPath = '/uploads/' . $site->tag; // upload path
+                    $newDestinationPath = storage_path() . '/uploads/' . $site->tag; // upload path
                     $file->storeAs($newDestinationPath, $fileName);
                     $media = new Media();
                     $media->site_id = $site->id;
