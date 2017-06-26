@@ -3,14 +3,14 @@
 namespace Finetune\Finetune\Services\Gallery;
 
 use Finetune\Finetune\Repositories\Folders\FoldersInterface;
-use \Illuminate\Contracts\View\Factory as View;
+
 class GalleryService
 {
     protected $folders;
-    protected $view;
-    public function __construct(FoldersInterface $folders, View $view)
+
+    public function __construct(FoldersInterface $folders )
     {
-        $this->view = $view;
+        $this->folders = $folders;
     }
 
     public function getGallery($site, $tag){
@@ -37,6 +37,7 @@ class GalleryService
         }
         $view ='';
         if (!empty($galleryObj)) {
+            $this->view = app('view');
             if (isset($gallery[1])) {
                 $gallery[1] = trim($gallery[1]);
                 if ($this->view->exists($site->theme . '::galleries.' . $gallery[1] . '-' . $gallery[0])) {

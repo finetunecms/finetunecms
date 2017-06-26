@@ -10,8 +10,7 @@ class GalleryServiceProvider extends ServiceProvider
         $this->app->bind('GalleryService', function($app)
         {
             return new GalleryService(
-                $this->app->make('Finetune\Finetune\Repositories\Folders\FoldersInterface'),
-                $this->app->make('\Illuminate\Contracts\View\Factory')
+                $this->app->make('Finetune\Finetune\Repositories\Folders\FoldersInterface')
             );
         });
     }

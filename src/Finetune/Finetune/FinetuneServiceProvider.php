@@ -1,6 +1,7 @@
 <?php
 namespace Finetune\Finetune;
 
+use Finetune\Finetune\Repositories\Site\SiteRepository;
 use Illuminate\Support\ServiceProvider;
 use \Config;
 use \View;
@@ -80,7 +81,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->loadTranslationsFrom($this->path.'/Lang', 'finetune');
 
         $this->loadViewsFrom($this->path.'/Views/finetune', 'finetune');
-        
+
         $this->publishes([
             $this->path.'/Config/finetune.php' => config_path('finetune.php'),
             $this->path.'/Config/forms.php' => config_path('forms.php'),
@@ -163,36 +164,40 @@ class FinetuneServiceProvider extends ServiceProvider{
             return $view;
         });
 
-        $bladeCompiler->directive('group', function($expression) {
+
+        $siteRepo = resolve('Finetune\Finetune\Repositories\Site\SiteInterface');
+        $site = $siteRepo->getSite($this->app->request);
+
+        $bladeCompiler->directive('group', function($expression) use($site){
             $expression = str_replace('(', '', $expression);
             $expression = str_replace(')', '', $expression);
             $expression = str_replace("'", '', $expression);
             $expression = str_replace('"', '', $expression);
-            return \Snippets::renderGroup($expression);
+            return \Snippets::renderGroup($site, $expression);
         });
 
-        $bladeCompiler->directive('snippet', function($expression){
+        $bladeCompiler->directive('snippet', function($expression) use($site){
             $expression = str_replace('(', '', $expression);
             $expression = str_replace(')', '', $expression);
             $expression = str_replace("'", '', $expression);
             $expression = str_replace('"', '', $expression);
-            return \Snippets::renderSnippet($expression);
+            return \Snippets::renderSnippet($site, $expression);
         });
 
-        $bladeCompiler->directive('gallery', function($expression){
+        $bladeCompiler->directive('gallery', function($expression) use($site){
             $expression = str_replace('(', '', $expression);
             $expression = str_replace(')', '', $expression);
             $expression = str_replace("'", '', $expression);
             $expression = str_replace('"', '', $expression);
-            return \Gallery::renderGallery($expression);
+            return \Gallery::renderGallery($site, $expression);
         });
 
-        $bladeCompiler->directive('filebank', function($expression){
+        $bladeCompiler->directive('filebank', function($expression) use($site){
             $expression = str_replace('(', '', $expression);
             $expression = str_replace(')', '', $expression);
             $expression = str_replace("'", '', $expression);
             $expression = str_replace('"', '', $expression);
-            return \Files::renderFileBank($expression);
+            return \Files::renderFileBank($site, $expression);
         });
     }
 }
