@@ -15,11 +15,10 @@ class SnippetService {
     /**
      * @param SnippetInterface $snippetRepo
      */
-    public function __construct(SnippetInterface $snippets, SnippetGroupInterface $group, View $view)
+    public function __construct(SnippetInterface $snippets, SnippetGroupInterface $group)
     {
         $this->snippets = $snippets;
         $this->group = $group;
-        $this->view = $view;
     }
 
     /**
@@ -63,13 +62,9 @@ class SnippetService {
         }
     }
 
-    public function insertGroup($site, $group)
-    {
-        return $this->renderGroup($site, $group);
-    }
-
     public function renderGroup($site, $group)
     {
+
         $snippets = [];
         if (!empty($group)) {
             $groupObj = $this->getGroup($site, $group);
@@ -79,7 +74,7 @@ class SnippetService {
         }
         $view = '';
         if (!empty($snippets)) {
-
+            $this->view = app('view');
             if ($this->view->exists($site->theme . '::snippets.group-' . $group)) {
                 $view = $this->view->make($site->theme . "::snippets.group-" . $group, ['snippets' => $snippets, 'group' => $groupObj])->render();
             } else {
@@ -94,11 +89,6 @@ class SnippetService {
         return $view;
     }
 
-    public function insertSnippet($site, $snippet)
-    {
-        echo $this->renderSnippet($site, $snippet);
-    }
-
     public function renderSnippet($site,$snippet)
     {
         if (!empty($snippet)) {
@@ -109,6 +99,7 @@ class SnippetService {
         if (!empty($snippetArray)) {
 
             if ($snippetArray->publish == 1) {
+                $this->view = app('view');
                 if ($this->view->exists($site->theme . '::snippets.' . $snippet)) {
                     return $this->view->make($site->theme . "::snippets." . $snippet, ['snippet' => $snippetArray])->render();
                 } else {
