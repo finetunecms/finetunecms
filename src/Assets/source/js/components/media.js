@@ -105,6 +105,7 @@
                     search: function search() {
                         var that = this;
                         var items = [];
+                        console.log(this.mediaAll);
                         if (this.searchTerm.length === 0) {
                             items = this.media;
                         } else {
