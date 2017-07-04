@@ -517,10 +517,14 @@ if (typeof(content) != 'undefined' && content != null) {
             methods: {
                 changeFolder: function changeFolder() {
                     this.media = [];
-                    if (this.folder.tag == 'all') {
+                    if(this.folder.length > 0){
                         this.media = this.allMedia;
-                    } else {
-                        this.media = this.folder.media;
+                    }else{
+                        if (this.folder.tag == 'all') {
+                            this.media = this.allMedia;
+                        } else {
+                            this.media = this.folder.media;
+                        }
                     }
                 },
                 getFolders: function getFolders() {
