@@ -271,12 +271,10 @@
                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                             </popover>
                         </label>
-
+                        {{--  [{ value: 4, label: 'Four'},{ value: 5, label: 'Five'}] --}}
                         <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value" label="title" :multiple="true"
                                   :options="field.values" :placeholder="field.name"></v-select>
-
-                        <input v-if="field.type == 'text'" type="text" v-model="field.value" :id="field.name" class="form-control" />
-
+                        <input v-if="['text','number','password'].indexOf(field.type) != -1" type="@{{ field.type }}" v-model="field.value" :id="field.name" class="form-control" />
                     </div>
                     <div class="checkbox" v-else>
                         <input v-if="field.type == 'checkbox'" type="checkbox" v-model="field.value" type="checkbox" :id="field.name"/>
