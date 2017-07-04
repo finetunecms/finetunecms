@@ -293,7 +293,8 @@ class NodeRepository implements NodeInterface
         foreach($nodes as $node){
             $links[] = [
                 'title' => $node->title,
-                'id' => $node->id
+                'id' => $node->id,
+                'url_slug' => $node->url_slug
             ];
         }
         return $links;
