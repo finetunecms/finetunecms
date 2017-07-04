@@ -241,7 +241,7 @@ class NodeController extends BaseController
                 'searchterm' => 'required'
             ]);
 
-            $nodes = $this->node->search($request->get('searchterm'), $request->get('area'));
+            $nodes = $this->node->search($this->site, $request->get('searchterm'), $request->get('area'));
             $user = auth()->user();
                 if (!$user->ability([config('auth.superadminRole')], ['can_manage_allcontent'])) {
                     if (config('finetune.nodeRoles')) {

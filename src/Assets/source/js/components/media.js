@@ -120,7 +120,6 @@
                                     }
                                 }
                             });
-                            console.log(items);
                         }
                         if (this.filter == 'All') {
                             return items;
