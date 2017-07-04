@@ -105,22 +105,22 @@
                     search: function search() {
                         var that = this;
                         var items = [];
-                        console.log(this.mediaAll);
+
                         if (this.searchTerm.length === 0) {
                             items = this.media;
                         } else {
                             items = this.mediaAll.filter(function (media) {
-                                console.log(media);
-                                if (that.searchTerm.length === 0) {
+                                if (media.filename.toLowerCase().indexOf(that.searchTerm.toLowerCase()) !== -1) {
                                     return true;
                                 } else {
-                                    if (media.filename.toLowerCase().indexOf(that.searchTerm.toLowerCase()) !== -1) {
-                                        return true;
-                                    } else {
+                                    if(media.title){
                                         return media.title.toLowerCase().indexOf(that.searchTerm.toLowerCase()) !== -1;
+                                    }else{
+                                        return false;
                                     }
                                 }
                             });
+                            console.log(items);
                         }
                         if (this.filter == 'All') {
                             return items;
