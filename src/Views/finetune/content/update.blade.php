@@ -272,6 +272,7 @@
                             </popover>
                         </label>
                         {{--  [{ value: 4, label: 'Four'},{ value: 5, label: 'Five'}] --}}
+
                         <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value" label="title" :multiple="(['multiple'].indexOf(field.type) != -1)"
                                   :options="field.values" :placeholder="field.name"></v-select>
 
