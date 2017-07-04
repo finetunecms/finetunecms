@@ -31,7 +31,6 @@ class PackageRepository implements PackageInterface
                 }
             }
         }
-        dd($packages);
         return $packages;
     }
 }
