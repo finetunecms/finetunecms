@@ -308,6 +308,7 @@ if (typeof(snippets) != 'undefined' && snippets != null) {
                 this.group.title = '';
                 this.group.tag = '';
                 this.group.dscpn = '';
+                this.groupId = 0;
                 this.cleanErrors();
                 this.clearItems();
             },
