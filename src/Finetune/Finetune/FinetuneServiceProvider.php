@@ -165,39 +165,41 @@ class FinetuneServiceProvider extends ServiceProvider{
         });
 
 
-        $siteRepo = resolve('Finetune\Finetune\Repositories\Site\SiteInterface');
-        $site = $siteRepo->getSite($this->app->request);
+        if (strpos(php_sapi_name(), 'cli') === false) {
+            $siteRepo = resolve('Finetune\Finetune\Repositories\Site\SiteInterface');
+            $site = $siteRepo->getSite($this->app->request);
 
-        $bladeCompiler->directive('group', function($expression) use($site){
-            $expression = str_replace('(', '', $expression);
-            $expression = str_replace(')', '', $expression);
-            $expression = str_replace("'", '', $expression);
-            $expression = str_replace('"', '', $expression);
-            return \Snippets::renderGroup($site, $expression);
-        });
+            $bladeCompiler->directive('group', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Snippets::renderGroup($site, $expression);
+            });
 
-        $bladeCompiler->directive('snippet', function($expression) use($site){
-            $expression = str_replace('(', '', $expression);
-            $expression = str_replace(')', '', $expression);
-            $expression = str_replace("'", '', $expression);
-            $expression = str_replace('"', '', $expression);
-            return \Snippets::renderSnippet($site, $expression);
-        });
+            $bladeCompiler->directive('snippet', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Snippets::renderSnippet($site, $expression);
+            });
 
-        $bladeCompiler->directive('gallery', function($expression) use($site){
-            $expression = str_replace('(', '', $expression);
-            $expression = str_replace(')', '', $expression);
-            $expression = str_replace("'", '', $expression);
-            $expression = str_replace('"', '', $expression);
-            return \Gallery::renderGallery($site, $expression);
-        });
+            $bladeCompiler->directive('gallery', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Gallery::renderGallery($site, $expression);
+            });
 
-        $bladeCompiler->directive('filebank', function($expression) use($site){
-            $expression = str_replace('(', '', $expression);
-            $expression = str_replace(')', '', $expression);
-            $expression = str_replace("'", '', $expression);
-            $expression = str_replace('"', '', $expression);
-            return \Files::renderFileBank($site, $expression);
-        });
+            $bladeCompiler->directive('filebank', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Files::renderFileBank($site, $expression);
+            });
+        }
     }
 }

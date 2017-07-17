@@ -54,6 +54,7 @@ class SiteRepository implements SiteInterface
                 return $this->session->get('site');
             }
         } else {
+
             return $this->findSiteByDomain($request->url());
         }
     }
