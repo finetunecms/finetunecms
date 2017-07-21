@@ -455,10 +455,9 @@ class RenderRepository implements RenderInterface
     private function getView()
     {
         if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
-            $this->output = 'default';
+            $this->contentArray['type']->layout = 'default';
             if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
                 $this->output = 'default';
-                $this->contentArray['type']->layout = 'default';
                 if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
                     $this->output = 'error';
                 }
