@@ -53,6 +53,10 @@ class NodeController extends BaseController
                             $node->canEdit = false;
                         }
                     });
+                }else {
+                    $node->children = $node->children->each(function ($node, $key) {
+                        $node->canEdit = true;
+                    });
                 }
             } else {
                 $node->children = $node->children->each(function ($node, $key) {
