@@ -408,20 +408,23 @@ class NodeRepository implements NodeInterface
 
     public function filterContent($content)
     {
-
-        $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-        foreach ($filters as $filter) {
-            $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
-            $content = preg_replace("/<" . $filter . ">@(.*?)/", "@$1", $content);
-            $content = preg_replace("/@(.*?)<\/" . $filter . ">/", "@$1", $content);
-            $content = preg_replace("/<" . $filter . "[^>]*>[\s|&nbsp;]*<\/" . $filter . ">/", '', $content);
-            $content = preg_replace("/<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\w\-.:]+))?)*\s*\/?>\s*<\/\1\s*>/", '', $content);
+        $active =  config('purifier.active');
+        if($active){
+            $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+            foreach ($filters as $filter) {
+                $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
+                $content = preg_replace("/<" . $filter . ">@(.*?)/", "@$1", $content);
+                $content = preg_replace("/@(.*?)<\/" . $filter . ">/", "@$1", $content);
+                $content = preg_replace("/<" . $filter . "[^>]*>[\s|&nbsp;]*<\/" . $filter . ">/", '', $content);
+                $content = preg_replace("/<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\w\-.:]+))?)*\s*\/?>\s*<\/\1\s*>/", '', $content);
+            }
+            $content = preg_replace("/<span[^>]+\>/i", "", $content);
+            $content = str_replace("<div class=\"embed\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the iframe in the embed divs
+            $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
+            $content = str_replace('?nosave=true', '', $content);
+            return \Purifier::clean($content);
         }
-        $content = preg_replace("/<span[^>]+\>/i", "", $content);
-        $content = str_replace("<div class=\"embed\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the iframe in the embed divs
-        $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
-        $content = str_replace('?nosave=true', '', $content);
-        return \Purifier::clean($content);
+
     }
 
     // Frontend Functions

@@ -13,6 +13,7 @@ $regex .= ")%";
 //$regex = "%^http://player.vimeo.com/video/%";
 
 return [
+    'active' => true,
     'settings' => [
         'default' => [
             'Cache.SerializerPath' => storage_path('purifier'),
