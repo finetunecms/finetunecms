@@ -423,6 +423,8 @@ class NodeRepository implements NodeInterface
             $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
             $content = str_replace('?nosave=true', '', $content);
             return \Purifier::clean($content);
+        }else{
+            return $content;
         }
 
     }
