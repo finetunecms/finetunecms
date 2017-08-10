@@ -177,9 +177,9 @@ class NodeController extends BaseController
             $node = $this->node->publish($request->get('node')['id']);
             $parent = $request->get('parent');
             if ($parent == 0) {
-                $nodes = $this->node->all($this->site, 1);
+                $nodes = $this->node->all($this->site,0, 1);
             } else {
-                $nodes = $this->node->all($this->site, $parent);
+                $nodes = $this->node->all($this->site,$parent);
             }
             $array = [
                 'nodes' => $nodes->toArray(),
