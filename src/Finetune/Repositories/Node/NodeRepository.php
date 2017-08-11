@@ -438,9 +438,11 @@ class NodeRepository implements NodeInterface
             ->where('site_id', '=', $site->id)
             ->first();
 
-        if ($node->publish != 1) {
-            if ($node->soft_publish != 1) {
-                $node = null;
+        if(isset($node)){
+            if ($node->publish != 1) {
+                if ($node->soft_publish != 1) {
+                    $node = null;
+                }
             }
         }
         return $this->eagerLoad($node, true);
