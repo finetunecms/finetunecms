@@ -111,9 +111,9 @@ class NodeRepository implements NodeInterface
             $node->tag = $this->tagMaker($site, $area, $node, $request['tag']);
         }
         $user = $this->auth->user();
-        if(!empty($user)) {
+        if (!empty($user)) {
             $node->author_id = $this->auth->user()->id;
-        }else{
+        } else {
             $node->author_id = 1;
         }
         $node->publish = isset($request['publish']) ? 1 : 0;
@@ -295,7 +295,7 @@ class NodeRepository implements NodeInterface
         $nodes = $this->all($site, 0, 0, false, true);
 
         $links = [];
-        foreach($nodes as $node){
+        foreach ($nodes as $node) {
             $links[] = [
                 'title' => $node->title,
                 'id' => $node->id,
@@ -408,8 +408,8 @@ class NodeRepository implements NodeInterface
 
     public function filterContent($content)
     {
-        $active =  config('purifier.active');
-        if($active){
+        $active = config('purifier.active');
+        if ($active) {
             $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
             foreach ($filters as $filter) {
                 $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
@@ -423,7 +423,7 @@ class NodeRepository implements NodeInterface
             $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
             $content = str_replace('?nosave=true', '', $content);
             return \Purifier::clean($content);
-        }else{
+        } else {
             return $content;
         }
 
@@ -437,6 +437,12 @@ class NodeRepository implements NodeInterface
             ->where('url_slug', '=', $slug)
             ->where('site_id', '=', $site->id)
             ->first();
+
+        if ($node->publish != 1) {
+            if ($node->soft_publish != 1) {
+                $node = null;
+            }
+        }
         return $this->eagerLoad($node, true);
     }
 
@@ -446,6 +452,11 @@ class NodeRepository implements NodeInterface
             ->where('homepage', '=', 1)
             ->where('site_id', '=', $site->id)
             ->first();
+        if ($node->publish != 1) {
+            if ($node->soft_publish != 1) {
+                $node = null;
+            }
+        }
         return $this->eagerLoad($node, true);
     }
 
@@ -566,6 +577,14 @@ class NodeRepository implements NodeInterface
                         });
                     });
             })->get();
+        foreach ($nodes as & $node) {
+
+            if ($node->publish != 1) {
+                if ($node->soft_publish != 1) {
+                    $node = null;
+                }
+            }
+        }
         return $this->eagerLoad($nodes, true, $nodes->first());
     }
 
