@@ -1,6 +1,6 @@
 {
   "name": "finetune/finetune",
-  "description": "The Finetune CMS.",
+  "description": "The Finetune CMS. Built on the laravel framework",
   "keywords": [
     "framework",
     "cms",
