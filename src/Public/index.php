@@ -1,5 +1,5 @@
 <?php
-// check files in uploads folder first
+// check files in uploads folder first Finetune Package - index add on
 require_once __DIR__ . '/files.php';
 
 /**

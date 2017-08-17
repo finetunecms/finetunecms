@@ -1,12 +1,15 @@
 <?php
+
 if (!empty($_SERVER['REQUEST_URI'])) {
     $uri = $_SERVER['REQUEST_URI'];
     $uriParts = explode('/', strtok($uri, '?'));
+
 
     if ($uriParts[1] == 'image') {
 
         if (!empty($uriParts[1])) {
             if (!empty($uriParts[2])) {
+
                 $filename = '/'.$uriParts[2] .'/resized/';
                 $fileParts = explode('.', $uriParts[3]);
                 $filename = $filename.$fileParts[0];
@@ -64,7 +67,7 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                         $filename .= '-'.$_GET['q'];
                     }
                 }
-                $imageUrl = __DIR__ . '/uploads';
+                $imageUrl = __DIR__ . '/../storage/uploads';
                 $mimes = array(
                     'gif' => 'image/gif',
                     'jpg' => 'image/jpg',
@@ -107,6 +110,7 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                     unset($imageUrl);
                     exit;
                 }
+
             }
         }
     }
