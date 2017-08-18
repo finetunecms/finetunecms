@@ -138,7 +138,7 @@ window.FinetuneVue = window.Vue.extend({
         },
         parseDate: function parseDate(date) {
             var moment = require('moment');
-            return moment(date, 'YYYY-MM-DD').format('Do MMMM YYYY, h:mm a');
+            return moment(date, 'YYYY-MM-DD hh:mm:ss').format('Do MMMM YYYY, hh:mm');
         },
         parseHuman: function parseDate(date) {
             var moment = require('moment');
