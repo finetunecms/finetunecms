@@ -122,7 +122,7 @@ if (empty($value)) {
 @elseif(in_array($type, ['icons']))
     <table>
     <?php
-        $icons = config('fienetune.fields');
+        $icons = config('fields');
         if(isset($icons[$name])){
             $count = count($icons[$name]);
             $index = 0;

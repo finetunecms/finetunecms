@@ -113,7 +113,7 @@ class FinetuneServiceProvider extends ServiceProvider{
 
         $validation->extend('name_validator', function ($attribute, $value, $parameters, $validator) {
 
-            $banned = config('finetune.bannedtags');
+            $banned = config('bannedtags');
             $names = explode(':', $value);
             foreach ($names as $name) {
                 if (in_array($name, $banned)) {
