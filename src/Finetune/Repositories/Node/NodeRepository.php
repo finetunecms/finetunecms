@@ -472,7 +472,7 @@ class NodeRepository implements NodeInterface
                     unset($all[$index]);
                 }
             }
-            if ($node->type->nesting != 1) {
+            if ($node->type->children != 1) {
                 unset($all[$index]);
             }
         }
