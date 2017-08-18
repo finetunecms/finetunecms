@@ -107,9 +107,7 @@ if (empty($value)) {
     'title' => $title])
 @elseif(in_array($type, ['file']))
     <?php
-    // very quick a dirty way to make a list
-    $files = \Finetune\Finetune\Entities\Media::where('type', '=', 'file')->orderBy('order')->get();
-    $collection = collect($files)->pluck('filename');
+       $collection = Media::getList($site, 'file', 'filename')
     ?>
     @include('finetune::partials.fields',[
     'name' => $name,
@@ -119,4 +117,40 @@ if (empty($value)) {
     'items' => $collection,
     'id' => (isset($id) ? $id : $name),
     'title' => $title])
+
+
+@elseif(in_array($type, ['icons']))
+    <table>
+    <?php
+        $icons = config('fienetune.fields');
+        if(isset($icons[$name])){
+            $count = count($icons[$name]);
+            $index = 0;
+            $itemsPerRow = ($count / 5);
+            foreach($icons[$name] as $index => $icon){
+                if($index == $itemsPerRow){
+                    echo '<tr>';
+                    }
+  ?>
+        <td>
+            <i class="fa {{ $index }}"></i>
+            <input type="radio" name="{{ $name }}" aria-describedby="input{{$name}}Status"
+                   @if(isset($vmodel)) v-model="{{ $vmodel }}" @endif
+                   @if(isset($von)) {!! $von !!} @endif
+                   @if($value == $index) checked @endif />
+        </td>
+
+
+    <?php
+            if($index == $itemsPerRow){
+                echo '</tr>';
+                $index = 0;
+            }else{
+                $index++;
+            }
+         }
+        }
+
+    ?>
+    </table>
 @endif

@@ -32,7 +32,6 @@
                 </div>
             </div>
         </div>
-
         <div class="image-popup" v-if="media.length > 0">
             <div class="row">
                 <div class="col-md-2" v-for="item in search('images')">
@@ -46,7 +45,6 @@
                 </div>
             </div>
         </div>
-
         <div class="no-content">
             <h3 v-if="media.length == 0">{{ trans('finetune::content.imagePopup.empty') }}</h3>
         </div>

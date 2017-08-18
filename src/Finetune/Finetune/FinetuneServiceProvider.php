@@ -51,6 +51,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->app->register('Finetune\Finetune\Services\Files\FilesServiceProvider');
         $this->app->register('Finetune\Finetune\Services\Tagging\TaggingServiceProvider');
         $this->app->register('Finetune\Finetune\Services\Gallery\GalleryServiceProvider');
+        $this->app->register('Finetune\Finetune\Services\Media\MediaServiceProvider');
 
         $this->app->register('\Zizaco\Entrust\EntrustServiceProvider');
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
@@ -64,6 +65,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $loader->alias('Purifier', 'Finetune\Finetune\Services\Purifier\PurifierFacade');
         $loader->alias('Snippets', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
         $loader->alias('Tagging', 'Finetune\Finetune\Services\Tagging\TaggingFacade');
+        $loader->alias('Media', 'Finetune\Finetune\Services\Media\MediaFacade');
         $loader->alias('Entrust', '\Zizaco\Entrust\EntrustFacade');
 
         $this->commands($this->commands);
@@ -92,6 +94,8 @@ class FinetuneServiceProvider extends ServiceProvider{
             $this->path.'/Config/upload.php' => config_path('upload.php'),
             $this->path.'/Config/purifier.php' => config_path('purifier.php'),
             $this->path.'/Config/entrust.php' => config_path('entrust.php'),
+            $this->path.'/Config/bannedtags.php' => config_path('bannedtags.php'),
+            $this->path.'/Config/fields.php' => config_path('fields.php'),
             $this->path.'/Lang' => resource_path('lang/vendor/finetune'),
             $this->path.'/Views/finetune' => resource_path('views/vendor/finetune'),
         ]);
@@ -108,44 +112,8 @@ class FinetuneServiceProvider extends ServiceProvider{
         }
 
         $validation->extend('name_validator', function ($attribute, $value, $parameters, $validator) {
-            /*
-             * TODO Make this a config variable
-             */
-            $banned = [
-                'area',
-                'main',
-                'list',
-                'type',
-                'layout',
-                'output',
-                'body',
-                'node',
-                'values',
-                'site',
-                'menu',
-                'id',
-                'site_id',
-                'area_fk',
-                'parent',
-                'order',
-                'publish',
-                'author_id',
-                'homepage',
-                'tag',
-                'url_slug',
-                'title',
-                'dscpn',
-                'keywords',
-                'image',
-                'publish_on',
-                'created_at',
-                'updated_at',
-                'output_body',
-                'deleted_at',
-                'jsonbody',
-                'arraybody',
-                'arrayImage',
-            ];
+
+            $banned = config('finetune.bannedtags');
             $names = explode(':', $value);
             foreach ($names as $name) {
                 if (in_array($name, $banned)) {

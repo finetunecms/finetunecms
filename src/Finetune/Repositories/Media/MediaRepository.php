@@ -18,7 +18,10 @@ class MediaRepository implements MediaInterface
 
     public function all($site)
     {
-        return Media::where('site_id', '=', $site->id)->with('folders', 'nodes')->orderBy('created_at', 'desc')->get();
+        return Media::where('site_id', '=', $site->id)
+            ->with('folders', 'nodes')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     public function find($id)
