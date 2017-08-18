@@ -101,7 +101,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         ]);
 
         $this->publishes([
-            $this->path.'/Views/themes' => public_path('themes'),
+           // $this->path.'/Views/themes' => public_path('themes'),
             $this->path.'/Assets' => public_path('finetune/assets'),
             $this->path.'/Public' => public_path('.')
         ], 'public');
