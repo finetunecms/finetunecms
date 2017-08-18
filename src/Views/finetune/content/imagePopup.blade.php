@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-md-2" v-for="item in search('images')">
                     <div class="insert-image">
-                        <img v-lazy="item.thumb" :srcset="'{{ config('finetune.protocol') }}{{ $site->domain }}'+ item.thumb"
+                        <img v-lazy="item.thumb" :srcset="'{{ config('finetune.protocol') }}{{ $site->domain }}'+ item.thumb + '?fit=true'"
                              v-if="item.type == 'image'"/>
                         <p class="tiny" title="@{{ item.filename }}">@{{ item.filename.substring(0,10) }}
                             <span v-id="item.filename.length > 20">...</span></p>
