@@ -170,13 +170,28 @@
                 <h4>{{ trans('finetune::content.customFields') }}</h4>
                 <div v-show="customFields.length > 0">
                     <div v-for="(index, field) of customFields">
-                        <div class="field-group custom-field" v-if="field.type != 'select'">
-                            <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
 
-                            <input class="form-control" type="@{{ field.type }}" placeholder="@{{ field.name }}"
-                                   name="field[@{{ field.name }}]"
-                                   id="@{{ field.name }}-custom-field"
-                                   v-model="field.value"/>
+                        <div class="field-group custom-field" v-if="field.type != 'select'">
+                            <div v-if="field.type == 'icons'">
+                                <table>
+                                    <tr>
+                                        <td v-for="icon in field.icons">
+                                            <div class="checkbox">
+                                                <input type="checkbox" v-model="field.value" class="form-control" />
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div v-else>
+                                <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
+
+                                <input class="form-control" type="@{{ field.type }}" placeholder="@{{ field.name }}"
+                                       name="field[@{{ field.name }}]"
+                                       id="@{{ field.name }}-custom-field"
+                                       v-model="field.value"/>
+                            </div>
                         </div>
 
                         <div class="field-group custom-field" v-if="field.type == 'select'">
@@ -188,7 +203,6 @@
                                       :options="splitter(field.values)" label="label" :multiple="true">
                             </v-select>
                         </div>
-                    </div>
                 </div>
             </tab>
 
