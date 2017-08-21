@@ -362,6 +362,7 @@ class NodeRepository implements NodeInterface
                 'children.values.field',
                 'children.site',
                 'children.tags',
+                'children.media',
                 'children.roles']);
 
             if (isset($collection->children)) {
