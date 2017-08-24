@@ -465,15 +465,16 @@ class NodeRepository implements NodeInterface
 
     public function movable($site)
     {
-        $all = $this->all($site);
+        $all = $this->all($site, 0,0,false,true);
         $array = [];
         foreach ($all as $index => $node) {
+            $type = $node->type()->first();
             if ($node->area != 1) {
-                if ($node->type->date == 1) {
+                if ($type->date == 1) {
                     unset($all[$index]);
                 }
             }
-            if ($node->type->children != 1) {
+            if ($type->children != 1) {
                 unset($all[$index]);
             }
         }
