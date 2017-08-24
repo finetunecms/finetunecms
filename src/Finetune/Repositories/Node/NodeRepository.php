@@ -688,7 +688,7 @@ class NodeRepository implements NodeInterface
                 }
             }
             $tag = $tag . '-' . $i;
-            return $this->tagMaker($area, $node, $tag, $i);
+            return $this->tagMaker($site, $area, $node, $tag, $i);
         }
         return $tag;
     }
