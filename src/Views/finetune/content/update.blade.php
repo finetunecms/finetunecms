@@ -170,7 +170,6 @@
                 <h4>{{ trans('finetune::content.customFields') }}</h4>
                 <div v-show="customFields.length > 0">
                     <div v-for="(index, field) of customFields">
-
                         <div class="field-group custom-field" v-if="field.type != 'select'">
                             <div v-if="field.type == 'icons'">
                                 <table>
@@ -179,7 +178,6 @@
                                             <div class="checkbox">
                                                 <input type="checkbox" v-model="field.value" class="form-control" />
                                             </div>
-
                                         </td>
                                     </tr>
                                 </table>
@@ -193,7 +191,6 @@
                                        v-model="field.value"/>
                             </div>
                         </div>
-
                         <div class="field-group custom-field" v-if="field.type == 'select'">
                             <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
                             <v-select v-if="field.multiple == 0" :value.sync="field.value"
@@ -203,6 +200,7 @@
                                       :options="splitter(field.values)" label="label" :multiple="true">
                             </v-select>
                         </div>
+                    </div>
                 </div>
             </tab>
 
