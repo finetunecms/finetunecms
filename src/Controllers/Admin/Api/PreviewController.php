@@ -1,13 +1,14 @@
 <?php
 namespace Finetune\Finetune\Controllers\Admin\Api;
 
+use Finetune\Finetune\Controllers\BaseController;
 use Finetune\Finetune\Repositories\Node\NodeInterface;
 use Finetune\Finetune\Repositories\Render\RenderRepository;
 use Finetune\Finetune\Repositories\Site\SiteInterface;
 use \Illuminate\Http\Request as NormalRequest;
 use \Illuminate\Contracts\View\Factory as View;
 
-class PreviewController extends Controller
+class PreviewController  extends BaseController
 {
     protected $node;
     protected $render;
@@ -37,6 +38,6 @@ class PreviewController extends Controller
 
         $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);
 
-        return $this->render->renderPage($this->site, $node, $node->url_slug);
+        return $this->render->renderPage($this->site, $node, $request, $node->url_slug);
     }
 }

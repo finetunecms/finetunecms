@@ -171,14 +171,26 @@
                 <div v-show="customFields.length > 0">
                     <div v-for="(index, field) of customFields">
                         <div class="field-group custom-field" v-if="field.type != 'select'">
-                            <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
+                            <div v-if="field.type == 'icons'">
+                                <table>
+                                    <tr>
+                                        <td v-for="icon in field.icons">
+                                            <div class="checkbox">
+                                                <input type="checkbox" v-model="field.value" class="form-control" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div v-else>
+                                <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
 
-                            <input class="form-control" type="@{{ field.type }}" placeholder="@{{ field.name }}"
-                                   name="field[@{{ field.name }}]"
-                                   id="@{{ field.name }}-custom-field"
-                                   v-model="field.value"/>
+                                <input class="form-control" type="@{{ field.type }}" placeholder="@{{ field.name }}"
+                                       name="field[@{{ field.name }}]"
+                                       id="@{{ field.name }}-custom-field"
+                                       v-model="field.value"/>
+                            </div>
                         </div>
-
                         <div class="field-group custom-field" v-if="field.type == 'select'">
                             <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
                             <v-select v-if="field.multiple == 0" :value.sync="field.value"
@@ -271,14 +283,12 @@
                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                             </popover>
                         </label>
+                        {{--  [{ value: 4, label: 'Four'},{ value: 5, label: 'Five'}] --}}
 
-                        <select v-if="field.type == 'select'" v-model="field.value" :id="field.name" class="form-control">
-                            <option v-for="(value, key) in field.values" :value="key">
-                                @{{ value }}
-                            </option>
-                        </select>
-                        <input v-if="field.type == 'text'" type="text" v-model="field.value" :id="field.name" class="form-control" />
+                        <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value" label="title" :multiple="(['multiple'].indexOf(field.type) != -1)"
+                                  :options="field.values" :placeholder="field.name"></v-select>
 
+                        <input v-if="['text','number','password'].indexOf(field.type) != -1" type="@{{ field.type }}" v-model="field.value" :id="field.name" class="form-control" />
                     </div>
                     <div class="checkbox" v-else>
                         <input v-if="field.type == 'checkbox'" type="checkbox" v-model="field.value" type="checkbox" :id="field.name"/>

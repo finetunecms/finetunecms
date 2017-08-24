@@ -10,8 +10,7 @@ class FilesServiceProvider extends ServiceProvider
         $this->app->bind('FilesService', function($app)
         {
             return new FilesService(
-                $this->app->make('Finetune\Finetune\Repositories\Folders\FoldersInterface'),
-                $this->app->make('Illuminate\Contracts\View\Factory')
+                $this->app->make('Finetune\Finetune\Repositories\Folders\FoldersInterface')
             );
         });
     }

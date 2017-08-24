@@ -53,6 +53,10 @@ class NodeController extends BaseController
                             $node->canEdit = false;
                         }
                     });
+                }else {
+                    $node->children = $node->children->each(function ($node, $key) {
+                        $node->canEdit = true;
+                    });
                 }
             } else {
                 $node->children = $node->children->each(function ($node, $key) {
@@ -173,9 +177,9 @@ class NodeController extends BaseController
             $node = $this->node->publish($request->get('node')['id']);
             $parent = $request->get('parent');
             if ($parent == 0) {
-                $nodes = $this->node->all(0, 1);
+                $nodes = $this->node->all($this->site,0, 1);
             } else {
-                $nodes = $this->node->all($parent);
+                $nodes = $this->node->all($this->site,$parent);
             }
             $array = [
                 'nodes' => $nodes->toArray(),
@@ -203,9 +207,9 @@ class NodeController extends BaseController
 
             $parent = $request->get('parent');
             if ($parent == 0) {
-                $nodes = $this->node->all(0, 1);
+                $nodes = $this->node->all($this->site, 1);
             } else {
-                $nodes = $this->node->all($parent);
+                $nodes = $this->node->all($this->site, $parent);
             }
 
             $array = [
@@ -241,7 +245,7 @@ class NodeController extends BaseController
                 'searchterm' => 'required'
             ]);
 
-            $nodes = $this->node->search($request->get('searchterm'), $request->get('area'));
+            $nodes = $this->node->search($this->site, $request->get('searchterm'), $request->get('area'));
             $user = auth()->user();
                 if (!$user->ability([config('auth.superadminRole')], ['can_manage_allcontent'])) {
                     if (config('finetune.nodeRoles')) {

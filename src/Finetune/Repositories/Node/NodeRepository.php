@@ -105,12 +105,17 @@ class NodeRepository implements NodeInterface
             $request['tag'] = $request['title'];
         }
         if ($node->area == 1) {
-            $node->tag = $this->tagMaker($site,[], $node, $request['tag']);
+            $node->tag = $this->tagMaker($site, [], $node, $request['tag']);
         } else {
             $area = $this->find($node->area_fk);
             $node->tag = $this->tagMaker($site, $area, $node, $request['tag']);
         }
-        $node->author_id = $this->auth->user()->id;
+        $user = $this->auth->user();
+        if (!empty($user)) {
+            $node->author_id = $this->auth->user()->id;
+        } else {
+            $node->author_id = 1;
+        }
         $node->publish = isset($request['publish']) ? 1 : 0;
         $node->soft_publish = isset($request['soft_publish']) ? (($request['soft_publish'] == true) ? 1 : 0) : 0;
         $node->exclude = isset($request['exclude']) ? (($request['exclude'] == true) ? 1 : 0) : 0;
@@ -193,7 +198,7 @@ class NodeRepository implements NodeInterface
 
         $this->blocks($node, $request['blocks']);
         if ($request['homepage'] == 1) {
-            $this->setHomePage($site,$node);
+            $this->setHomePage($site, $node);
         }
         $this->customFields($node, $request);
 
@@ -287,8 +292,17 @@ class NodeRepository implements NodeInterface
 
     public function links($site)
     {
-        $nodes = $this->all($site,0, 0, false, true);
-        return $nodes;
+        $nodes = $this->all($site, 0, 0, false, true);
+
+        $links = [];
+        foreach ($nodes as $node) {
+            $links[] = [
+                'title' => $node->title,
+                'id' => $node->id,
+                'url_slug' => $node->url_slug
+            ];
+        }
+        return $links;
     }
 
     public function eagerLoad($collection, $frontend = false, $itemWithType = null)
@@ -348,6 +362,7 @@ class NodeRepository implements NodeInterface
                 'children.values.field',
                 'children.site',
                 'children.tags',
+                'children.media',
                 'children.roles']);
 
             if (isset($collection->children)) {
@@ -394,20 +409,25 @@ class NodeRepository implements NodeInterface
 
     public function filterContent($content)
     {
-
-        $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-        foreach ($filters as $filter) {
-            $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
-            $content = preg_replace("/<" . $filter . ">@(.*?)/", "@$1", $content);
-            $content = preg_replace("/@(.*?)<\/" . $filter . ">/", "@$1", $content);
-            $content = preg_replace("/<" . $filter . "[^>]*>[\s|&nbsp;]*<\/" . $filter . ">/", '', $content);
-            $content = preg_replace("/<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\w\-.:]+))?)*\s*\/?>\s*<\/\1\s*>/", '', $content);
+        $active = config('purifier.active');
+        if ($active) {
+            $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+            foreach ($filters as $filter) {
+                $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
+                $content = preg_replace("/<" . $filter . ">@(.*?)/", "@$1", $content);
+                $content = preg_replace("/@(.*?)<\/" . $filter . ">/", "@$1", $content);
+                $content = preg_replace("/<" . $filter . "[^>]*>[\s|&nbsp;]*<\/" . $filter . ">/", '', $content);
+                $content = preg_replace("/<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\w\-.:]+))?)*\s*\/?>\s*<\/\1\s*>/", '', $content);
+            }
+            $content = preg_replace("/<span[^>]+\>/i", "", $content);
+            $content = str_replace("<div class=\"embed\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the iframe in the embed divs
+            $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
+            $content = str_replace('?nosave=true', '', $content);
+            return \Purifier::clean($content);
+        } else {
+            return $content;
         }
-        $content = preg_replace("/<span[^>]+\>/i", "", $content);
-        $content = str_replace("<div class=\"embed\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the iframe in the embed divs
-        $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
-        $content = str_replace('?nosave=true', '', $content);
-        return \Purifier::clean($content);
+
     }
 
     // Frontend Functions
@@ -418,6 +438,14 @@ class NodeRepository implements NodeInterface
             ->where('url_slug', '=', $slug)
             ->where('site_id', '=', $site->id)
             ->first();
+
+        if(isset($node)){
+            if ($node->publish != 1) {
+                if ($node->soft_publish != 1) {
+                    $node = null;
+                }
+            }
+        }
         return $this->eagerLoad($node, true);
     }
 
@@ -427,20 +455,26 @@ class NodeRepository implements NodeInterface
             ->where('homepage', '=', 1)
             ->where('site_id', '=', $site->id)
             ->first();
+        if ($node->publish != 1) {
+            if ($node->soft_publish != 1) {
+                $node = null;
+            }
+        }
         return $this->eagerLoad($node, true);
     }
 
     public function movable($site)
     {
-        $all = $this->all($site);
+        $all = $this->all($site, 0,0,false,true);
         $array = [];
         foreach ($all as $index => $node) {
+            $type = $node->type()->first();
             if ($node->area != 1) {
-                if ($node->type->date == 1) {
+                if ($type->date == 1) {
                     unset($all[$index]);
                 }
             }
-            if ($node->type->nesting != 1) {
+            if ($type->children != 1) {
                 unset($all[$index]);
             }
         }
@@ -462,7 +496,7 @@ class NodeRepository implements NodeInterface
         return null;
     }
 
-    public function makeBreadFrontend($node, $request)
+    public function makeBreadFrontend($site, $node)
     {
         $this->url[] = $node;
         $this->slugRecursive($node);
@@ -471,16 +505,13 @@ class NodeRepository implements NodeInterface
         $currentIndex = 0;
         $bread = [];
         $urlString = '';
-        $segments = $request->segments();
-        end($segments);
-        $key = key($segments);
         foreach ($outputs as $index => $output) {
             if (isset($this->url[$currentIndex])) {
                 $index = $currentIndex;
                 switch ($output) {
                     case 'list':
                         $urlString = $urlString . '/' . $this->url[$currentIndex]->tag;
-                        if ($key == $index) {
+                        if ($this->url[$currentIndex]->tag == $node->tag) {
                             $bread['last'] = $this->url[$currentIndex]->title;
                         } else {
                             $bread[$urlString] = $this->url[$currentIndex]->title;
@@ -496,8 +527,7 @@ class NodeRepository implements NodeInterface
                         break;
                     default:
                         $urlString = $urlString . '/' . $this->url[$currentIndex]->tag;
-                        if ($key == $index) {
-
+                        if ($this->url[$currentIndex]->tag == $node->tag) {
                             $bread['last'] = $this->url[$currentIndex]->title;
                         } else {
                             $bread[$urlString] = $this->url[$currentIndex]->title;
@@ -508,13 +538,12 @@ class NodeRepository implements NodeInterface
                 unset($this->url[$index]);
             } else {
                 if ($output == 'list_date') {
-                    if ($key == $index) {
-                        $bread['last'] = $segments[$key];
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
+
                     }
                 } else {
                     $urlString = $urlString . '/' . $node->tag;
-                    if ($key == $index) {
-
+                    if ($this->url[$currentIndex]->tag == $node->tag) {
                         $bread['last'] = $node->title;
                     } else {
                         $bread[$urlString] = $node->title;
@@ -526,7 +555,7 @@ class NodeRepository implements NodeInterface
         if (!empty($this->url)) {
             foreach ($this->url as $index => $url) {
                 $urlString = $urlString . '/' . $url->tag;
-                if ($key == $index) {
+                if ($url->tag == $node->tag) {
                     $bread['last'] = $url->title;
                 } else {
                     $bread[$urlString] = $url->title;
@@ -552,6 +581,14 @@ class NodeRepository implements NodeInterface
                         });
                     });
             })->get();
+        foreach ($nodes as & $node) {
+
+            if ($node->publish != 1) {
+                if ($node->soft_publish != 1) {
+                    $node = null;
+                }
+            }
+        }
         return $this->eagerLoad($nodes, true, $nodes->first());
     }
 
@@ -652,7 +689,7 @@ class NodeRepository implements NodeInterface
                 }
             }
             $tag = $tag . '-' . $i;
-            return $this->tagMaker($area, $node, $tag, $i);
+            return $this->tagMaker($site, $area, $node, $tag, $i);
         }
         return $tag;
     }

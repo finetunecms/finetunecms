@@ -47,14 +47,13 @@ Route::group(['middleware' => ['ability:Superadmin,can_administer_website'], 'na
 
 
         Route::post('media/move', 'Admin\Api\MediaController@move');
+        Route::post('media/order', 'Admin\Api\MediaController@order');
         Route::get('media/options', 'Admin\Api\MediaController@getMediaOptions');
         Route::resource('media', 'Admin\Api\MediaController');
         Route::resource('folders', 'Admin\Api\FolderController');
 
 
         Route::resource('tags', 'Admin\Api\TaggingController');
-
-
 
         Route::resource('snippetgroups', 'Admin\Api\SnippetGroupController');
         Route::post('snippets/publish', 'Admin\Api\SnippetController@publish');

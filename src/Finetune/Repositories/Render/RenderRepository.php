@@ -14,9 +14,10 @@ use Finetune\Finetune\Entities\Redirect as RedirectOBj;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator as LengthAwarePaginator;
 use Illuminate\Contracts\Routing\UrlGenerator as URL;
 use Illuminate\Contracts\Container\Container as App;
+use Illuminate\Support\Collection as Collection;
 
 class RenderRepository implements RenderInterface
 {
@@ -221,7 +222,7 @@ class RenderRepository implements RenderInterface
         }
     }
 
-    public function renderPage($site, $node, $request)
+    public function renderPage($site, $node, $request, $path = null)
     {
         if (!empty($path)) {
             $this->pathSplit($path);
@@ -454,10 +455,9 @@ class RenderRepository implements RenderInterface
     private function getView()
     {
         if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
-            $this->output = 'default';
+            $this->contentArray['type']->layout = 'default';
             if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
                 $this->output = 'default';
-                $this->contentArray['type']->layout = 'default';
                 if (!$this->view->exists($this->contentArray['site']->theme . '::' . $this->contentArray['type']->layout . '.' . $this->output)) {
                     $this->output = 'error';
                 }
@@ -468,15 +468,14 @@ class RenderRepository implements RenderInterface
     private function _list($request)
     {
         if ($this->contentArray['type']->pagination == 1) {
-            $page = $this->request->get('page', 1);
+            $page = LengthAwarePaginator::resolveCurrentPage();
             $perPage = $this->contentArray['type']->pagination_limit;
+            $currentPageResults = $this->contentArray['children']->slice(($page - 1) * $perPage, $perPage)->all();
             $this->contentArray['list'] = new LengthAwarePaginator(
-                $this->contentArray['children']->forPage($page, $perPage),
+                $currentPageResults,
                 count($this->contentArray['children']),
                 $perPage,
-                $page,
-                ['path' => $this->contentArray['path'], 'query' => $request->query()]
-            );
+                ['path' => $this->contentArray['path'], 'query' => $request->query()]);
         } else {
             $this->contentArray['list'] = $this->contentArray['children'];
         }

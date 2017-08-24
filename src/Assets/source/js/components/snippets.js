@@ -64,10 +64,14 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
 
             changeFolder: function changeFolder() {
                 this.media = [];
-                if (this.folder.tag == 'all') {
+                if(this.folder.length > 0){
                     this.media = this.allMedia;
-                } else {
-                    this.media = this.folder.media;
+                }else{
+                    if (this.folder.tag == 'all') {
+                        this.media = this.allMedia;
+                    } else {
+                        this.media = this.folder.media;
+                    }
                 }
             },
             getFolders: function getFolders() {
@@ -304,6 +308,7 @@ if (typeof(snippets) != 'undefined' && snippets != null) {
                 this.group.title = '';
                 this.group.tag = '';
                 this.group.dscpn = '';
+                this.groupId = 0;
                 this.cleanErrors();
                 this.clearItems();
             },

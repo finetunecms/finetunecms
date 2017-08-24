@@ -1,6 +1,7 @@
 <?php
 namespace Finetune\Finetune;
 
+use Finetune\Finetune\Repositories\Site\SiteRepository;
 use Illuminate\Support\ServiceProvider;
 use \Config;
 use \View;
@@ -50,7 +51,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->app->register('Finetune\Finetune\Services\Files\FilesServiceProvider');
         $this->app->register('Finetune\Finetune\Services\Tagging\TaggingServiceProvider');
         $this->app->register('Finetune\Finetune\Services\Gallery\GalleryServiceProvider');
-
+        $this->app->register('Finetune\Finetune\Services\Media\MediaServiceProvider');
 
         $this->app->register('\Zizaco\Entrust\EntrustServiceProvider');
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
@@ -62,16 +63,15 @@ class FinetuneServiceProvider extends ServiceProvider{
         $loader->alias('Helper', 'Finetune\Finetune\Services\Helper\HelperFacade');
         $loader->alias('Node', 'Finetune\Finetune\Services\Node\NodeFacade');
         $loader->alias('Purifier', 'Finetune\Finetune\Services\Purifier\PurifierFacade');
-        $loader->alias('Snippet', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
+        $loader->alias('Snippets', 'Finetune\Finetune\Services\Snippet\SnippetFacade');
         $loader->alias('Tagging', 'Finetune\Finetune\Services\Tagging\TaggingFacade');
-
-        $loader->alias('Lang', '\Illuminate\Support\Facades\Lang');
+        $loader->alias('Media', 'Finetune\Finetune\Services\Media\MediaFacade');
         $loader->alias('Entrust', '\Zizaco\Entrust\EntrustFacade');
 
         $this->commands($this->commands);
     }
 
-    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation)
+    public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Validation\Factory $validation, \Illuminate\View\Compilers\BladeCompiler $bladeCompiler, \Illuminate\Database\Schema\Builder $schema)
     {
         if ($this->app->runningInConsole()) {
 
@@ -83,7 +83,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->loadTranslationsFrom($this->path.'/Lang', 'finetune');
 
         $this->loadViewsFrom($this->path.'/Views/finetune', 'finetune');
-        
+
         $this->publishes([
             $this->path.'/Config/finetune.php' => config_path('finetune.php'),
             $this->path.'/Config/forms.php' => config_path('forms.php'),
@@ -94,13 +94,16 @@ class FinetuneServiceProvider extends ServiceProvider{
             $this->path.'/Config/upload.php' => config_path('upload.php'),
             $this->path.'/Config/purifier.php' => config_path('purifier.php'),
             $this->path.'/Config/entrust.php' => config_path('entrust.php'),
+            $this->path.'/Config/bannedtags.php' => config_path('bannedtags.php'),
+            $this->path.'/Config/fields.php' => config_path('fields.php'),
             $this->path.'/Lang' => resource_path('lang/vendor/finetune'),
             $this->path.'/Views/finetune' => resource_path('views/vendor/finetune'),
         ]);
 
         $this->publishes([
-            $this->path.'/Views/themes' => public_path('themes'),
-            $this->path.'/Assets' => public_path('finetune/assets')
+           // $this->path.'/Views/themes' => public_path('themes'),
+            $this->path.'/Assets' => public_path('finetune/assets'),
+            $this->path.'/Public' => public_path('.')
         ], 'public');
 
 
@@ -109,44 +112,8 @@ class FinetuneServiceProvider extends ServiceProvider{
         }
 
         $validation->extend('name_validator', function ($attribute, $value, $parameters, $validator) {
-            /*
-             * TODO Make this a config variable
-             */
-            $banned = [
-                'area',
-                'main',
-                'list',
-                'type',
-                'layout',
-                'output',
-                'body',
-                'node',
-                'values',
-                'site',
-                'menu',
-                'id',
-                'site_id',
-                'area_fk',
-                'parent',
-                'order',
-                'publish',
-                'author_id',
-                'homepage',
-                'tag',
-                'url_slug',
-                'title',
-                'dscpn',
-                'keywords',
-                'image',
-                'publish_on',
-                'created_at',
-                'updated_at',
-                'output_body',
-                'deleted_at',
-                'jsonbody',
-                'arraybody',
-                'arrayImage',
-            ];
+
+            $banned = config('bannedtags');
             $names = explode(':', $value);
             foreach ($names as $name) {
                 if (in_array($name, $banned)) {
@@ -156,6 +123,51 @@ class FinetuneServiceProvider extends ServiceProvider{
             return true;
         });
 
+        $schema->defaultStringLength(191);
 
+        $bladeCompiler->extend(function($view, $compiler)
+        {
+            $pattern = "/(?<!\w)(\s*)@var\(\s*'([A-Za-z1-9_]*)',\s*(.*)\)/";
+            $view = preg_replace($pattern, "<?php \$$2 = $3 ?>", $view);
+            return $view;
+        });
+
+
+        if (strpos(php_sapi_name(), 'cli') === false) {
+            $siteRepo = resolve('Finetune\Finetune\Repositories\Site\SiteInterface');
+            $site = $siteRepo->getSite($this->app->request);
+
+            $bladeCompiler->directive('group', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Snippets::renderGroup($site, $expression);
+            });
+
+            $bladeCompiler->directive('snippet', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Snippets::renderSnippet($site, $expression);
+            });
+
+            $bladeCompiler->directive('gallery', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Gallery::renderGallery($site, $expression);
+            });
+
+            $bladeCompiler->directive('filebank', function ($expression) use ($site) {
+                $expression = str_replace('(', '', $expression);
+                $expression = str_replace(')', '', $expression);
+                $expression = str_replace("'", '', $expression);
+                $expression = str_replace('"', '', $expression);
+                return \Files::renderFileBank($site, $expression);
+            });
+        }
     }
 }

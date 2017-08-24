@@ -3,16 +3,14 @@
 namespace Finetune\Finetune\Services\Files;
 
 use Finetune\Finetune\Repositories\Folders\FoldersInterface;
-use \Illuminate\Contracts\View\Factory as View;
+
 class FilesService
 {
     protected $folders;
-    protected $view;
 
-    public function __construct(FoldersInterface $folders, View $view)
+    public function __construct(FoldersInterface $folders)
     {
         $this->folders = $folders;
-        $this->view = $view;
     }
 
     public function getFileBank($site, $tag){
@@ -26,10 +24,6 @@ class FilesService
         return $images;
     }
 
-    public function insertFileBank($site, $folder){
-        echo $this->renderFileBank($site, $folder);
-    }
-
     public function renderFileBank($site, $folder){
         $fileBank = trim($folder);
         if (!empty( $fileBank)) {
@@ -38,7 +32,8 @@ class FilesService
             $fileBankObj = '';
         }
         $view ='';
-        if (!empty($galleryObj)) {
+        if (!empty($fileBankObj)) {
+            $this->view = app('view');
                 if ($this->view->exists($site->theme . '::filebanks.' .  $fileBank)) {
                     $view = $this->view->make($site->theme . "::filebanks." .  $fileBank, ['files' => $fileBankObj])->render();
                 } else {

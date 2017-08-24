@@ -20,20 +20,21 @@ tinymce.PluginManager.add('image', function (editor) {
         var string = '';
         $.each(media, function(key, value){
             if(value.type == 'image'){
-                string = string + '<div class="imageBlock"><div class="inner">'
+                string = string + '<a class="imageBlock" href="#" id="'+value.id+'"><div class="inner">';
                 string = string +  '<img data-original="'+value.thumb+'" alt="'+value.title+'" id="'+value.id+'"/>';
-                if(value.title != ''){
+                if(value.title != '' && value.title != null){
                     string = string + '<span>' + truncate(value.title, 20) + '</span>';
                 }else{
                     string = string + '<span>' + truncate(value.filename, 20) + '</span>';
                 }
-                string = string + '</div></div>';
+                string = string + '<div class="mce-btn mce-primary image-insert">Insert</div></div></a>';
             }
         })
         return string;
     }
 
     function truncate(string, length){
+
         var newString = string.substring(0,length);
         if(string != newString){
             newString = newString + '...';
@@ -59,8 +60,8 @@ tinymce.PluginManager.add('image', function (editor) {
 
     var templateImage = '<div class="form-group"><label for="folders">Folders</label>' +
         '<select name="folders" id="folders" class="form-control"></select></div>' +
-        '<div class="form-group"><label for="searchTerm">Search</label>' +
-        '<input type="text" name="searchterm" id="searchTerm" class="form-control"/></div>' +
+        '<div class="form-group searchterm">' +
+        '<input type="text" name="searchterm" id="searchTerm" placeholder="Search" class="form-control"/></div>' +
         '<div id="imageManager" class="image-manager"></div>';
 
     function InsertImage() {
@@ -116,8 +117,8 @@ tinymce.PluginManager.add('image', function (editor) {
                                 media = data;
                                 $('#imageManager').html(imageString(media));
                                 lazyLoad();
-                                $('#imageManager img').unbind();
-                                $('#imageManager img').click(function () {
+                                $('#imageManager a').unbind();
+                                $('#imageManager a').click(function () {
                                     var id = $(this).attr('id');
                                     for (var x = 0; x < media.length; x++) {
                                         if (media[x].id == id) {
@@ -136,8 +137,8 @@ tinymce.PluginManager.add('image', function (editor) {
                                 media = folders[i].media;
                                 $('#imageManager').html(imageString(media));
                                 lazyLoad();
-                                $('#imageManager img').unbind();
-                                $('#imageManager img').click(function () {
+                                $('#imageManager a').unbind();
+                                $('#imageManager a').click(function () {
                                     var id = $(this).attr('id');
                                     for (var x = 0; x < media.length; x++) {
                                         if (media[x].id == id) {
@@ -161,19 +162,24 @@ tinymce.PluginManager.add('image', function (editor) {
                         } else {
                             media = [];
                             for (var i = 0; i < data.length; i++) {
-                                if (data[i].title.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
-                                    media.push(data[i]);
-                                } else {
+                                if(data[i].title != null){
+                                    if (data[i].title.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+                                        media.push(data[i]);
+                                    } else {
+                                        if (data[i].filename.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
+                                            media.push(data[i]);
+                                        }
+                                    }
+                                }else{
                                     if (data[i].filename.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0) {
                                         media.push(data[i]);
                                     }
                                 }
-
                             }
                             $('#imageManager').html(imageString(media));
                             lazyLoad();
-                            $('#imageManager img').unbind();
-                            $('#imageManager img').click(function () {
+                            $('#imageManager a').unbind();
+                            $('#imageManager a').click(function () {
                                 var id = $(this).attr('id');
                                 for (var x = 0; x < media.length; x++) {
                                     if (media[x].id == id) {
@@ -195,8 +201,8 @@ tinymce.PluginManager.add('image', function (editor) {
                         media = data;
                         $('#imageManager').html(imageString(media));
                         lazyLoad();
-                        $('#imageManager img').unbind();
-                        $('#imageManager img').click(function () {
+                        $('#imageManager a').unbind();
+                        $('#imageManager a').click(function () {
                             var id = $(this).attr('id');
                             for (var x = 0; x < media.length; x++) {
                                 if (media[x].id == id) {

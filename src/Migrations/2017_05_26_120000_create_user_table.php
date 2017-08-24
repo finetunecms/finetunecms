@@ -47,7 +47,7 @@ class CreateUserTable extends Migration {
         // Create the bruteforce log table
         Schema::create('ft_failedlogins',  function(Blueprint $table)
         {
-           $table->integer('id')->unsigned();
+           $table->increments('id')->unsigned();
            $table->string('ip');
            $table->integer('failed_logins');
            $table->smallInteger('locked_out');

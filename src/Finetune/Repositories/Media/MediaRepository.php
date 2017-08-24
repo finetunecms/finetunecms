@@ -18,7 +18,10 @@ class MediaRepository implements MediaInterface
 
     public function all($site)
     {
-        return Media::where('site_id', '=', $site->id)->with('folders', 'nodes')->orderBy('created_at', 'desc')->get();
+        return Media::where('site_id', '=', $site->id)
+            ->with('folders', 'nodes')
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     public function find($id)
@@ -86,7 +89,7 @@ class MediaRepository implements MediaInterface
                     $media->save();
                     return $media;
                 } elseif (in_array($mime, $allowedFileMemeTypes)) {
-                    $newDestinationPath = '/uploads/' . $site->tag; // upload path
+                    $newDestinationPath = storage_path() . '/uploads/' . $site->tag; // upload path
                     $file->storeAs($newDestinationPath, $fileName);
                     $media = new Media();
                     $media->site_id = $site->id;
@@ -302,6 +305,16 @@ class MediaRepository implements MediaInterface
     {
         $img->gamma($amount);
         return $img;
+    }
+
+    public function saveOrder($media, $folder){
+        $order = 0;
+        foreach($media as $item){
+            $mediaItem = $this->find($item['id']);
+            $mediaItem->order = $order;
+            $mediaItem->save();
+            $order = $order + 1;
+        }
     }
 
     private function checkNewFileName($site, $fileNameMain, $extension, $level = 0)

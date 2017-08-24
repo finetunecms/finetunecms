@@ -517,10 +517,14 @@ if (typeof(content) != 'undefined' && content != null) {
             methods: {
                 changeFolder: function changeFolder() {
                     this.media = [];
-                    if (this.folder.tag == 'all') {
+                    if(this.folder.length > 0){
                         this.media = this.allMedia;
-                    } else {
-                        this.media = this.folder.media;
+                    }else{
+                        if (this.folder.tag == 'all') {
+                            this.media = this.allMedia;
+                        } else {
+                            this.media = this.folder.media;
+                        }
                     }
                 },
                 getFolders: function getFolders() {
@@ -542,6 +546,7 @@ if (typeof(content) != 'undefined' && content != null) {
                     });
                 },
                 search: function search(filter) {
+
                     var that = this;
                     var items = [];
                     if (this.searchTerm.length === 0) {
@@ -554,11 +559,17 @@ if (typeof(content) != 'undefined' && content != null) {
                                 if (media.filename.indexOf(that.searchTerm) !== -1) {
                                     return true;
                                 } else {
-                                    return media.title.indexOf(that.searchTerm) !== -1;
+                                    if(media.title != null){
+                                        return media.title.indexOf(that.searchTerm) !== -1;
+                                    }else{
+                                        return false;
+                                    }
+
                                 }
                             }
                         });
                     }
+
                     if (filter == 'all') {
                         return items;
                     } else {

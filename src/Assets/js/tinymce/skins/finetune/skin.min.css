@@ -5936,8 +5936,13 @@ i.mce-i-backcolor {
 .mce-container-body .form-control {
     width: 100%;
     float: left;
-    border: 1px solid #CCC;
     height: 35px;
+}
+.mce-container-body .searchterm {
+    margin: 12px 0;
+    padding: 0 6px;
+    border: #CCC solid 1px;
+    box-sizing: border-box;
 }
 .mce-container-body label {
     width: 100%;
@@ -5964,10 +5969,17 @@ i.mce-i-backcolor {
     float:left;
     width:100%;
     padding:12px;
-    height:200px;
+    height:230px;
     overflow: hidden;
     box-sizing: border-box;
 }
+
+.mce-container-body .image-manager .imageBlock .inner .image-insert{
+    float:left;
+    width:100%;
+    margin:12px 0;
+}
+
 
 .mce-container-body .image-manager span, .mce-container-body .image-manager img{
     float: left;
@@ -6427,3 +6439,15 @@ i.mce-i-backcolor {
     }
 }
 /* @end */
+
+.mce-container-body .form-control {
+    width: 100%;
+    float: left;
+    border: 1px solid #CCC;
+    height: 35px;
+    padding: 0 0 0 6px;
+}
+
+
+
+

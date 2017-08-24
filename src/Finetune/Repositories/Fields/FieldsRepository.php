@@ -95,8 +95,15 @@ class FieldsRepository implements FieldsInterface
      */
     public function getFieldsByType($typeId)
     {
-        return Fields::where('type_id', '=', $typeId)
+        $fields = Fields::where('type_id', '=', $typeId)
             ->whereNull('deleted_at')
             ->get();
+
+        foreach($fields as &$field){
+            if($field->type == 'icons'){
+                $field->icons = config('fields.'.$field->name);
+            }
+        }
+        return $fields;
     }
 }
