@@ -4,6 +4,20 @@
  *
  */
 return [
+    'fields' => [
+        'checkbox' => 'Checkbox',
+        'color' => 'Colour',
+        'date' => 'Date',
+        'time' => 'Time',
+        'email' => 'Email',
+        'file' => 'File',
+        'radio' => 'Radio',
+        'select' => 'Select',
+        'tel' => 'Tel',
+        'text' => 'Text',
+        'url' => 'Url',
+        'icons' => 'Icons',
+    ],
     'font-awesome' => array(
         'fa-glass' => 'f000',
         'fa-music' => 'f001',
