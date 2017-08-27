@@ -172,15 +172,19 @@
                     <div v-for="(index, field) of customFields">
                         <div class="field-group custom-field" v-if="field.type != 'select'">
                             <div v-if="field.type == 'icons'">
-                                <table>
-                                    <tr>
-                                        <td v-for="icon in field.icons">
-                                            <div class="checkbox">
-                                                <input type="checkbox" v-model="field.value" class="form-control" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="icons">
+                                    <h3>Icons</h3>
+
+                                    <div class="{ {$index % 12 ? '' : 'row'} }" v-for="(icon,index) in field.icons">
+                                        <div class="col-md-2" style="height:60px">
+                                            <label :for="icon">
+                                                <i class="fa @{{ icon }}"></i>@{{ icon }}
+                                                <input type="radio" name="icon" v-model="field.value" :id="icon"
+                                                       :value="icon" class="form-control"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div v-else>
                                 <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
