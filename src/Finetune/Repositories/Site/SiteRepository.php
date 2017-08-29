@@ -27,7 +27,7 @@ class SiteRepository implements SiteInterface
     {
         $parsedDomain = parse_url($domain);
         $url = preg_replace('#^www\.(.+\.)#i', '$1', $parsedDomain['host']);
-        $site = Site::where('domain', '=', $url)->whereNull('deleted_at')->with('nodes')->first();
+        $site = Site::where('domain', '=', $url)->whereNull('deleted_at')->first();
         if(!empty($site)){
             return $site;
         }else{
@@ -37,7 +37,7 @@ class SiteRepository implements SiteInterface
 
     public function first()
     {
-        return Site::with('nodes')->whereNull('deleted_at')->first();
+        return Site::whereNull('deleted_at')->first();
     }
 
     public function getSite($request)
