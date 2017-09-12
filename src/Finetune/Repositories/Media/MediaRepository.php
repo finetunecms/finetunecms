@@ -120,7 +120,7 @@ class MediaRepository implements MediaInterface
             $fileNameExplode = explode('.', $request['filename']);
             if (!empty($fileNameExplode)) {
                 $fileNameMain = strtolower($fileNameExplode[0]);
-                $fileNameMain = Helper::buildTag($fileNameMain);
+                $fileNameMain = $this->helper->buildTag($fileNameMain);
             } else {
                 $fileNameMain = 'no-file-name';
             }
