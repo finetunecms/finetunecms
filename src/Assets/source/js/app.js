@@ -268,16 +268,18 @@ window.Vue.directive('tinymce', {
         });
     },
     update: function (newVal, oldVal) {
-        // set val and trigger event
-        this.el.value = newVal;
-        if (newVal.length > 0) {
-            var tiny = tinymce.get(this.el.id);
-            if (typeof(tiny) != 'undefined' && tiny != null) {
-                Vue.nextTick(function () {
-                    if (typeof(tiny.parser) != 'undefined' && tiny.parser != null) {
-                        tiny.setContent(newVal);
-                    }
-                });
+        if (typeof(newVal) != 'undefined' && newVal != null) {
+            if (newVal.length > 0) {
+                // set val and trigger event
+                this.el.value = newVal;
+                var tiny = tinymce.get(this.el.id);
+                if (typeof(tiny) != 'undefined' && tiny != null) {
+                    Vue.nextTick(function () {
+                        if (typeof(tiny.parser) != 'undefined' && tiny.parser != null) {
+                            tiny.setContent(newVal);
+                        }
+                    });
+                }
             }
         }
     }
