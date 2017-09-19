@@ -34,4 +34,10 @@ return [
     'jsonbody',
     'arraybody',
     'arrayImage',
+    'map',
+    'filter',
+    'private',
+    'class',
+    'float',
+    'package'
 ];

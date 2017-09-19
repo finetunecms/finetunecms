@@ -166,7 +166,6 @@ window.FinetuneVue = window.Vue.extend({
                     }
                 }
             }
-
         },
         renderError: function renderError(response){
             var that = this;
@@ -185,7 +184,7 @@ window.FinetuneVue = window.Vue.extend({
         clearItems: function clearItems() {
             this.selectedItems = [];
         },
-        reducer:function reducer(url, width,height = 0){
+        reducer:function reducer(url, width,height){
             url = url+'/'.width;
             if(height != 0){
                 url = url +'x'+height;
