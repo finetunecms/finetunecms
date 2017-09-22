@@ -42,7 +42,8 @@
     "guzzlehttp/guzzle": "^6.2",
     "roumen/sitemap": "2.6.*",
     "ezyang/htmlpurifier" : "4.*.*",
-    "laravel/scout": "^3.0"
+    "laravel/scout": "^3.0",
+    "teamtnt/laravel-scout-tntsearch-driver": "^3.0"
   },
   "autoload": {
     "psr-0": {
