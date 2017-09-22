@@ -68,7 +68,7 @@ return [
  |--------------------------------------------------------------------------
  | Search View
  |--------------------------------------------------------------------------
- |
+ | Add to index using this command :  php artisan scout:import "Finetune\Finetune\Entities\Node"
  |
  */
     'searchView' => 'search.display',
