@@ -30,6 +30,12 @@ Route::group(['middleware' => ['ability:Superadmin,can_administer_website'], 'na
             Route::resource('snippets', 'Admin\SnippetGroupController');
         });
 
+        Route::group(['middleware' => ['ability:Superadmin']], function () {
+            Route::get('reindex', function(){
+                dd(\Finetune\Finetune\Entities\Node::search('about')->get());
+            });
+        });
+
         Route::group(['middleware' => ['ability:Superadmin,can_manage_types']], function () {
             Route::resource('types', 'Admin\TypeController');
         });
