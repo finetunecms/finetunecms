@@ -571,9 +571,8 @@ class NodeRepository implements NodeInterface
 
     public function frontEndSearch($site, $searchTerm, $areaTag = null)
     {
-        $nodes = Node::with($this->getWithArray())
-            ->where('site_id', '=', $site->id)
-            ->search($searchTerm)
+        $nodes = Node::search($searchTerm)
+            ->where('site_id', $site->id)
             ->get();
 
         if(!empty($areaTag)){
