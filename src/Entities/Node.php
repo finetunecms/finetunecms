@@ -104,17 +104,6 @@ class Node extends Model
 
     public function compile()
     {
-
         return \Blade::compileString($this->body);
     }
-
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        // Customize array...
-
-        return $array;
-    }
-
 }
