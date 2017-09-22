@@ -547,6 +547,7 @@ class NodeRepository implements NodeInterface
                     $urlString = $urlString . '/' . $node->tag;
                     if ($this->url[$currentIndex]->tag == $node->tag) {
                         $bread['last'] = $node->title;
+                        $bread['last'] = $node->title;
                     } else {
                         $bread[$urlString] = $node->title;
                     }
@@ -572,22 +573,13 @@ class NodeRepository implements NodeInterface
     {
         $nodes = Node::with($this->getWithArray())
             ->where('site_id', '=', $site->id)
-            ->where(function ($q) use ($searchTerm) {
-                $q->where('tag', 'like', '%' . str_replace(' ', '-', $searchTerm) . '%')
-                    ->orWhere('title', 'like', "%{$searchTerm}%")
-                    ->orWhere('body', 'like', "%{$searchTerm}%")
-                    ->orWhereHas('blocks', function ($q) use ($searchTerm) {
-                        $q->where(function ($q) use ($searchTerm) {
-                            $q->where('title', 'like', "%{$searchTerm}%")
-                                ->orWhere('content', 'like', "%{$searchTerm}%");
-                        });
-                    });
-            })->get();
-        foreach ($nodes as & $node) {
+            ->search($searchTerm)
+            ->get();
 
+        foreach ($nodes as $index => $node) {
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
-                    $node = null;
+                    unset($nodes[$index]);
                 }
             }
         }
