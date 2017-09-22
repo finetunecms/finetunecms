@@ -35,6 +35,7 @@ class PublicController extends BaseController
 
     public function search(Request $request)
     {
+
         return $this->render->search($this->site, $request);
     }
 

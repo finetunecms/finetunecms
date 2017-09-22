@@ -213,7 +213,7 @@ class RenderRepository implements RenderInterface
     }
 
     public function search($site, $request){
-        $searchItems = $this->node->frontEndSearch($site, $request['search']);
+        $searchItems = $this->node->frontEndSearch($site, $request->input('searchTerm'), $request->input('area'));
         $page = LengthAwarePaginator::resolveCurrentPage();
         $perPage = config('finetune.searchItems');
         $currentPageResults = $searchItems->slice(($page - 1) * $perPage, $perPage)->all();
