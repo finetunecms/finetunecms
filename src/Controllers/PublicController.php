@@ -35,7 +35,7 @@ class PublicController extends BaseController
 
     public function search(Request $request)
     {
-        return $this->render->search($this->site, $data);
+        return $this->render->search($this->site, $request);
     }
 
     public function email($form, Request $request)
