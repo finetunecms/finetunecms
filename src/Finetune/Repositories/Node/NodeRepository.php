@@ -569,17 +569,28 @@ class NodeRepository implements NodeInterface
         return $bread;
     }
 
-    public function frontEndSearch($site, $searchTerm)
+    public function frontEndSearch($site, $searchTerm, $areaTag = null)
     {
         $nodes = Node::with($this->getWithArray())
             ->where('site_id', '=', $site->id)
             ->search($searchTerm)
             ->get();
 
+        if(!empty($areaTag)){
+            $area = $this->findByTag($site, $areaTag, 0);
+        }
+
         foreach ($nodes as $index => $node) {
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
                     unset($nodes[$index]);
+                    continue;
+                }
+            }
+            if(isset($area)){
+                if($node->area_fk != $area->id){
+                    unset($nodes[$index]);
+                    continue;
                 }
             }
         }
