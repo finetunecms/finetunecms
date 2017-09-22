@@ -222,7 +222,7 @@ class RenderRepository implements RenderInterface
             count($searchItems),
             $perPage,
             ['path' => '/search', 'query' => $request->query()]);
-        $view = View($this->contentArray['site']->theme . '::'.config('finetune.searchView'), ['nodes' => $list]);
+        $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list]);
         return $view;
     }
 
