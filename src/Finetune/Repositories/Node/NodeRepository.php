@@ -593,7 +593,7 @@ class NodeRepository implements NodeInterface
                 }
             }
         }
-        return $this->eagerLoad($nodes, true, $nodes->first());
+        return $nodes;
     }
 
     public function savePackages($site, $node, $packages)
