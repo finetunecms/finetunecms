@@ -517,6 +517,7 @@ class NodeRepository implements NodeInterface
                             $bread[$urlString] = $this->url[$currentIndex]->title;
                         }
                         $currentIndex = $currentIndex + 1;
+                        unset($this->url[$index]);
                         break;
                     case 'list_date':
                         $date = $this->url[$currentIndex]->publish_on;
@@ -533,9 +534,10 @@ class NodeRepository implements NodeInterface
                             $bread[$urlString] = $this->url[$currentIndex]->title;
                         }
                         $currentIndex = $currentIndex + 1;
+                        unset($this->url[$index]);
                         break;
                 }
-                unset($this->url[$index]);
+
             } else {
                 if ($output == 'list_date') {
                     if ($this->url[$currentIndex]->tag == $node->tag) {
