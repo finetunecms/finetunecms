@@ -55,8 +55,8 @@ class FinetuneServiceProvider extends ServiceProvider{
 
         $this->app->register('\Zizaco\Entrust\EntrustServiceProvider');
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
-        $this->app->register('\TeamTNT\Scout\TNTSearchScoutServiceProvider');
         $this->app->register('\Laravel\Scout\ScoutServiceProvider');
+        $this->app->register('\TeamTNT\Scout\TNTSearchScoutServiceProvider');
 
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 
