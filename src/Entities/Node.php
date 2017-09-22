@@ -3,6 +3,7 @@ namespace Finetune\Finetune\Entities;
 
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\SoftDeletes;
+use \Laravel\Scout\Searchable;
 
 
 /**
@@ -13,6 +14,8 @@ class Node extends Model
 {
     use SoftDeletes;
 
+    use Searchable;
+    public $asYouType = true;
     /**
      * @var string
      */
@@ -103,6 +106,15 @@ class Node extends Model
     {
 
         return \Blade::compileString($this->body);
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        return $array;
     }
 
 }
