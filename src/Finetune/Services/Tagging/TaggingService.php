@@ -37,9 +37,9 @@ class TaggingService
      * @param null $area
      * @return mixed
      */
-    public function getTaggedNodes($tag, $area = null, $limit = null)
+    public function getTaggedNodes($site, $tag, $area = null, $limit = null)
     {
-        return $this->taggingRepo->getTagged($tag, $area, $limit);
+        return $this->taggingRepo->getTagged($site, $tag, $area, $limit);
     }
 
     /**
@@ -52,9 +52,9 @@ class TaggingService
      * @param null $area
      * @return mixed
      */
-    public function randomTaggedNodes($tag, $limit = 10, $area = null)
+    public function randomTaggedNodes($site, $tag, $limit = 10, $area = null)
     {
-        $nodes = $this->taggingRepo->getTagged($tag, $area, $limit);
+        $nodes = $this->taggingRepo->getTagged($site, $tag, $area, $limit);
         if (count($nodes) > $limit) {
             $randomNodes = $nodes->random($limit);
         } else {
