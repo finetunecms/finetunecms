@@ -106,4 +106,14 @@ class Node extends Model
     {
         return \Blade::compileString($this->body);
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'body' => $this->body,
+            'keywords' => $this->keywords,
+            'dscpn' => $this->dscpn,
+        ];
+    }
 }
