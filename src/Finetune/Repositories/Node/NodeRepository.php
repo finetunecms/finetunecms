@@ -130,8 +130,8 @@ class NodeRepository implements NodeInterface
         $node->parent = ($node->area == 1) ? 0 : $request['parent'];
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
-        $node->url_slug = $this->slugBuilder($node);
         $node->publish_on = $this->parseDate($request['publish_on']);
+        $node->url_slug = $this->slugBuilder($node);
         $node->save();
         if (isset($request['tags'])) {
             foreach ($request['tags'] as $tag) {
