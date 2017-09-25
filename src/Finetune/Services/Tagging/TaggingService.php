@@ -37,9 +37,9 @@ class TaggingService
      * @param null $area
      * @return mixed
      */
-    public function getTaggedNodes($site, $tag, $area = null, $limit = null)
+    public function getTaggedNodes($site, $tag, $area = null, $ignore = null, $limit = null)
     {
-        return $this->taggingRepo->getTagged($site, $tag, $area, $limit);
+        return $this->taggingRepo->getTagged($site, $tag, $area, $ignore, $limit);
     }
 
     /**

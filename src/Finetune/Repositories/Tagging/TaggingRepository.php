@@ -34,25 +34,32 @@ class TaggingRepository implements TaggingInterface
         return Tagging::where('site_id', '=', $site->id)->whereNull('deleted_at')->pluck('title', 'id');
     }
 
-    public function getTagged($site, $tags = [], $areaId = null, $limit = null)
+    public function getTagged($site, $tags = [], $areaId = null, $ignore = null, $limit = null)
     {
         if (!is_array($tags)) {
             $category = $tags;
             $tags = [0 => $category];
         }
+
+        if (!is_array($ignore)) {
+            $ignore = [];
+        }
+
+
         $allTags = $this->getAll($site);
         $nodes = collect([]);
         foreach ($allTags as $singleTag) {
             if (in_array($singleTag->tag, $tags)) {
                 $nodesObj = $singleTag->nodes()->get();
                 foreach ($nodesObj as $object) {
-
-                    if (!empty($areaId)) {
-                        if ($object->area_fk == $areaId) {
+                    if(!in_array($object->id, $ignore)) {
+                        if (!empty($areaId)) {
+                            if ($object->area_fk == $areaId) {
+                                $nodes->push($object);
+                            }
+                        } else {
                             $nodes->push($object);
                         }
-                    } else {
-                        $nodes->push($object);
                     }
                 }
             }
