@@ -128,21 +128,6 @@ class NodeService
         });
     }
 
-    public function filterType($node, $list){
-        $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
-        if($node->type->today_future){
-            $list = $list->filter(function ($value, $key) use ($date) {
-                return ($value->publish_on >= $date);
-            });
-        }
-        if($node->type->today_past){
-            $list = $list->filter(function ($value, $key) use ($date) {
-                return ($value->publish_on <= $date);
-            });
-        }
-        return $list;
-    }
-
     public function canEditNode($node){
         $user = auth()->user();
         return $this->nodeRepo->checkIfUserCanEdit($user,$node);

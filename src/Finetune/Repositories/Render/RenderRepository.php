@@ -484,12 +484,24 @@ class RenderRepository implements RenderInterface
     private function _list($request)
     {
         if ($this->contentArray['type']->pagination == 1) {
+            $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+            $list = $this->contentArray['children'];
+            if($this->contentArray['type']->today_future){
+                $list = $list->filter(function ($value, $key) use ($date) {
+                    return ($value->publish_on >= $date);
+                });
+            }
+            if($this->contentArray['type']->today_past){
+                $list = $list->filter(function ($value, $key) use ($date) {
+                    return ($value->publish_on >= $date);
+                });
+            }
             $page = LengthAwarePaginator::resolveCurrentPage();
             $perPage = $this->contentArray['type']->pagination_limit;
-            $currentPageResults = $this->contentArray['children']->slice(($page - 1) * $perPage, $perPage)->all();
+            $currentPageResults = $list->slice(($page - 1) * $perPage, $perPage)->all();
             $this->contentArray['list'] = new LengthAwarePaginator(
                 $currentPageResults,
-                count($this->contentArray['children']),
+                count($list),
                 $perPage,
                 ['path' => $this->contentArray['path'], 'query' => $request->query()]);
         } else {
