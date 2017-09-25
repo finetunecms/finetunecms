@@ -64,6 +64,8 @@ return [
    */
     'cache' => false,
 
+    'nodecache' => false,
+
     /*
      |--------------------------------------------------------------------------
      | Search View
@@ -81,6 +83,8 @@ return [
      */
 
     'groupunpublish' => true
+
+
 
 
 ];
