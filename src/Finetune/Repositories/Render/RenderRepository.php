@@ -481,21 +481,27 @@ class RenderRepository implements RenderInterface
         }
     }
 
-    private function _list($request)
+    private function _list($request, $listDate = false)
     {
-        if ($this->contentArray['type']->pagination == 1) {
-            $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
-            $list = $this->contentArray['children'];
+
+        $list = $this->contentArray['children'];
+        if(!$listDate){
             if($this->contentArray['type']->today_future){
+                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                 $list = $list->filter(function ($value, $key) use ($date) {
                     return ($value->publish_on >= $date);
                 });
             }
             if($this->contentArray['type']->today_past){
+                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                 $list = $list->filter(function ($value, $key) use ($date) {
                     return ($value->publish_on >= $date);
                 });
             }
+        }
+
+        if ($this->contentArray['type']->pagination == 1) {
+
             $page = LengthAwarePaginator::resolveCurrentPage();
             $perPage = $this->contentArray['type']->pagination_limit;
             $currentPageResults = $list->slice(($page - 1) * $perPage, $perPage)->all();
@@ -505,7 +511,7 @@ class RenderRepository implements RenderInterface
                 $perPage,
                 ['path' => $this->contentArray['path'], 'query' => $request->query()]);
         } else {
-            $this->contentArray['list'] = $this->contentArray['children'];
+            $this->contentArray['list'] = $list;
         }
     }
 
@@ -540,8 +546,9 @@ class RenderRepository implements RenderInterface
                 });
                 break;
         }
-        $this->_list($request);
+        $this->_list($request, true);
     }
+
 
     private function filterChildren()
     {
