@@ -115,8 +115,8 @@ class TaggingRepository implements TaggingInterface
         if(!isset($nodes[$object->id])) {
             if (config('finetune.groupunpublish')) {
                 if ($frontend) {
-                    if ($object->publish == 0) {
-                        if ($object->area_node->publish == 0) {
+                    if ($object->publish == 1) {
+                        if ($object->area_node->publish == 1) {
                             $nodes[$object->id] = $object;
                         }
                     }
