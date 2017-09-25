@@ -248,8 +248,10 @@ class RenderRepository implements RenderInterface
         if (empty($this->contentArray['area'])) {
             $this->contentArray['area'] = $this->contentArray['node'];
         }else{
-            if($this->contentArray['area']->publish === 0){
-                return $this->renderError($site);
+            if (config('finetune.groupunpublish')) {
+                if ($this->contentArray['area']->publish === 0) {
+                    return $this->renderError($site);
+                }
             }
         }
         $this->contentArray['parent'] = $node->parent_node;

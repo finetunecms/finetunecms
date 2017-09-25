@@ -112,14 +112,18 @@ class TaggingRepository implements TaggingInterface
     }
 
     private function checkPublish($frontend, $nodes, $object){
-        if(!isset($nodes[$object->id])){
-            if($frontend){
-                if($object->publish == 0){
-                    if($object->area->publish == 0){
-                        $nodes[$object->id] = $object;
+        if(!isset($nodes[$object->id])) {
+            if (config('finetune.groupunpublish')) {
+                if ($frontend) {
+                    if ($object->publish == 0) {
+                        if ($object->area->publish == 0) {
+                            $nodes[$object->id] = $object;
+                        }
                     }
+                } else {
+                    $nodes[$object->id] = $object;
                 }
-            }else{
+            } else {
                 $nodes[$object->id] = $object;
             }
         }

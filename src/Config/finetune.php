@@ -76,4 +76,11 @@ return [
 
 
 
+    /*
+     * Allow for group unpublish
+     */
+
+    'groupunpublish' => true
+
+
 ];
