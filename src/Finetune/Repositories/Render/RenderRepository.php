@@ -501,7 +501,7 @@ class RenderRepository implements RenderInterface
             if($this->contentArray['type']->today_past){
                 $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                 $list = $list->filter(function ($value, $key) use ($date) {
-                    return ($value->publish_on >= $date);
+                    return ($value->publish_on <= $date);
                 });
             }
         }
