@@ -310,9 +310,9 @@ class NodeRepository implements NodeInterface
         if (empty($itemWithType)) {
             $itemWithType = $collection;
         }
-
+        $date = \Carbon\Carbon::now();
         if (!empty($collection)) {
-            $collection = $collection->load(['children' => function ($query) use ($collection, $frontend, $itemWithType) {
+            $collection = $collection->load(['children' => function ($query) use ($collection, $frontend, $itemWithType, $date) {
                 $item = $itemWithType;
 
                 if (!empty($item->type->order_by)) {
@@ -322,25 +322,38 @@ class NodeRepository implements NodeInterface
                 } else {
                     $query->orderBy('order');
                 }
+
+                if($item->type->today_future){
+                    $query->where('publish_on', '>=', $date->publish_on);
+                }
+                if($item->type->today_past){
+                    $query->where('publish_on', '<=', $date->publish_on);
+                }
                 if ($frontend) {
                     $query->where('publish', '=', '1');
                 }
 
             },
-                'area_node.children' => function ($query) use ($collection, $frontend, $itemWithType) {
+                'area_node.children' => function ($query) use ($collection, $frontend, $itemWithType, $date) {
                     $item = $itemWithType;
                     if (!empty($item->type->order_by)) {
                         $order = explode(':', $item->type->order_by);
                         $query->orderBy($order[0], $order[1]);
                     } else {
                         $query->orderBy('order');
+                    }
+                    if($item->type->today_future){
+                        $query->where('publish_on', '>=', $date->publish_on);
+                    }
+                    if($item->type->today_past){
+                        $query->where('publish_on', '<=', $date->publish_on);
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
                     }
 
                 },
-                'parent_node.children' => function ($query) use ($collection, $frontend, $itemWithType) {
+                'parent_node.children' => function ($query) use ($collection, $frontend, $itemWithType, $date) {
                     $item = $itemWithType;
 
                     if (!empty($item->type->order_by)) {
@@ -348,6 +361,12 @@ class NodeRepository implements NodeInterface
                         $query->orderBy($order[0], $order[1]);
                     } else {
                         $query->orderBy('order');
+                    }
+                    if($item->type->today_future){
+                        $query->where('publish_on', '>=', $date->publish_on);
+                    }
+                    if($item->type->today_past){
+                        $query->where('publish_on', '<=', $date->publish_on);
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
