@@ -310,7 +310,7 @@ class NodeRepository implements NodeInterface
         if (empty($itemWithType)) {
             $itemWithType = $collection;
         }
-        $date = \Carbon\Carbon::now();
+        $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
         if (!empty($collection)) {
             $collection = $collection->load(['children' => function ($query) use ($collection, $frontend, $itemWithType, $date) {
                 $item = $itemWithType;
@@ -324,10 +324,10 @@ class NodeRepository implements NodeInterface
                 }
 
                 if($item->type->today_future){
-                    $query->where('publish_on', '>=', $date->publish_on);
+                    $query->where('publish_on', '>=', $date);
                 }
                 if($item->type->today_past){
-                    $query->where('publish_on', '<=', $date->publish_on);
+                    $query->where('publish_on', '<=', $date);
                 }
                 if ($frontend) {
                     $query->where('publish', '=', '1');
@@ -343,10 +343,10 @@ class NodeRepository implements NodeInterface
                         $query->orderBy('order');
                     }
                     if($item->type->today_future){
-                        $query->where('publish_on', '>=', $date->publish_on);
+                        $query->where('publish_on', '>=', $date);
                     }
                     if($item->type->today_past){
-                        $query->where('publish_on', '<=', $date->publish_on);
+                        $query->where('publish_on', '<=', $date);
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
@@ -363,10 +363,10 @@ class NodeRepository implements NodeInterface
                         $query->orderBy('order');
                     }
                     if($item->type->today_future){
-                        $query->where('publish_on', '>=', $date->publish_on);
+                        $query->where('publish_on', '>=', $date);
                     }
                     if($item->type->today_past){
-                        $query->where('publish_on', '<=', $date->publish_on);
+                        $query->where('publish_on', '<=', $date);
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
