@@ -55,6 +55,8 @@ class FinetuneServiceProvider extends ServiceProvider{
 
         $this->app->register('\Zizaco\Entrust\EntrustServiceProvider');
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
+        $this->app->register('\Laravel\Scout\ScoutServiceProvider');
+        $this->app->register('\TeamTNT\Scout\TNTSearchScoutServiceProvider');
 
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 
@@ -76,6 +78,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         if ($this->app->runningInConsole()) {
 
         }
+
         $this->loadRoutesFrom($this->path.'/Routes/routes.php');
 
         $this->loadMigrationsFrom($this->path.'/Migrations');

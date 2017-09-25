@@ -130,8 +130,8 @@ class NodeRepository implements NodeInterface
         $node->parent = ($node->area == 1) ? 0 : $request['parent'];
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
-        $node->url_slug = $this->slugBuilder($node);
         $node->publish_on = $this->parseDate($request['publish_on']);
+        $node->url_slug = $this->slugBuilder($node);
         $node->save();
         if (isset($request['tags'])) {
             foreach ($request['tags'] as $tag) {
@@ -547,6 +547,7 @@ class NodeRepository implements NodeInterface
                     $urlString = $urlString . '/' . $node->tag;
                     if ($this->url[$currentIndex]->tag == $node->tag) {
                         $bread['last'] = $node->title;
+                        $bread['last'] = $node->title;
                     } else {
                         $bread[$urlString] = $node->title;
                     }
@@ -568,30 +569,31 @@ class NodeRepository implements NodeInterface
         return $bread;
     }
 
-    public function frontEndSearch($site, $searchTerm)
+    public function frontEndSearch($site, $searchTerm, $areaTag = null)
     {
-        $nodes = Node::with($this->getWithArray())
-            ->where('site_id', '=', $site->id)
-            ->where(function ($q) use ($searchTerm) {
-                $q->where('tag', 'like', '%' . str_replace(' ', '-', $searchTerm) . '%')
-                    ->orWhere('title', 'like', "%{$searchTerm}%")
-                    ->orWhere('body', 'like', "%{$searchTerm}%")
-                    ->orWhereHas('blocks', function ($q) use ($searchTerm) {
-                        $q->where(function ($q) use ($searchTerm) {
-                            $q->where('title', 'like', "%{$searchTerm}%")
-                                ->orWhere('content', 'like', "%{$searchTerm}%");
-                        });
-                    });
-            })->get();
-        foreach ($nodes as & $node) {
+        $nodes = Node::search($searchTerm)
+            ->where('site_id', $site->id)
+            ->get();
 
+        if(!empty($areaTag)){
+            $area = $this->findByTag($site, $areaTag, 0);
+        }
+
+        foreach ($nodes as $index => $node) {
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
-                    $node = null;
+                    unset($nodes[$index]);
+                    continue;
+                }
+            }
+            if(isset($area)){
+                if($node->area_fk != $area->id){
+                    unset($nodes[$index]);
+                    continue;
                 }
             }
         }
-        return $this->eagerLoad($nodes, true, $nodes->first());
+        return $nodes;
     }
 
     public function savePackages($site, $node, $packages)

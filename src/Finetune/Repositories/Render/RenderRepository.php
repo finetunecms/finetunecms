@@ -212,6 +212,22 @@ class RenderRepository implements RenderInterface
         }
     }
 
+    public function search($site, $request){
+        $this->view->addNamespace($site->theme, public_path() . '/themes/' . $site->theme);
+        $searchTerm = $request->input('searchTerm');
+        $searchItems = $this->node->frontEndSearch($site, $searchTerm, $request->input('area'));
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = config('finetune.searchItems');
+        $currentPageResults = $searchItems->slice(($page - 1) * $perPage, $perPage)->all();
+        $list = new LengthAwarePaginator(
+            $currentPageResults,
+            count($searchItems),
+            $perPage,
+            ['path' => '/search', 'query' => $request->query()]);
+        $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'searchTerm' => $searchTerm, 'site' => $site]);
+        return $view;
+    }
+
     public function renderError($site)
     {
         $view = View($site->theme . '::errors.error', ['site' => $site]);

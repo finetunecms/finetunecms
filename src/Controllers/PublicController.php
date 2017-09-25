@@ -35,37 +35,8 @@ class PublicController extends BaseController
 
     public function search(Request $request)
     {
-        $data = [];
-        $data['site'] = $this->site;
-        $data['searchTerm'] = $request->input('search');
-        $data['areaTag'] = $request->input('area');
-        if ($data['areaTag'] == 'search') {
-            $data['areaTag'] = null;
-        }
-        $query = \Search::node($data['searchTerm']);
-        $searchNodes = $query;
-        $data['search'] = [];
-        $searchNodeItems = $this->node->search($data['searchTerm'], $data['areaTag'], $frontend = true);
-        foreach ($searchNodes as $search) {
-            foreach ($searchNodeItems as $index => $searchItem) {
-                if ($searchItem->id == $search->id) {
-                    unset($searchNodeItems[$index]);
-                }
-            }
-        }
-        foreach ($searchNodeItems as $index => $searchItem) {
-            $data['search'][] = $searchItem;
-        }
-        foreach ($searchNodes as $index => $item) {
-            $data['search'][] = $item;
-        }
-        $data['hasResults'] = empty($data['search']) ? false : true;
-        if (!empty($data['area'])) {
-            $data['area'] = $this->node->findByTag($this->site,$data['areaTag'], 0);
-        }
-        View::addNamespace($data['site']->theme, public_path() . '/themes/' . $data['site']->theme);
 
-        return View::make($data['site']->theme . '::search.display', $data);
+        return $this->render->search($this->site, $request);
     }
 
     public function email($form, Request $request)

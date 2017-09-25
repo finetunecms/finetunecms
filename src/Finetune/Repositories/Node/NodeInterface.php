@@ -50,7 +50,7 @@ interface NodeInterface
 
     public function makeBreadFrontend($site, $node);
 
-    public function frontEndSearch($site, $searchTerm);
+    public function frontEndSearch($site, $searchTerm, $areaTag = null);
 
     public function savePackages($site, $node, $packages);
 

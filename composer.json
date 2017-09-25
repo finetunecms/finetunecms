@@ -40,9 +40,10 @@
     "roumen/feed": "~2.10",
     "barryvdh/laravel-dompdf": "0.8.*",
     "guzzlehttp/guzzle": "^6.2",
-    "teamtnt/laravel-scout-tntsearch-driver": "^2.0",
     "roumen/sitemap": "2.6.*",
-    "ezyang/htmlpurifier" : "4.*.*"
+    "ezyang/htmlpurifier" : "4.*.*",
+    "laravel/scout": "^3.0",
+    "teamtnt/laravel-scout-tntsearch-driver": "^3.0"
   },
   "autoload": {
     "psr-0": {
