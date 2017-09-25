@@ -62,9 +62,9 @@ return [
    |
    |
    */
-    'cache' => false,
+    'cache' => false, // Page frontend cache
 
-    'nodecache' => false,
+    'nodecache' => false, // node list cache
 
     /*
      |--------------------------------------------------------------------------
