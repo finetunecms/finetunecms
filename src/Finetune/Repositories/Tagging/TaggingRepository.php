@@ -34,7 +34,7 @@ class TaggingRepository implements TaggingInterface
         return Tagging::where('site_id', '=', $site->id)->whereNull('deleted_at')->pluck('title', 'id');
     }
 
-    public function getTagged($site, $tags = [], $areaId = null, $ignore = null, $limit = null)
+    public function getTagged($site, $tags = [], $areaId = null, $frontend = false, $ignore = null, $limit = null)
     {
         if (!is_array($tags)) {
             $category = $tags;
@@ -45,24 +45,19 @@ class TaggingRepository implements TaggingInterface
             $ignore = [];
         }
 
-
         $allTags = $this->getAll($site);
         $nodes = [];
         foreach ($allTags as $singleTag) {
             if (in_array($singleTag->tag, $tags)) {
-                $nodesObj = $singleTag->nodes()->get();
+                $nodesObj = $singleTag->nodes()->with('area')->get();
                 foreach ($nodesObj as $object) {
                     if(!in_array($object->id, $ignore)) {
                         if (!empty($areaId)) {
                             if ($object->area_fk == $areaId) {
-                                if(!isset($nodes[$object->id])){
-                                    $nodes[$object->id] = $object;
-                                }
+                                $nodes = $this->checkPublish($frontend, $nodes, $object);
                             }
                         } else {
-                            if(!isset($nodes[$object->id])){
-                                $nodes[$object->id] = $object;
-                            }
+                                $nodes = $this->checkPublish($frontend, $nodes, $object);
                         }
                     }
                 }
@@ -114,5 +109,21 @@ class TaggingRepository implements TaggingInterface
     public function deleteTag($id)
     {
         return Tagging::destroy($id);
+    }
+
+    private function checkPublish($frontend, $nodes, $object){
+        if(!isset($nodes[$object->id])){
+            if($frontend){
+                if($object->publish == 0){
+                    if($object->area->publish == 0){
+                        $nodes[$object->id] = $object;
+                    }
+                }
+            }else{
+                $nodes[$object->id] = $object;
+            }
+        }
+
+        return $nodes;
     }
 }
