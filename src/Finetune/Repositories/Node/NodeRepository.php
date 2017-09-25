@@ -25,27 +25,75 @@ class NodeRepository implements NodeInterface
 
     // Entity Accesses
 
+    private function nodes($site)
+    {
+
+        $cacheExpires = \Carbon\Carbon::now()->addMinutes(10);
+        $tag = 'site-nodes-' . $site->id;
+        if ($this->cache->has($tag)) {
+            return $this->cache->get($tag);
+        } else {
+            $nodes = Node::with($this->getWithArray())->orderBy('order')->get();
+            $this->cache->put($tag, $nodes, $cacheExpires);
+            return $nodes;
+        }
+    }
+
     public function all($site, $parent = 0, $area = 0, $frontend = false, $noEager = false)
     {
-        $nodeAll = Node::with($this->getWithArray())
-            ->where('site_id', '=', $site->id)
-            ->orderBy('order');
-        if (!empty($parent)) {
-            $nodeAll->where('parent', '=', $parent);
-        }
-        if (!empty($area)) {
-            $nodeAll->where('area', '=', 1);
-        }
-        if ($frontend) {
-            $nodeAll->where('publish', '=', 1);
+        if (config('finetune.nodecache') > 0) {
+            $nodes = $this->nodes($site);
+            if (!empty($nodes)) {
+                return [];
+            }
+            if(!empty($parent) || !empty($area) || $frontend) {
+                foreach ($nodes as $index => $node) {
+                    if (!empty($parent)) {
+                        if ($node->parent != $parent) {
+                            unset($nodes[$index]);
+                            continue;
+                        }
+                    }
+                    if (!empty($area)) {
+                        if ($node->area != 1) {
+                            unset($nodes[$index]);
+                            continue;
+                        }
+                    }
+                    if ($frontend) {
+                        if ($node->publish != 1) {
+                            unset($nodes[$index]);
+                            continue;
+                        }
+                    }
+                }
+            }
+            if (!$noEager) {
+                $nodes = $this->eagerLoad($nodes, $frontend, $nodes->first());
+            }
+        } else {
+            $nodeAll = Node::with($this->getWithArray())
+                ->where('site_id', '=', $site->id)
+                ->orderBy('order');
+
+            if (!empty($parent)) {
+                $nodeAll->where('parent', '=', $parent);
+            }
+            if (!empty($area)) {
+                $nodeAll->where('area', '=', 1);
+            }
+            if ($frontend) {
+                $nodeAll->where('publish', '=', 1);
+            }
+
+            if (!$noEager) {
+                $all = $nodeAll->get();
+                $nodes = $this->eagerLoad($all, $frontend, $all->first());
+            } else {
+                $nodes = $nodeAll->get();
+            }
         }
 
-        if (!$noEager) {
-            $all = $nodeAll->get();
-            $nodes = $this->eagerLoad($all, $frontend, $all->first());
-        } else {
-            $nodes = $nodeAll->get();
-        }
         if (!$frontend) {
             if (!$this->auth->user()->ability('Superadmin', 'can_manage_allcontent')) {
                 if (config('finetune.nodeRoles')) {
@@ -209,6 +257,7 @@ class NodeRepository implements NodeInterface
         if (config('finetune.cache')) {
             $this->clearCache($node, $site);
         }
+
         return $this->find($id);
     }
 
@@ -439,7 +488,7 @@ class NodeRepository implements NodeInterface
             ->where('site_id', '=', $site->id)
             ->first();
 
-        if(isset($node)){
+        if (isset($node)) {
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
                     $node = null;
@@ -465,7 +514,7 @@ class NodeRepository implements NodeInterface
 
     public function movable($site)
     {
-        $all = $this->all($site, 0,0,false,true);
+        $all = $this->all($site, 0, 0, false, true);
         $array = [];
         foreach ($all as $index => $node) {
             $type = $node->type()->first();
@@ -574,7 +623,7 @@ class NodeRepository implements NodeInterface
             ->where('site_id', $site->id)
             ->get();
 
-        if(!empty($areaTag)){
+        if (!empty($areaTag)) {
             $area = $this->findByTag($site, $areaTag, 0);
         }
 
@@ -585,8 +634,8 @@ class NodeRepository implements NodeInterface
                     continue;
                 }
             }
-            if(isset($area)){
-                if($node->area_fk != $area->id){
+            if (isset($area)) {
+                if ($node->area_fk != $area->id) {
                     unset($nodes[$index]);
                     continue;
                 }

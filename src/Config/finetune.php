@@ -65,15 +65,15 @@ return [
     'cache' => false,
 
     /*
- |--------------------------------------------------------------------------
- | Search View
- |--------------------------------------------------------------------------
- | Add to index using this command :  php artisan scout:import "Finetune\Finetune\Entities\Node"
- |
- */
+     |--------------------------------------------------------------------------
+     | Search View
+     |--------------------------------------------------------------------------
+     | Add to index using this command :  php artisan scout:import "Finetune\Finetune\Entities\Node"
+     |
+     */
+
     'searchView' => 'search.display',
     'searchItems' => 10,
-
 
 
     /*
