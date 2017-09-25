@@ -49,7 +49,7 @@ class TaggingRepository implements TaggingInterface
         $nodes = [];
         foreach ($allTags as $singleTag) {
             if (in_array($singleTag->tag, $tags)) {
-                $nodesObj = $singleTag->nodes()->with('area')->get();
+                $nodesObj = $singleTag->nodes()->with('area_node')->get();
                 foreach ($nodesObj as $object) {
                     if(!in_array($object->id, $ignore)) {
                         if (!empty($areaId)) {
@@ -116,7 +116,7 @@ class TaggingRepository implements TaggingInterface
             if (config('finetune.groupunpublish')) {
                 if ($frontend) {
                     if ($object->publish == 0) {
-                        if ($object->area->publish == 0) {
+                        if ($object->area_node->publish == 0) {
                             $nodes[$object->id] = $object;
                         }
                     }
