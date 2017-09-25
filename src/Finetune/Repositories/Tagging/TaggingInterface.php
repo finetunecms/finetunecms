@@ -40,7 +40,7 @@ interface TaggingInterface
      * @param int $limit
      * @return mixed
      */
-    public function getTagged($site, $tags, $areaId = null, $limit = 10);
+    public function getTagged($site, $tags = [], $areaId = null, $frontend = false, $ignore = null, $limit = 10);
 
     /**
      * Adds a tag to the datbase and clears the cache
