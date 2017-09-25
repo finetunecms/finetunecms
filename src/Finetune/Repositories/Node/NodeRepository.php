@@ -547,7 +547,6 @@ class NodeRepository implements NodeInterface
                     $urlString = $urlString . '/' . $node->tag;
                     if ($this->url[$currentIndex]->tag == $node->tag) {
                         $bread['last'] = $node->title;
-                        $bread['last'] = $node->title;
                     } else {
                         $bread[$urlString] = $node->title;
                     }
