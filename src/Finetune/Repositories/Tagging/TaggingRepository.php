@@ -47,7 +47,7 @@ class TaggingRepository implements TaggingInterface
 
 
         $allTags = $this->getAll($site);
-        $nodes = collect([]);
+        $nodes = [];
         foreach ($allTags as $singleTag) {
             if (in_array($singleTag->tag, $tags)) {
                 $nodesObj = $singleTag->nodes()->get();
@@ -55,15 +55,21 @@ class TaggingRepository implements TaggingInterface
                     if(!in_array($object->id, $ignore)) {
                         if (!empty($areaId)) {
                             if ($object->area_fk == $areaId) {
-                                $nodes->push($object);
+                                if(!isset($nodes[$object->id])){
+                                    $nodes[$object->id] = $object;
+                                }
                             }
                         } else {
-                            $nodes->push($object);
+                            if(!isset($nodes[$object->id])){
+                                $nodes[$object->id] = $object;
+                            }
                         }
                     }
                 }
             }
         }
+        $nodes = collect($nodes);
+
         if (!empty($limit)) {
             $nodes = $nodes->take($limit);
         }
