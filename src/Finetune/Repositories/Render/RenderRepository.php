@@ -247,6 +247,10 @@ class RenderRepository implements RenderInterface
         $this->contentArray['area'] = $node->area_node;
         if (empty($this->contentArray['area'])) {
             $this->contentArray['area'] = $this->contentArray['node'];
+        }else{
+            if($this->contentArray['area']->publish === 0){
+                return $this->renderError($site);
+            }
         }
         $this->contentArray['parent'] = $node->parent_node;
         if (empty($this->contentArray['parent'])) {
