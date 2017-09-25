@@ -110,6 +110,7 @@ class Node extends Model
     public function toSearchableArray()
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
             'keywords' => $this->keywords,
