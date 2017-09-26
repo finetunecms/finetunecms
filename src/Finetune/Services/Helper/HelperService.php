@@ -56,4 +56,16 @@ class HelperService
         return $content;
     }
 
+    public function buildTag($tag, $replace = array(), $delimiter = '-')
+    {
+        if (!empty($replace)) {
+            $tag = str_replace((array)$replace, ' ', $tag);
+        }
+        $tag = iconv('UTF-8', 'ASCII//TRANSLIT', $tag);
+        $tag = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $tag);
+        $tag = strtolower(trim($tag, '-'));
+        $tag = preg_replace("/[\/_|+ -]+/", $delimiter, $tag);
+        return $tag;
+    }
+
 }
