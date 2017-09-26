@@ -105,6 +105,15 @@
                 'title' => 'Date'])
 
                 @include('finetune::partials.fields',[
+                'name' => 'spanning_date',
+                'value' => (isset($type->spanning_date) ? $type->spanning_date : ''),
+                'type' => 'checkbox',
+                'class' => 'checkbox-primary',
+                'id' => 'spanning_date',
+                  'vmodel' => 'type.spanning_date',
+                'title' => 'Dates Span'])
+
+                @include('finetune::partials.fields',[
               'name' => 'default_type',
               'value' => (isset($type->default_type) ? $type->default_type : ''),
               'type' => 'checkbox',

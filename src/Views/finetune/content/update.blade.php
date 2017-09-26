@@ -80,19 +80,48 @@
                             @endif
 
                             <div v-if="date" id="date">
-                                <fieldset class="form-group">
-                                    <label>{{ trans('finetune::content.options.date') }}
-                                        <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
-                                                 :triggers="['hover']"
-                                                 text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
-                                            <a class="btn btn-plain btn-sm btn-info">?</a>
-                                        </popover>
-                                    </label>
-                                    <date-picker :time.sync="starttime" :option="option" :limit="limit"></date-picker>
-                                    <input type="hidden" name="due_date"
-                                           value="{{ isset($node->publish_on) ? \Carbon\Carbon::parse($node->publish_on)->format('d-m-Y') : old('publish_on') }}"
-                                           v-model="startTime"/>
-                                </fieldset>
+                                <div v-if="spanning_date">
+                                    <fieldset class="form-group">
+                                        <label>{{ trans('finetune::content.options.date') }}
+                                            <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
+                                                     :triggers="['hover']"
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                <a class="btn btn-plain btn-sm btn-info">?</a>
+                                            </popover>
+                                        </label>
+                                        <date-picker :time.sync="startTime" :option="option" :limit="limit"></date-picker>
+                                        <input type="hidden" name="start_at" value="{{ isset($node->start_at) ? \Carbon\Carbon::parse($node->start_at)->format('d-m-Y') : old('start_at') }}" v-model="startTime"/>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label>{{ trans('finetune::content.options.date') }}
+                                            <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
+                                                     :triggers="['hover']"
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                <a class="btn btn-plain btn-sm btn-info">?</a>
+                                            </popover>
+                                        </label>
+                                        <date-picker :time.sync="endtime" :option="option" :limit="limit"></date-picker>
+                                        <input type="hidden" name="end_at"
+                                               value="{{ isset($node->end_at) ? \Carbon\Carbon::parse($node->end_at)->format('d-m-Y') : old('end_at') }}"
+                                               v-model="endTime"/>
+                                    </fieldset>
+                                </div>
+                                <div v-else>
+                                    <fieldset class="form-group">
+                                        <label>{{ trans('finetune::content.options.date') }}
+                                            <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
+                                                     :triggers="['hover']"
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                <a class="btn btn-plain btn-sm btn-info">?</a>
+                                            </popover>
+                                        </label>
+                                        <date-picker :time.sync="starttime" :option="option" :limit="limit"></date-picker>
+                                        <input type="hidden" name="due_date"
+                                               value="{{ isset($node->publish_on) ? \Carbon\Carbon::parse($node->publish_on)->format('d-m-Y') : old('publish_on') }}"
+                                               v-model="startTime"/>
+                                    </fieldset>
+                                </div>
+
                             </div>
 
                             <div v-if="hasTags">

@@ -397,7 +397,7 @@ if (typeof(content) != 'undefined' && content != null) {
 
                 searchTerm: '',
                 starttime: '',
-                endtime: '2016-01-19',
+                endtime: '',
                 testTime: '',
                 multiTime: '',
                 option: {
@@ -434,6 +434,7 @@ if (typeof(content) != 'undefined' && content != null) {
                     dismissible: true // as true as default
                 },
                 date: false,
+                spanning_date:false,
                 errorsShow: false,
                 hasOrphans: false,
                 hasTags: false,
@@ -462,9 +463,15 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.node = response.data;
                         that.node.area_fk = 0;
                         that.starttime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
+
                         that.node.type = response.data.type;
                         if (that.node.type.date == 1) {
                             this.date = true;
+                        }
+                        if (that.node.type.spanning_date == 1) {
+                            this.spanning_date = true;
+                            that.starttime = moment(that.node.start_at).format('DD-MM-YYYY HH:mm');
+                            that.endtime = moment(that.node.end_at).format('DD-MM-YYYY HH:mm');
                         }
                         that.customFieldsBuild(that.node.type);
                         that.parentId = that.node.parent;
@@ -485,6 +492,8 @@ if (typeof(content) != 'undefined' && content != null) {
                             that.node.type = response.data.type;
                             if (that.node.type.date == 1) {
                                 this.date = true;
+                            } if (that.node.type.spanning_date == 1) {
+                                this.spanning_date = true;
                             }
                             if (response.data.area == 1) {
                                 that.node.areaId = response.data.id;
@@ -505,6 +514,7 @@ if (typeof(content) != 'undefined' && content != null) {
                     } else {
                         that.loading = false;
                         this.date = false;
+                        this.spanning_date = false;
                     }
                 }
                 this.getTags();
@@ -735,6 +745,9 @@ if (typeof(content) != 'undefined' && content != null) {
                         if (this.node.type.date == 1) {
                             this.date = true;
                         }
+                        if (this.node.type.spanning_date == 1) {
+                            this.spanning_date = true;
+                        }
                         this.nodeBuild();
                         this.customFieldsBuild(this.node.type);
                     }
@@ -748,6 +761,10 @@ if (typeof(content) != 'undefined' && content != null) {
                     this.node.parent = that.parentId;
                     this.node.fields = this.customFields;
                     this.node.publish_on = this.starttime;
+                    if(this.node.type.spanning_date == 1) {
+                        this.node.starttime = moment(this.starttime).format('DD-MM-YYYY HH:mm');
+                        this.node.endtime = moment(this.endtime).format('DD-MM-YYYY HH:mm');
+                    }
                     this.node.packages = this.packages;
 
                     if (this.nodeId != 0) {

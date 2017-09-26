@@ -179,6 +179,14 @@ class NodeRepository implements NodeInterface
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
         $node->publish_on = $this->parseDate($request['publish_on']);
+        if($request['type']['spanning_date'] == 1){
+            if(isset($request['start_at'])){
+                $node->start_at = $this->parseDate($request['start_at']);
+            }
+            if(isset($request['end_at'])) {
+                $node->end_at = $this->parseDate($request['end_at']);
+            }
+        }
         $node->url_slug = $this->slugBuilder($node);
         $node->save();
         if (isset($request['tags'])) {
@@ -237,6 +245,14 @@ class NodeRepository implements NodeInterface
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
         $node->publish_on = $this->parseDate($request['publish_on']);
+        if($request['type']['spanning_date'] == 1){
+            if(isset($request['start_at'])){
+                $node->start_at = $this->parseDate($request['start_at']);
+            }
+            if(isset($request['end_at'])) {
+                $node->end_at = $this->parseDate($request['end_at']);
+            }
+        }
         $node->url_slug = $this->slugBuilder($node);
         $node->save();
         $node->tags()->detach();

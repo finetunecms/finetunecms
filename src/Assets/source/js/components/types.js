@@ -20,6 +20,7 @@ if (typeof(types) != 'undefined' && types != null) {
                 today_past: '',
                 pagination: '',
                 pagination_limit: '',
+                spanning_date:'',
                 access: '',
                 rss: '',
                 live: ''
@@ -72,8 +73,8 @@ if (typeof(types) != 'undefined' && types != null) {
 
             submitDestroy: function submitDestroy() {
                 this.$broadcast('hide::modal', 'showModelDelete');
-                let items = this.selectedItems;
-                let that = this;
+                var items = this.selectedItems;
+                var that = this;
                     this.$http.delete('/admin/api/types/destroy', {types: items}).then(function (response) {
                         that.types = response.data.types;
                         that.alertBox(true, response.data.alertType, response.data.alertMessage);
@@ -98,6 +99,7 @@ if (typeof(types) != 'undefined' && types != null) {
                     today_past: '',
                     pagination: '',
                     pagination_limit: '',
+                    spanning_date: '',
                     access: '',
                     rss: '',
                     live: ''
@@ -122,6 +124,7 @@ if (typeof(types) != 'undefined' && types != null) {
                 this.type.children = item.children;
                 this.type.ordering = item.ordering;
                 this.type.date = item.date;
+                this.type.spanning_date = item.spanning_date;
                 this.type.default_type = item.default_type;
                 this.type.today_future = item.today_future;
                 this.type.today_past = item.today_past;
