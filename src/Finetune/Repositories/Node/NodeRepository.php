@@ -512,15 +512,21 @@ class NodeRepository implements NodeInterface
             }
             $now = \Carbon\Carbon::now();
             if($node->type->spanning_date){
-
-                $start = \Carbon\Carbon::parse($node->start_at);
-                $end = \Carbon\Carbon::parse($node->end_at);
-                if($now->between($start,$end)){
-                    $node = null;
+                if($node->area == 1){
+                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                    if(!$now->gt($publishOn)){
+                        $node = null;
+                    }
+                }else{
+                    $start = \Carbon\Carbon::parse($node->start_at);
+                    $end = \Carbon\Carbon::parse($node->end_at);
+                    if(!$now->between($start,$end)){
+                        $node = null;
+                    }
                 }
             }else{
                 $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                if($now->gt($publishOn)){
+                if(!$now->gt($publishOn)){
                     $node = null;
                 }
             }
