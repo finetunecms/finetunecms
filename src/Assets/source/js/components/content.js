@@ -762,8 +762,8 @@ if (typeof(content) != 'undefined' && content != null) {
                     this.node.fields = this.customFields;
                     this.node.publish_on = this.starttime;
                     if(this.node.type.spanning_date == 1) {
-                        this.node.starttime = moment(this.starttime).format('DD-MM-YYYY HH:mm');
-                        this.node.endtime = moment(this.endtime).format('DD-MM-YYYY HH:mm');
+                        this.node.starttime = this.starttime;
+                        this.node.endtime = this.endtime;
                     }
                     this.node.packages = this.packages;
 
