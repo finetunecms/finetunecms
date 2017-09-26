@@ -36,7 +36,7 @@ class Node extends Model
         'site_id', 'area', 'area_fk', 'parent', 'order', 'publish',
         'author_id', 'homepage', 'type_id', 'url_slug', 'title', 'dscpn',
         'keywords', 'meta_title', 'body', 'image', 'publish_on', 'output_body',
-        'tag', 'consolidated', 'redirect','soft_publish','exclude'
+        'tag', 'consolidated', 'redirect','soft_publish','exclude', 'start_at', 'end_at'
     ];
     /**
      * @var array
