@@ -495,7 +495,7 @@ class RenderRepository implements RenderInterface
         $list = $this->contentArray['children'];
         if(!$listDate){
             if($this->contentArray['type']->spanning_date){
-                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                $date = \Carbon\Carbon::now();
                 $list = $list->filter(function ($value, $key) use ($date) {
                     $start = \Carbon\Carbon::parse($value->start_at);
                     $end = \Carbon\Carbon::parse($value->end_at);
