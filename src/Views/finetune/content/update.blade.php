@@ -89,7 +89,7 @@
                                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                                             </popover>
                                         </label>
-                                        <date-picker :time.sync="startTime" :option="option" :limit="limit"></date-picker>
+                                        <date-picker :time.sync="starttime" :option="option" :limit="limit"></date-picker>
                                         <input type="hidden" name="start_at" value="{{ isset($node->start_at) ? \Carbon\Carbon::parse($node->start_at)->format('d-m-Y') : old('start_at') }}" v-model="startTime"/>
                                     </fieldset>
                                     <fieldset class="form-group">
