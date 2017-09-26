@@ -222,8 +222,9 @@ class RenderRepository implements RenderInterface
         $list = new LengthAwarePaginator(
             $currentPageResults,
             count($searchItems),
-            $perPage,
-            ['path' => $request->url(), 'query' => $request->query()]);
+            $perPage);
+        $list->setPath($request->url());
+        $list->appends($request->query());
         $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'searchTerm' => $searchTerm, 'site' => $site]);
         return $view;
     }
