@@ -829,8 +829,8 @@ if (typeof(content) != 'undefined' && content != null) {
                     this.node.fields = this.customFields;
                     this.node.publish_on = this.starttime;
                     if(this.node.type.spanning_date == 1) {
-                        this.node.starttime = this.starttime;
-                        this.node.endtime = this.endtime;
+                        this.node.start_at = this.starttime;
+                        this.node.end_at = this.endtime;
                     }
                     this.node.packages = this.packages;
 
