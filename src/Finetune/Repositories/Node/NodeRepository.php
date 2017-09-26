@@ -512,8 +512,9 @@ class NodeRepository implements NodeInterface
             }
             $now = \Carbon\Carbon::now();
             if($node->type->spanning_date){
-                $start = \Carbon\Carbon::parse('start_at');
-                $end = \Carbon\Carbon::parse('end_at');
+
+                $start = \Carbon\Carbon::parse($node->start_at);
+                $end = \Carbon\Carbon::parse($node->end_at);
                 if($now->between($start,$end)){
                     $node = null;
                 }
