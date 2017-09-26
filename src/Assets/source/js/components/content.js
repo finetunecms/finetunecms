@@ -463,6 +463,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.node = response.data;
                         that.node.area_fk = 0;
                         that.starttime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
+                        that.endtime = moment(that.node.end_at).format('DD-MM-YYYY HH:mm');
 
                         that.node.type = response.data.type;
                         if (that.node.type.date == 1) {

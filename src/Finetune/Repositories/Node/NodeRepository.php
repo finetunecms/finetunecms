@@ -180,11 +180,11 @@ class NodeRepository implements NodeInterface
         $node->meta_title = strip_tags($request['meta_title']);
         $node->publish_on = $this->parseDate($request['publish_on']);
         if($request['type']['spanning_date'] == 1){
-            if(isset($request['start_at'])){
-                $node->start_at = $this->parseDate($request['start_at']);
+            if(isset($request['starttime'])){
+                $node->start_at = $this->parseDate($request['starttime']);
             }
             if(isset($request['end_at'])) {
-                $node->end_at = $this->parseDate($request['end_at']);
+                $node->endtime = $this->parseDate($request['endtime']);
             }
         }
         $node->url_slug = $this->slugBuilder($node);
