@@ -46,7 +46,7 @@ class NodeRepository implements NodeInterface
             if (!empty($nodes)) {
                 return [];
             }
-            if(!empty($parent) || !empty($area) || $frontend) {
+            if (!empty($parent) || !empty($area) || $frontend) {
                 foreach ($nodes as $index => $node) {
                     if (!empty($parent)) {
                         if ($node->parent != $parent) {
@@ -179,11 +179,11 @@ class NodeRepository implements NodeInterface
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
         $node->publish_on = $this->parseDate($request['publish_on']);
-        if($request['type']['spanning_date'] == 1){
-            if(isset($request['starttime'])){
+        if ($request['type']['spanning_date'] == 1) {
+            if (isset($request['starttime'])) {
                 $node->start_at = $this->parseDate($request['starttime']);
             }
-            if(isset($request['end_at'])) {
+            if (isset($request['end_at'])) {
                 $node->endtime = $this->parseDate($request['endtime']);
             }
         }
@@ -245,11 +245,11 @@ class NodeRepository implements NodeInterface
         $node->redirect = $request['redirect'];
         $node->meta_title = strip_tags($request['meta_title']);
         $node->publish_on = $this->parseDate($request['publish_on']);
-        if($request['type']['spanning_date'] == 1){
-            if(isset($request['start_at'])){
+        if ($request['type']['spanning_date'] == 1) {
+            if (isset($request['start_at'])) {
                 $node->start_at = $this->parseDate($request['start_at']);
             }
-            if(isset($request['end_at'])) {
+            if (isset($request['end_at'])) {
                 $node->end_at = $this->parseDate($request['end_at']);
             }
         }
@@ -511,22 +511,22 @@ class NodeRepository implements NodeInterface
                 }
             }
             $now = \Carbon\Carbon::now();
-            if($node->type->spanning_date){
-                if($node->area == 1){
+            if ($node->type->spanning_date) {
+                if ($node->area == 1) {
                     $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                    if(!$now->gt($publishOn)){
+                    if (!$now->gt($publishOn)) {
                         $node = null;
                     }
-                }else{
+                } else {
                     $start = \Carbon\Carbon::parse($node->start_at);
                     $end = \Carbon\Carbon::parse($node->end_at);
-                    if(!$now->between($start,$end)){
+                    if (!$now->between($start, $end)) {
                         $node = null;
                     }
                 }
-            }else{
+            } else {
                 $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                if(!$now->gt($publishOn)){
+                if (!$now->gt($publishOn)) {
                     $node = null;
                 }
             }
@@ -657,16 +657,18 @@ class NodeRepository implements NodeInterface
     {
         $nodeQuery = Node::search($searchTerm)
             ->where('site_id', $site->id);
-        if(!empty($areaTag)){
+        if (!empty($areaTag)) {
             $area = $this->findByTag($site, $areaTag, 0);
             $nodeQuery = $nodeQuery->where('area_fk', $area->id);
         }
         $nodes = $nodeQuery->where('publish', 1)->get();
 
-        foreach($nodes as $index => $node){
-            $area = $node->area_node()->first();
-            if($area->publish != 1){
-                unset($nodes[$index]);
+        if (config('finetune.groupunpublish')) {
+            foreach ($nodes as $index => $node) {
+                $area = $node->area_node()->first();
+                if ($area->publish != 1) {
+                    unset($nodes[$index]);
+                }
             }
         }
         return $nodes;
