@@ -331,12 +331,12 @@ class RenderRepository implements RenderInterface
             foreach ($nodes as $node) {
                 $images = $this->getSitemapImages($node);
                 if ($node->homepage) {
-                    $sitemap->add($protocol.$this->site->domain.$node->url_slug, $node->updated_at, '1.0', 'daily', $images);
+                    $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '1.0', 'daily', $images);
                 } else {
                     if ($node->area) {
-                        $sitemap->add($protocol.$this->site->domain.$node->url_slug, $node->updated_at, '0.9', 'daily', $images);
+                        $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '0.9', 'daily', $images);
                     } else {
-                        $sitemap->add($protocol.$this->site->domain.$node->url_slug, $node->updated_at, '0.8', 'monthly', $images);
+                        $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '0.8', 'monthly', $images);
                     }
                 }
             }
