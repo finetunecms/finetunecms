@@ -72,6 +72,7 @@ class TypeRepository implements TypeInterface
         $request['nesting'] = (isset($request['nesting']) ? ($request['nesting'] ? 1 : 0) : 0);
         $request['ordering'] = (isset($request['ordering']) ? ($request['ordering'] ? 1 : 0) : 0);
         $request['date'] = (isset($request['date']) ? ($request['date'] ? 1 : 0) : 0);
+        $request['spanning_date'] = (isset($request['spanning_date']) ? ($request['spanning_date'] ? 1 : 0) : 0);
         $request['today_future'] = (isset($request['today_future']) ? ($request['today_future'] ? 1 : 0) : 0);
         $request['today_past'] = (isset($request['today_past']) ? ($request['today_past'] ? 1 : 0) : 0);
         $request['pagination'] = (isset($request['pagination']) ? ($request['pagination'] ? 1 : 0) : 0);
@@ -94,6 +95,7 @@ class TypeRepository implements TypeInterface
         $request['ordering'] = (isset($request['ordering']) ? ($request['ordering'] ? 1 : 0) : 0);
         $request['default_type'] = (isset($request['default_type']) ? ($request['default_type'] ? 1 : 0) : 0);
         $request['date'] = (isset($request['date']) ? ($request['date'] ? 1 : 0) : 0);
+        $request['spanning_date'] = (isset($request['spanning_date']) ? ($request['spanning_date'] ? 1 : 0) : 0);
         $request['today_future'] = (isset($request['today_future']) ? ($request['today_future'] ? 1 : 0) : 0);
         $request['today_past'] = (isset($request['today_past']) ? ($request['today_past'] ? 1 : 0) : 0);
         $request['pagination'] = (isset($request['pagination']) ? ($request['pagination'] ? 1 : 0) : 0);
