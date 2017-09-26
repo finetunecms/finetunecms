@@ -174,9 +174,14 @@
                             <div v-if="field.type == 'icons'">
                                 <div class="icons">
                                     <h3>Icons</h3>
-
-                                    <div class="{ {$index % 12 ? '' : 'row'} }" v-for="(icon,index) in field.icons">
-                                        <div class="col-md-2" style="height:60px">
+                                    <div class="row">
+                                        <div class="col-m-2">
+                                            <label for="no-icon">
+                                                No Icon
+                                                <input type="radio" name="icon" v-model="field.value" id="no-icon" value="" class="form-control"/>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2" style="height:60px" v-for="(icon,index) in field.icons">
                                             <label :for="icon">
                                                 <i class="fa @{{ icon }}"></i>@{{ icon }}
                                                 <input type="radio" name="icon" v-model="field.value" :id="icon"

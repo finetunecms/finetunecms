@@ -20,13 +20,13 @@ class CreateMediaTables extends Migration {
             $table->string('extension');
             $table->string('path');
             $table->string('external');
-            $table->string('thumb');
+            $table->string('thumb')->nullable();
             $table->string('original');
             $table->string('title')->nullable();
             $table->string('mime');
             $table->string('type');
-            $table->integer('height');
-            $table->integer('width');
+            $table->integer('height')->nullable();
+            $table->integer('width')->nullable();
             $table->integer('parent');
             $table->integer('version');
             $table->integer('order')->default(0);
