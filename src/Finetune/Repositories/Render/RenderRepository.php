@@ -223,7 +223,7 @@ class RenderRepository implements RenderInterface
             $currentPageResults,
             count($searchItems),
             $perPage,
-            ['path' => '/search', 'query' => $request->query()]);
+            ['path' => 'search', 'query' => $request->query()]);
         $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'searchTerm' => $searchTerm, 'site' => $site]);
         return $view;
     }
@@ -495,10 +495,11 @@ class RenderRepository implements RenderInterface
         $list = $this->contentArray['children'];
         if(!$listDate){
             if($this->contentArray['type']->spanning_date){
-                $date = \Carbon\Carbon::now();
+                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                 $list = $list->filter(function ($value, $key) use ($date) {
                     $start = \Carbon\Carbon::parse($value->start_at);
                     $end = \Carbon\Carbon::parse($value->end_at);
+
                     if(!$date->between($start,$end)){
                         return false;
                     }else{
