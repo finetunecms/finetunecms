@@ -433,6 +433,72 @@ if (typeof(content) != 'undefined' && content != null) {
                     overlayOpacity: 0.5, // 0.5 as default
                     dismissible: true // as true as default
                 },
+                startOption: {
+                    type: 'min',
+                    week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+                    month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    format: 'DD-MM-YYYY HH:mm',
+                    placeholder: 'Start on',
+                    inputStyle: {
+                        'width': '100%',
+                        'display': 'block',
+                        'height': '34px',
+                        'padding': '6px 12px',
+                        'font-size': '14px',
+                        'line-height': '1.428571429',
+                        'color': '#555',
+                        'background-color': '#fff',
+                        'background-image': 'none',
+                        'border': '1px solid #ccc',
+                        'border-radius': '0px',
+                        'box-shadow': 'inset 0 1px 1px rgba(0, 0, 0, 0.075)',
+                        '-webkit-transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+                        'transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s'
+                    },
+                    color: {
+                        header: '#5bc0de',
+                        headerText: '#FFF'
+                    },
+                    buttons: {
+                        ok: 'Ok',
+                        cancel: 'Cancel'
+                    },
+                    overlayOpacity: 0.5, // 0.5 as default
+                    dismissible: true // as true as default
+                },
+                endOption: {
+                    type: 'min',
+                    week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+                    month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    format: 'DD-MM-YYYY HH:mm',
+                    placeholder: 'End on',
+                    inputStyle: {
+                        'width': '100%',
+                        'display': 'block',
+                        'height': '34px',
+                        'padding': '6px 12px',
+                        'font-size': '14px',
+                        'line-height': '1.428571429',
+                        'color': '#555',
+                        'background-color': '#fff',
+                        'background-image': 'none',
+                        'border': '1px solid #ccc',
+                        'border-radius': '0px',
+                        'box-shadow': 'inset 0 1px 1px rgba(0, 0, 0, 0.075)',
+                        '-webkit-transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+                        'transition': 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s'
+                    },
+                    color: {
+                        header: '#5bc0de',
+                        headerText: '#FFF'
+                    },
+                    buttons: {
+                        ok: 'Ok',
+                        cancel: 'Cancel'
+                    },
+                    overlayOpacity: 0.5, // 0.5 as default
+                    dismissible: true // as true as default
+                },
                 date: false,
                 spanning_date:false,
                 errorsShow: false,
@@ -463,7 +529,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.node = response.data;
                         that.node.area_fk = 0;
                         that.starttime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
-                        that.endtime = moment(that.node.end_at).format('DD-MM-YYYY HH:mm');
+                        that.endtime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
 
                         that.node.type = response.data.type;
                         if (that.node.type.date == 1) {
