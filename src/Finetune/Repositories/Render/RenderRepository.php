@@ -269,6 +269,8 @@ class RenderRepository implements RenderInterface
         $this->getOutput();
         $this->renderBlocks();
         $this->renderBodyBlock();
+
+
         if (!empty($this->contentArray['children'])) {
             $this->filterChildren();
         }
@@ -492,17 +494,23 @@ class RenderRepository implements RenderInterface
 
         $list = $this->contentArray['children'];
         if(!$listDate){
-            if($this->contentArray['type']->today_future){
+            if($this->contentArray['type']->spanning_date){
                 $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
                 $list = $list->filter(function ($value, $key) use ($date) {
-                    return ($value->publish_on >= $date);
+                    return true;
                 });
-            }
-            if($this->contentArray['type']->today_past){
-                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
-                $list = $list->filter(function ($value, $key) use ($date) {
-                    return ($value->publish_on <= $date);
-                });
+            }else{
+                if($this->contentArray['type']->today_future){
+                    $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $list = $list->filter(function ($value, $key) use ($date) {
+                        return ($value->publish_on >= $date);
+                    });
+                }else{
+                    $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $list = $list->filter(function ($value, $key) use ($date) {
+                        return ($value->publish_on <= $date);
+                    });
+                }
             }
         }
 

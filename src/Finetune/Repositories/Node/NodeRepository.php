@@ -510,6 +510,19 @@ class NodeRepository implements NodeInterface
                     $node = null;
                 }
             }
+            $now = \Carbon\Carbon::now();
+            if($node->type->spanning_date){
+                $start = \Carbon\Carbon::parse('start_at');
+                $end = \Carbon\Carbon::parse('end_at');
+                if($now->between($start,$end)){
+                    $node = null;
+                }
+            }else{
+                $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                if($now->gt($publishOn)){
+                    $node = null;
+                }
+            }
         }
         return $this->eagerLoad($node, true);
     }
