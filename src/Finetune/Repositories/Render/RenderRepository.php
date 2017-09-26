@@ -317,7 +317,7 @@ class RenderRepository implements RenderInterface
 
     public function sitemap($site)
     {
-        $nodes = $this->node->all(0,0,$site->id, true, true);
+        $nodes = $this->node->all($site,0,0,$site->id, true, true);
         $nodes = $nodes->filter(function ($value, $key) {
             if ($value->exclude == 1) {
                 return false;
