@@ -662,6 +662,13 @@ class NodeRepository implements NodeInterface
             $nodeQuery = $nodeQuery->where('area_fk', $area->id);
         }
         $nodes = $nodeQuery->where('publish', 1)->get();
+
+        foreach($nodes as $index => $node){
+            $area = $node->area_node()->first();
+            if($area->publish != 1){
+                unset($nodes[$index]);
+            }
+        }
         return $nodes;
     }
 
