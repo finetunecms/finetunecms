@@ -215,7 +215,8 @@ class RenderRepository implements RenderInterface
     public function search($site, $request){
         $this->view->addNamespace($site->theme, public_path() . '/themes/' . $site->theme);
         $searchTerm = $request->input('searchTerm');
-        $searchItems = $this->node->frontEndSearch($site, $searchTerm, $request->input('area'));
+        $area = $request->input('area');
+        $searchItems = $this->node->frontEndSearch($site, $searchTerm, $area);
         $page = LengthAwarePaginator::resolveCurrentPage();
         $perPage = config('finetune.searchItems');
         $currentPageResults = $searchItems->slice(($page - 1) * $perPage, $perPage)->all();
@@ -224,7 +225,8 @@ class RenderRepository implements RenderInterface
             count($searchItems),
             $perPage);
         $list->setPath($request->url());
-        $list->appends($request->query());
+        $list->appends('searchTerm', $searchTerm);
+        $list->appends('area', $area);
         $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'searchTerm' => $searchTerm, 'site' => $site]);
         return $view;
     }
