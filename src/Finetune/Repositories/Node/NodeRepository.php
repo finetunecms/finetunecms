@@ -381,7 +381,6 @@ class NodeRepository implements NodeInterface
                 $item = $itemWithType;
 
                 if (!empty($item->type->order_by)) {
-
                     $order = explode(':', $item->type->order_by);
                     $query->orderBy($order[0], $order[1]);
                 } else {
@@ -390,7 +389,12 @@ class NodeRepository implements NodeInterface
                 if ($frontend) {
                     $query->where('publish', '=', '1');
                 }
-
+                $date = \Carbon\Carbon::now();
+                if($item->type->today_future){
+                    $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                }else{
+                    $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
+                }
             },
                 'area_node.children' => function ($query) use ($collection, $frontend, $itemWithType) {
                     $item = $itemWithType;
@@ -402,6 +406,12 @@ class NodeRepository implements NodeInterface
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
+                    }
+                    $date = \Carbon\Carbon::now();
+                    if($item->type->today_future){
+                        $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                    }else{
+                        $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
                     }
 
                 },
@@ -416,6 +426,12 @@ class NodeRepository implements NodeInterface
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
+                    }
+                    $date = \Carbon\Carbon::now();
+                    if($item->type->today_future){
+                        $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                    }else{
+                        $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
                     }
 
                 },
@@ -442,6 +458,12 @@ class NodeRepository implements NodeInterface
                         }
                         if ($frontend) {
                             $query->where('publish', '=', '1');
+                        }
+                        $date = \Carbon\Carbon::now();
+                        if($item->type->today_future){
+                            $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                        }else{
+                            $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
                         }
                     }]);
                     $collection->children[$key] = $child;
