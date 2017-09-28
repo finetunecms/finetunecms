@@ -498,11 +498,10 @@ class RenderRepository implements RenderInterface
         $list = $this->contentArray['children'];
         if(!$listDate){
             if($this->contentArray['type']->spanning_date){
-                $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                $date = \Carbon\Carbon::now();
                 $list = $list->filter(function ($value, $key) use ($date) {
                     $start = \Carbon\Carbon::parse($value->start_at);
                     $end = \Carbon\Carbon::parse($value->end_at);
-
                     if(!$date->between($start,$end)){
                         return false;
                     }else{
@@ -511,14 +510,16 @@ class RenderRepository implements RenderInterface
                 });
             }else{
                 if($this->contentArray['type']->today_future){
-                    $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
-                        return ($value->publish_on >= $date);
+                        $publishOn = Carbon\Carbon::parse($value->publish_on);
+                        return ($publishOn <= $date);
                     });
                 }else{
-                    $date = \Carbon\Carbon::now()->format('Y-m-d H:i:s');
+                    $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
-                        return ($value->publish_on <= $date);
+                        $publishOn = Carbon\Carbon::parse($value->publish_on);
+                        return ($publishOn <= $date);
                     });
                 }
             }
