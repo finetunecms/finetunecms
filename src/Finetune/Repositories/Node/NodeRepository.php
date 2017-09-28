@@ -388,13 +388,14 @@ class NodeRepository implements NodeInterface
                 }
                 if ($frontend) {
                     $query->where('publish', '=', '1');
+                    $date = \Carbon\Carbon::now();
+                    if($item->type->today_future){
+                        $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
+                    }else{
+                        $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                    }
                 }
-                $date = \Carbon\Carbon::now();
-                if($item->type->today_future){
-                    $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                }else{
-                    $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
-                }
+
             },
                 'area_node.children' => function ($query) use ($collection, $frontend, $itemWithType) {
                     $item = $itemWithType;
@@ -406,13 +407,14 @@ class NodeRepository implements NodeInterface
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
+                        $date = \Carbon\Carbon::now();
+                        if($item->type->today_future){
+                            $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
+                        }else{
+                            $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                        }
                     }
-                    $date = \Carbon\Carbon::now();
-                    if($item->type->today_future){
-                        $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                    }else{
-                        $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
-                    }
+
 
                 },
                 'parent_node.children' => function ($query) use ($collection, $frontend, $itemWithType) {
@@ -426,13 +428,14 @@ class NodeRepository implements NodeInterface
                     }
                     if ($frontend) {
                         $query->where('publish', '=', '1');
+                        $date = \Carbon\Carbon::now();
+                        if($item->type->today_future){
+                            $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
+                        }else{
+                            $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                        }
                     }
-                    $date = \Carbon\Carbon::now();
-                    if($item->type->today_future){
-                        $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                    }else{
-                        $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
-                    }
+
 
                 },
                 'children.tags',
@@ -458,13 +461,14 @@ class NodeRepository implements NodeInterface
                         }
                         if ($frontend) {
                             $query->where('publish', '=', '1');
+                            $date = \Carbon\Carbon::now();
+                            if($item->type->today_future){
+                                $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
+                            }else{
+                                $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
+                            }
                         }
-                        $date = \Carbon\Carbon::now();
-                        if($item->type->today_future){
-                            $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                        }else{
-                            $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
-                        }
+
                     }]);
                     $collection->children[$key] = $child;
                 }
