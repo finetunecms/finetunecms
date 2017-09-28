@@ -183,8 +183,8 @@ class NodeRepository implements NodeInterface
             if (isset($request['starttime'])) {
                 $node->start_at = $this->parseDate($request['starttime']);
             }
-            if (isset($request['end_at'])) {
-                $node->endtime = $this->parseDate($request['endtime']);
+            if (isset($request['endtime'])) {
+                $node->endtime = $this->parseDate($request['end_at']);
             }
         }
         $node->url_slug = $this->slugBuilder($node);
