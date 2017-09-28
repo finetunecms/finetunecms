@@ -513,13 +513,13 @@ class RenderRepository implements RenderInterface
                     $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
                         $publishOn = Carbon\Carbon::parse($value->publish_on);
-                        return ($publishOn <= $date);
+                        return ($publishOn->gte($date));
                     });
                 }else{
                     $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
                         $publishOn = Carbon\Carbon::parse($value->publish_on);
-                        return ($publishOn <= $date);
+                        return ($publishOn->lte($date));
                     });
                 }
             }
