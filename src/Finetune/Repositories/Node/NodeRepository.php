@@ -546,8 +546,14 @@ class NodeRepository implements NodeInterface
                 } else {
                     $start = \Carbon\Carbon::parse($node->start_at);
                     $end = \Carbon\Carbon::parse($node->end_at);
-                    if (!$now->between($start, $end)) {
-                        $node = null;
+                    if($node->type->today_future){
+                        if (!$now->lt($end)) {
+                            $node = null;
+                        }
+                    }else{
+                        if (!$now->between($start, $end)) {
+                            $node = null;
+                        }
                     }
                 }
             } else {
