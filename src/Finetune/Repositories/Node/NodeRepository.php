@@ -557,10 +557,18 @@ class NodeRepository implements NodeInterface
                     }
                 }
             } else {
-                $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                if ($now->gte($publishOn)) {
-                    $node = null;
+                if($node->type->today_future){
+                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                    if ($now->gte($publishOn)) {
+                        $node = null;
+                    }
+                }else{
+                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                    if ($now->lte($publishOn)) {
+                        $node = null;
+                    }
                 }
+
             }
         }
         return $this->eagerLoad($node, true);
