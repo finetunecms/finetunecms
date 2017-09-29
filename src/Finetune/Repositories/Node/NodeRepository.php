@@ -558,7 +558,7 @@ class NodeRepository implements NodeInterface
                 }
             } else {
                 $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                if (!$now->gt($publishOn)) {
+                if ($now->gte($publishOn)) {
                     $node = null;
                 }
             }
