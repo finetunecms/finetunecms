@@ -49,7 +49,7 @@ function truncate(string, length){
 
 function insertFile(file){
     var string = '';
-    if(file.title != ''){
+    if(file.title){
         string = string + '<a href="'+file.external+'">' + truncate(file.title, 20) + '</a>';
     }else{
         string = string + '<a href="'+file.external+'">' + truncate(file.filename, 20) + '</a>';
