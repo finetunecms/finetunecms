@@ -19,7 +19,13 @@ require_once __DIR__ . '/files.php';
 | loading any of our classes later on. It feels nice to relax.
 |
 */
-require __DIR__.'/../bootstrap/autoload.php';
+$new = __DIR__.'/../vendor/autoload.php';
+$old = __DIR__.'/../bootstrap/autoload.php';
+if(file_exists($new)){
+    require $new;
+}else{
+    require $old;
+}
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights

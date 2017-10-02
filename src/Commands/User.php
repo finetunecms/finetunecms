@@ -55,4 +55,7 @@ class User extends Command {
         $user->save();
         $user->role()->attach(1);
     }
+    public function handle(){
+        $this->fire();
+    }
 }

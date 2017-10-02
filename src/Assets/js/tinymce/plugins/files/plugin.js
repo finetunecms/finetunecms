@@ -17,7 +17,7 @@ function fileString(media){
         $.each(media, function(key, value){
             if(value.type == 'file'){
                 string = string + '<tr class="file-row">'
-                if(value.title != ''){
+                if(value.title){
                     string = string + '<td>' + truncate(value.title, 20) + '</td>';
                 }else{
                     string = string + '<td>' + truncate(value.filename, 20) + '</td>';
@@ -34,11 +34,16 @@ function fileString(media){
 }
 
 function truncate(string, length){
-    var newString = string.substring(0,length);
-    if(string != newString){
-        newString = newString + '...';
+    if(string){
+        var newString = string.substring(0,length);
+        if(string != newString){
+            newString = newString + '...';
+        }
+        return newString;
+    }else{
+        return '';
     }
-    return newString;
+
 }
 
 
