@@ -5,17 +5,12 @@
             :show="errorsShow"
             state="danger"
             dismissible v-cloak>
+        <div v-if="errors['message']">
+            @{{ errors['message'] }}
+        </div>
         <ul class="alert-list">
-            <li v-for="(index, error) in errors">
-                <div v-if="error.isObject()">
-                    <div v-for="(index, value) in error">
-                        @{{ value }}
-                    </div>
-                </div>
-                <div v-else>
-                    @{{ error }}
-                </div>
-
+            <li v-for="(index, error) in errors['errors']">
+                @{{ error }}
             </li>
         </ul>
     </alert>
@@ -74,9 +69,12 @@
                             <input type="hidden" name="body-image" v-model="node.media.id"/>
                             <img :src="node.media.external" class="full-width" v-if="node.media.id != 0">
                             <div class="content-image-btns">
-                                <a href="#" class="btn btn-success btn-block" @click='changeImage("body")' v-if="node.media.id == 0">{{ trans('finetune::content.image.add') }}</a>
-                                <a href="#" class="btn btn-success" @click='changeImage("body")' v-else>{{ trans('finetune::content.image.change') }}</a>
-                                <a href="#" class="btn btn-danger hidden" @click='removeImage("body")' v-if="node.media.id != 0">{{ trans('finetune::content.image.remove') }}</a>
+                                <a href="#" class="btn btn-success btn-block" @click='changeImage("body")'
+                                   v-if="node.media.id == 0">{{ trans('finetune::content.image.add') }}</a>
+                                <a href="#" class="btn btn-success" @click='changeImage("body")'
+                                   v-else>{{ trans('finetune::content.image.change') }}</a>
+                                <a href="#" class="btn btn-danger hidden" @click='removeImage("body")'
+                                   v-if="node.media.id != 0">{{ trans('finetune::content.image.remove') }}</a>
                             </div>
 
 
@@ -91,18 +89,23 @@
                                         <label>{{ trans('finetune::content.options.date') }}
                                             <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
                                                      :triggers="['hover']"
-                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}"
+                                                     position="left">
                                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                                             </popover>
                                         </label>
-                                        <date-picker :time.sync="starttime" :option="option" :limit="limit"></date-picker>
-                                        <input type="hidden" name="start_at" value="{{ isset($node->start_at) ? \Carbon\Carbon::parse($node->start_at)->format('d-m-Y') : old('start_at') }}" v-model="startTime"/>
+                                        <date-picker :time.sync="starttime" :option="option"
+                                                     :limit="limit"></date-picker>
+                                        <input type="hidden" name="start_at"
+                                               value="{{ isset($node->start_at) ? \Carbon\Carbon::parse($node->start_at)->format('d-m-Y') : old('start_at') }}"
+                                               v-model="startTime"/>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <label>{{ trans('finetune::content.options.date') }}
                                             <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
                                                      :triggers="['hover']"
-                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}"
+                                                     position="left">
                                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                                             </popover>
                                         </label>
@@ -117,11 +120,13 @@
                                         <label>{{ trans('finetune::content.options.date') }}
                                             <popover title="{{ trans('finetune::content.popover.dateTitle') }}"
                                                      :triggers="['hover']"
-                                                     text="{{ trans('finetune::content.popover.dateDesc') }}" position="left">
+                                                     text="{{ trans('finetune::content.popover.dateDesc') }}"
+                                                     position="left">
                                                 <a class="btn btn-plain btn-sm btn-info">?</a>
                                             </popover>
                                         </label>
-                                        <date-picker :time.sync="starttime" :option="option" :limit="limit"></date-picker>
+                                        <date-picker :time.sync="starttime" :option="option"
+                                                     :limit="limit"></date-picker>
                                         <input type="hidden" name="due_date"
                                                value="{{ isset($node->publish_on) ? \Carbon\Carbon::parse($node->publish_on)->format('d-m-Y') : old('publish_on') }}"
                                                v-model="startTime"/>
@@ -132,7 +137,8 @@
 
                             <div v-if="hasTags">
                                 <label class="control-label">{{ trans('finetune::content.options.tags') }}
-                                    <popover title="{{ trans('finetune::content.popover.tagTitle') }}" :triggers="['hover']"
+                                    <popover title="{{ trans('finetune::content.popover.tagTitle') }}"
+                                             :triggers="['hover']"
                                              text="{{ trans('finetune::content.popover.tagDesc') }}" position="left">
                                         <a class="btn btn-plain btn-sm btn-info">?</a>
                                     </popover>
@@ -153,7 +159,8 @@
                             <div class="form-group">
                                 <label class="control-label"
                                        for="@{{ block.name }}-title">{{ trans('finetune::content.block.title') }}
-                                    <popover title="{{ trans('finetune::content.popover.blockTitle') }}" :triggers="['hover']"
+                                    <popover title="{{ trans('finetune::content.popover.blockTitle') }}"
+                                             :triggers="['hover']"
                                              text="{{ trans('finetune::content.popover.blockDesc') }}" position="top">
                                         <a class="btn btn-plain btn-sm btn-info">?</a>
                                     </popover>
@@ -182,7 +189,8 @@
                                    for="@{{ block.name }}-title">{{ trans('finetune::content.options.imageBlock') }}
                                 <popover title="{{ trans('finetune::content.popover.blockOptionsTitle') }}"
                                          :triggers="['hover']"
-                                         text="{{ trans('finetune::content.popover.blockOptionsDesc') }}" position="left">
+                                         text="{{ trans('finetune::content.popover.blockOptionsDesc') }}"
+                                         position="left">
                                     <a class="btn btn-plain btn-sm btn-info">?</a>
                                 </popover>
                             </label>
@@ -213,7 +221,8 @@
                                         <div class="col-m-2">
                                             <label for="no-icon">
                                                 No Icon
-                                                <input type="radio" name="icon" v-model="field.value" id="no-icon" value="" class="form-control"/>
+                                                <input type="radio" name="icon" v-model="field.value" id="no-icon"
+                                                       value="" class="form-control"/>
                                             </label>
                                         </div>
                                         <div class="col-md-2" style="height:60px" v-for="(icon,index) in field.icons">
@@ -311,7 +320,7 @@
                                     aria-hidden="true"></i>{{ trans('finetune::content.mergeBlock') }}</a>
 
                                 <a href="#" class="btn btn-danger btn-block mt-1" @click="destroyOrphan(block)"><i
-                                        class="fa fa-trash"></i> Delete Orphan</a>
+                                            class="fa fa-trash"></i> Delete Orphan</a>
                             </div>
 
                         </div>
@@ -329,13 +338,16 @@
                         </label>
                         {{--  [{ value: 4, label: 'Four'},{ value: 5, label: 'Five'}] --}}
 
-                        <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value" label="title" :multiple="(['multiple'].indexOf(field.type) != -1)"
+                        <v-select v-if="['select','multiple'].indexOf(field.type) != -1" :value.sync="field.value"
+                                  label="title" :multiple="(['multiple'].indexOf(field.type) != -1)"
                                   :options="field.values" :placeholder="field.name"></v-select>
 
-                        <input v-if="['text','number','password'].indexOf(field.type) != -1" type="@{{ field.type }}" v-model="field.value" :id="field.name" class="form-control" />
+                        <input v-if="['text','number','password'].indexOf(field.type) != -1" type="@{{ field.type }}"
+                               v-model="field.value" :id="field.name" class="form-control"/>
                     </div>
                     <div class="checkbox" v-else>
-                        <input v-if="field.type == 'checkbox'" type="checkbox" v-model="field.value" type="checkbox" :id="field.name"/>
+                        <input v-if="field.type == 'checkbox'" type="checkbox" v-model="field.value" type="checkbox"
+                               :id="field.name"/>
                         <label class="control-label" :for="field.name">@{{ field.name }}</label>
                         <popover :title="field.name" :triggers="['hover']" :text="field.name" position="top">
                             <a class="btn btn-plain btn-sm btn-info">?</a>
@@ -492,9 +504,13 @@
         <div class="btn-group">
             <a href="#" v-on:click="preview()" class="btn">{{ trans('finetune::content.preview') }}</a>
             <button v-on:click="saveContent(0)" class="btn btn-success"
-                    :disabled="saving"><span v-if="!saving">{{ trans('finetune::content.saveDraft') }}</span><i v-else class="fa fa-spinner fa-spin"></i></button>
+                    :disabled="saving"><span v-if="!saving">{{ trans('finetune::content.saveDraft') }}</span><i v-else
+                                                                                                                class="fa fa-spinner fa-spin"></i>
+            </button>
             <button v-on:click="saveContent(1)" class="btn btn-success" :disabled="saving"
-                    saving><span v-if="!saving">{{ trans('finetune::content.savePub') }}</span><i v-else class="fa fa-spinner fa-spin"></i></button>
+                    saving><span v-if="!saving">{{ trans('finetune::content.savePub') }}</span><i v-else
+                                                                                                  class="fa fa-spinner fa-spin"></i>
+            </button>
         </div>
     </div>
 @stop
