@@ -7,9 +7,15 @@
             dismissible v-cloak>
         <ul class="alert-list">
             <li v-for="(index, error) in errors">
-                <div v-for="(index, value) in error">
-                    @{{ value }}
+                <div v-if="error.isArray()">
+                    <div v-for="(index, value) in error">
+                        @{{ value }}
+                    </div>
                 </div>
+                <div v-else>
+                    @{{ error }}
+                </div>
+
             </li>
         </ul>
     </alert>
