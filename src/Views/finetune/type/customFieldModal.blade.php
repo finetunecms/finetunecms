@@ -4,19 +4,7 @@
     </div>
 
     <div slot="modal-body">
-        <alert
-                :show="errorsShow"
-                state="danger"
-                dismissible>
-            <ul class="list-unstyled">
-                <li v-for="(index, error) in errors">
-                    <div v-for="(index, value) in error">
-                        <p>@{{ value }}</p>
-                    </div>
-                </li>
-            </ul>
-
-        </alert>
+        @include('finetune::partials.formvalidation')
 
         <input type="hidden" name="type_id" value="{{ $type->id }}" v-model="field.type_id" />
 

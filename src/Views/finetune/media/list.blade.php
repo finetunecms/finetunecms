@@ -5,7 +5,7 @@
     <div class="content media-area" v-cloak>
         <div class="media-table">
             <div v-show="uploader">
-                @include('finetune::partials.formvalidation)
+                @include('finetune::partials.formvalidation')
             </div>
             <div class="images" v-if="media.length > 0">
                 <table class="table table-striped">

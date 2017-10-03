@@ -4,14 +4,7 @@
     </div>
     <div slot="modal-body" class="modal-body">
         <!-- only show when ready, fileProgress is a percent -->
-        <div class="alert alert-danger" v-show="errorsShow">
-            <li v-for="(index, error) in errors">
-                <div v-for="(index, value) in error">
-                    <p>@{{ value }}</p>
-                </div>
-
-            </li>
-        </div>
+        @include('finetune::partials.formvalidation')
         <div class="form-group">
             <label for='folder'>Choose a Group</label>
             <v-select :value.sync="foldersSelected" label="title"

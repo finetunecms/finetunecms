@@ -5,13 +5,7 @@
     <div class="card-block">
         <div class="row">
             <div class="col-md-9">
-                <div class="alert alert-danger" v-show="errorsShow">
-                    <li v-for="(index, error) in errors">
-                        <div v-for="(index, value) in error">
-                            <p>@{{ value }}</p>
-                        </div>
-                    </li>
-                </div>
+                @include('finetune::partials.formvalidation')
                 <v-select :value.sync="moveParent" :options="filterMoveNodes()" :on-change="moveChange" label="title"></v-select>
             </div>
             <div class="col-md-3">

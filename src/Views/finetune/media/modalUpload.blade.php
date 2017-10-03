@@ -3,13 +3,7 @@
         <h4 class="modal-title">Upload Images And Files</h4>
     </div>
     <div slot="modal-body">
-        <alert :show="errorsShow" state="danger" dismissible>
-            <li v-for="(index, error) in errors">
-                <div v-for="(index, value) in error">
-                    <p>@{{ value }}</p>
-                </div>
-            </li>
-        </alert>
+        @include('finetune::partials.formvalidation')
         <ul>
             <li v-for="file in files" :class="file.active">
                 <img v-bind:src="renderImage(file.id, this.upload._files[file.id].file)" :id="file.id" width="100px"/>

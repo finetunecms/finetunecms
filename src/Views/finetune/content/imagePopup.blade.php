@@ -4,13 +4,7 @@
     </div>
 
     <div slot="modal-body">
-        <alert :show="errorsShow" state="danger" dismissible>
-            <li v-for="(index, error) in errors">
-                <div v-for="(index, value) in error">
-                    <p>@{{ value }}</p>
-                </div>
-            </li>
-        </alert>
+        @include('finetune::partials.formvalidation')
         <div class="image-popup-header">
             <div class="row">
                 <div class="col-md-6">

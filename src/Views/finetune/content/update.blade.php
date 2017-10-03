@@ -1,7 +1,7 @@
 @extends('finetune::layouts.admin')
 
 @section('manage')
-    @include('finetune::partials.formvalidation)
+    @include('finetune::partials.formvalidation')
     <i v-if="loading" class="loading fa fa-circle-o-notch fa-spin fa-3x"></i>
     <div id="content-update" class="content-tabbed" v-cloak>
         <tabs size="md" :fade="false" v-show="!previewActive">

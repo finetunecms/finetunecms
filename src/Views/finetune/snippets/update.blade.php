@@ -1,7 +1,7 @@
 @extends('finetune::layouts.admin')
 
 @section('manage')
-    @include('finetune::partials.formvalidation)
+    @include('finetune::partials.formvalidation')
     <input type="hidden" value="{{ $group->id }}" id="groupIdField"/>
     <i v-if="loading" class="loading fa fa-circle-o-notch fa-spin fa-3x"></i>
     <div id="snippet-update" class="content-tabbed" v-cloak>
