@@ -5,13 +5,7 @@
     <div class="content media-area" v-cloak>
         <div class="media-table">
             <div v-show="uploader">
-                <alert :show="errorsShow" state="danger" dismissible>
-                    <li v-for="(index, error) in errors">
-                        <div v-for="(index, value) in error">
-                            <p>@{{ value }}</p>
-                        </div>
-                    </li>
-                </alert>
+                @include('finetune::partials.formvalidation)
             </div>
             <div class="images" v-if="media.length > 0">
                 <table class="table table-striped">

@@ -1,19 +1,7 @@
 @extends('finetune::layouts.admin')
 
 @section('manage')
-    <alert
-            :show="errorsShow"
-            state="danger"
-            dismissible v-cloak>
-        <div v-if="errors['message']">
-            @{{ errors['message'] }}
-        </div>
-        <ul class="alert-list">
-            <li v-for="(index, error) in errors['errors']">
-                @{{ error }}
-            </li>
-        </ul>
-    </alert>
+    @include('finetune::partials.formvalidation)
     <i v-if="loading" class="loading fa fa-circle-o-notch fa-spin fa-3x"></i>
     <div id="content-update" class="content-tabbed" v-cloak>
         <tabs size="md" :fade="false" v-show="!previewActive">

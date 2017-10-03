@@ -1,13 +1,7 @@
 @extends('finetune::layouts.admin')
 
 @section('manage')
-    <alert :show="errorsShow" state="danger" dismissible v-cloak>
-        <li v-for="(index, error) in errors">
-            <div v-for="(index, value) in error">
-                <p>@{{ value }}</p>
-            </div>
-        </li>
-    </alert>
+    @include('finetune::partials.formvalidation)
     <input type="hidden" value="{{ $group->id }}" id="groupIdField"/>
     <i v-if="loading" class="loading fa fa-circle-o-notch fa-spin fa-3x"></i>
     <div id="snippet-update" class="content-tabbed" v-cloak>
