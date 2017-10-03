@@ -26,9 +26,11 @@ class PackagesController extends BaseController
     }
 
     public function store(Request $request){
-
             $packageArea = $request->get('area');
             $node = $request->get('node');
+            if($node == 0){
+                $node = null;
+            }
             $packages = $this->packages->find($this->site, $packageArea, $node);
             return response()->json($packages);
     }

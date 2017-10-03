@@ -582,6 +582,11 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.loading = false;
                         this.date = false;
                         this.spanning_date = false;
+                        that.$http.post('/admin/api/packages', {'area': 'content-update', 'node': 0}).then(function (response) {
+                            that.packages = response.data;
+                        }, function () {
+                            that.alertBox(true, 'danger', 'The server responded with an error, please try again');
+                        })
                     }
                 }
                 this.getTags();
