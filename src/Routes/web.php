@@ -25,6 +25,8 @@ Route::get('/files/{folder}/{filename}', '\Finetune\Finetune\Controllers\MediaCo
 Route::get('/file/{folder}/{filename}', '\Finetune\Finetune\Controllers\MediaController@file');
 Route::any('/form/{form}', '\Finetune\Finetune\Controllers\PublicController@email');
 
+Route::any('/category/{cat}', '\Finetune\Finetune\Controllers\PublicController@category');
+
 Route::get('/test/styles', '\Finetune\Finetune\Controllers\PublicController@testStyles');
 
 Route::any('{any}', '\Finetune\Finetune\Controllers\PublicController@index')->where('any', '.*');
