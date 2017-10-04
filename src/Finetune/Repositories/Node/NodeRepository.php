@@ -711,7 +711,48 @@ class NodeRepository implements NodeInterface
                 }
             }
         }
-        return $nodes;
+        $items = $this->searchPackages($site);
+        if(!empty($items)){
+            $array = [];
+            $nodes = $nodes->toArray();
+            $packageItems = [];
+            foreach($items as $item){
+                if(is_array($item)){
+                    foreach($item as $object){
+                        $packageItems[] = $object->toArray();
+                    }
+                }
+            }
+            $nodesCount = count($nodes);
+            for($x =0;$x<$nodesCount;$x++){
+                $array[] = $nodes[$x];
+                if(isset($packageItems[$x])){
+                    $array[] = $packageItems[$x];
+                    unset($packageItems[$x]);
+                }
+            }
+            if(!empty($packageItems)){
+                foreach($packageItems as $packageItem){
+                    $array[] = $packageItem;
+                }
+            }
+            return $array;
+        }else{
+            return $nodes;
+        }
+
+    }
+
+    public function searchPackages($site){
+        $packages = config('packages.search');
+        $items = [];
+        if(!empty($packages)){
+            foreach($packages as $package){
+                $class = resolve($package['class']);
+                $items[$package['name']] = $class->{$package['function']}($site);
+            }
+        }
+        return $items;
     }
 
     public function savePackages($site, $node, $packages)

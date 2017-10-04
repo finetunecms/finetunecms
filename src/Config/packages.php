@@ -36,8 +36,8 @@ return [
     'tags-list' => [],
     'tag-update' => [],
 
-
     'main-nav' => [],
     'folder-update' => [],
-    'form-submit' => []
+    'form-submit' => [],
+    'search' => []
 ];
