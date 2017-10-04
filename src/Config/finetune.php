@@ -82,9 +82,8 @@ return [
      * Allow for group unpublish
      */
 
-    'groupunpublish' => true
+    'groupunpublish' => true,
 
 
-
-
+    'mobile' => true
 ];

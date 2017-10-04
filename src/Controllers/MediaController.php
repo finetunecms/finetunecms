@@ -31,6 +31,13 @@ class MediaController extends BaseController
         $name = $img->filename;
         if (!empty($width)) {
             $widths = explode('x', $width);
+            require_once 'Mobile_Detect.php';
+            $detect = new Mobile_Detect;
+            if(config('finetune.mobile')){
+                if ( $detect->isMobile() ) {
+                    $widths[0] = '500';
+                }
+            }
             $name = $name . '-' . $widths[0];
             if (isset($widths[1])) {
                 $name = $name . 'x' . $widths[1];

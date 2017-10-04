@@ -1,5 +1,9 @@
 <?php
-
+$mobile = true;
+if($mobile){
+    require_once 'Mobile_Detect.php';
+    $detect = new Mobile_Detect;
+}
 if (!empty($_SERVER['REQUEST_URI'])) {
     $uri = $_SERVER['REQUEST_URI'];
     $uriParts = explode('/', strtok($uri, '?'));
@@ -44,6 +48,12 @@ if (!empty($_SERVER['REQUEST_URI'])) {
 
                     }else{
                         $filename = $filename.'-'.$uriParts[4];
+                    }
+                }else{
+                    if($mobile){
+                        if ( $detect->isMobile() ) {
+                            $filename = $filename.'-'.'500';
+                        }
                     }
                 }
                 $filenameArray = explode('?', $filename);
