@@ -101,6 +101,7 @@ class PublicController extends BaseController
     }
 
     public function category($cat){
+        $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);
         $nodes = $this->tagging->getTagged($this->site, $cat, null, true);
         $packages = config('packages.tagged');
         $items = [];
