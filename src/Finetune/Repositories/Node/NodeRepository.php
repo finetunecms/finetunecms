@@ -389,9 +389,9 @@ class NodeRepository implements NodeInterface
                 if ($frontend) {
                     $query->where('publish', '=', '1');
                     $date = \Carbon\Carbon::now();
-                    if ($item->type->today_future) {
+                    if($item->type->today_future){
                         $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                    } else {
+                    }else{
                         $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
                     }
                 }
@@ -408,9 +408,9 @@ class NodeRepository implements NodeInterface
                     if ($frontend) {
                         $query->where('publish', '=', '1');
                         $date = \Carbon\Carbon::now();
-                        if ($item->type->today_future) {
+                        if($item->type->today_future){
                             $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                        } else {
+                        }else{
                             $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
                         }
                     }
@@ -429,9 +429,9 @@ class NodeRepository implements NodeInterface
                     if ($frontend) {
                         $query->where('publish', '=', '1');
                         $date = \Carbon\Carbon::now();
-                        if ($item->type->today_future) {
+                        if($item->type->today_future){
                             $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                        } else {
+                        }else{
                             $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
                         }
                     }
@@ -462,9 +462,9 @@ class NodeRepository implements NodeInterface
                         if ($frontend) {
                             $query->where('publish', '=', '1');
                             $date = \Carbon\Carbon::now();
-                            if ($item->type->today_future) {
+                            if($item->type->today_future){
                                 $query->where('publish_on', '>=', $date->format('Y-m-d H:i:s'));
-                            } else {
+                            }else{
                                 $query->where('publish_on', '<=', $date->format('Y-m-d H:i:s'));
                             }
                         }
@@ -546,23 +546,23 @@ class NodeRepository implements NodeInterface
                 } else {
                     $start = \Carbon\Carbon::parse($node->start_at);
                     $end = \Carbon\Carbon::parse($node->end_at);
-                    if ($node->type->today_future) {
+                    if($node->type->today_future){
                         if (!$now->lt($end)) {
                             $node = null;
                         }
-                    } else {
+                    }else{
                         if (!$now->between($start, $end)) {
                             $node = null;
                         }
                     }
                 }
             } else {
-                if ($node->type->today_future) {
+                if($node->type->today_future){
                     $publishOn = \Carbon\Carbon::parse($node->publish_on);
                     if ($now->gte($publishOn)) {
                         $node = null;
                     }
-                } else {
+                }else{
                     $publishOn = \Carbon\Carbon::parse($node->publish_on);
                     if ($now->lte($publishOn)) {
                         $node = null;
@@ -712,45 +712,38 @@ class NodeRepository implements NodeInterface
             }
         }
         $items = $this->searchPackages($site, $searchTerm);
-        if (!empty($items)) {
+        if(!empty($items)){
             $array = [];
-            $nodes = $nodes->toArray();
             $packageItems = [];
-            foreach ($items as $item) {
-                if (is_array($item)) {
-                    foreach ($item as $object) {
-                        $packageItems[] = $object->toArray();
-                    }
+            foreach($items as $item){
+                foreach($item as $object){
+                    $packageItems[] = $object;
                 }
             }
-            $nodesCount = count($nodes);
-            for ($x = 0; $x < $nodesCount; $x++) {
-                if (isset($nodes[$x])) {
-                    $array[] = $nodes[$x];
-                    if (isset($packageItems[$x])) {
-                        $array[] = $packageItems[$x];
-                        unset($packageItems[$x]);
-                    }
+            $packageItems = collect($packageItems);
+            foreach($nodes as $node){
+                $array[] = $node;
+                if(!empty($packageItems)){
+                    $array[] = $packageItems->shift();
                 }
             }
-            if (!empty($packageItems)) {
-                foreach ($packageItems as $packageItem) {
+            if(!empty($packageItems)){
+                foreach($packageItems as $packageItem){
                     $array[] = $packageItem;
                 }
             }
-            return $array;
-        } else {
+            return collect($array);
+        }else{
             return $nodes;
         }
 
     }
 
-    public function searchPackages($site, $searchTerm)
-    {
+    public function searchPackages($site, $searchTerm){
         $packages = config('packages.search');
         $items = [];
-        if (!empty($packages)) {
-            foreach ($packages as $package) {
+        if(!empty($packages)){
+            foreach($packages as $package){
                 $class = resolve($package['class']);
                 $items[$package['name']] = $class->{$package['function']}($site, $searchTerm);
             }
