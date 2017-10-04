@@ -105,6 +105,7 @@ class PublicController extends BaseController
         $nodes = $this->tagging->getTagged($this->site, $cat, null, true);
         $packages = config('packages.tagged');
         $items = [];
+        $site = $this->site;
         if (!empty($packages)) {
             foreach ($packages as $package) {
                 $class = resolve($package['class']);
