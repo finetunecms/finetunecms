@@ -5,6 +5,7 @@ use Finetune\Finetune\Repositories\Node\NodeInterface;
 use Finetune\Finetune\Repositories\Render\RenderInterface;
 use Finetune\Finetune\Repositories\Site\SiteInterface;
 use \App\Http\Controllers\Controller;
+use Finetune\Finetune\Repositories\Tagging\TaggingInterface;
 use \Illuminate\Http\Request;
 use \Illuminate\Contracts\View\Factory as View;
 use \Illuminate\Contracts\Mail\Mailer as Mail;
@@ -17,8 +18,9 @@ class PublicController extends BaseController
     protected $view;
     protected $mail;
     protected $validation;
+    protected $tagging;
 
-    public function __construct(NodeInterface $node, RenderInterface $render, SiteInterface $siteInterface, View $view, Mail $mail, Request $request)
+    public function __construct(NodeInterface $node, RenderInterface $render, SiteInterface $siteInterface, View $view, Mail $mail, Request $request, TaggingInterface $tagging)
     {
         parent::__construct($siteInterface, $request);
         $this->node = $node;
@@ -26,6 +28,7 @@ class PublicController extends BaseController
         $this->siteInterface = $siteInterface;
         $this->view = $view;
         $this->mail = $mail;
+        $this->tagging = $tagging;
     }
 
     public function index(Request $request)
@@ -95,5 +98,40 @@ class PublicController extends BaseController
         $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);
         $site = $this->site;
         return view($this->site->theme . '::style-test', compact('site'));
+    }
+
+    public function catagory($cat){
+        $nodes = $this->tagging->getTagged($this->site, $cat, null, true);
+        $packages = config('packages.tagged');
+        $items = [];
+        if (!empty($packages)) {
+            foreach ($packages as $package) {
+                $class = resolve($package['class']);
+                $items[$package['name']] = $class->{$package['function']}($this->site, $cat);
+            }
+        }
+        if(!empty($items)){
+            $array = [];
+            $packageItems = [];
+            foreach($items as $item){
+                foreach($item as $object){
+                    $packageItems[] = $object;
+                }
+            }
+            $packageItems = collect($packageItems);
+            foreach($nodes as $node){
+                $array[] = $node;
+                if(!empty($packageItems)){
+                    $array[] = $packageItems->shift();
+                }
+            }
+            if(!empty($packageItems)){
+                foreach($packageItems as $packageItem){
+                    $array[] = $packageItem;
+                }
+            }
+            $nodes = collect($array);
+        }
+        return view($this->site->theme . '::category.list', compact('site', 'nodes'));
     }
 }
