@@ -100,7 +100,7 @@ class PublicController extends BaseController
         return view($this->site->theme . '::style-test', compact('site'));
     }
 
-    public function catagory($cat){
+    public function category($cat){
         $nodes = $this->tagging->getTagged($this->site, $cat, null, true);
         $packages = config('packages.tagged');
         $items = [];
