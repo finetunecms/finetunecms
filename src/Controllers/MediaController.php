@@ -33,13 +33,16 @@ class MediaController extends BaseController
             $widths = explode('x', $width);
             require_once public_path().'/Mobile_Detect.php';
             $detect = new \Mobile_Detect;
-            if(config('finetune.mobile')){
-                if ( $detect->isMobile() ) {
-                    $widths[0] = '500';
-                }
-            }
             $name = $name . '-' . $widths[0];
             if (isset($widths[1])) {
+                if(config('finetune.mobile')){
+                    if ( $detect->isMobile() ) {
+                        $width = config('finetune.mobileSize');
+                        $height = $width * ((int)$widths[0] / (int)$widths[1]);
+                        $parts[0] = $width;
+                        $parts[1] = $height;
+                    }
+                }
                 $name = $name . 'x' . $widths[1];
                 $fit = !empty($this->request->get('fit'));
                 if($fit){
@@ -57,6 +60,11 @@ class MediaController extends BaseController
                     $img = $this->media->fit($img, $widths[0], $widths[1]);
                 }
             } else {
+                if(config('finetune.mobile')){
+                    if ( $detect->isMobile() ) {
+                        $width = config('finetune.mobileSize');
+                    }
+                }
                 $img = $this->media->resize($img, $width);
             }
         }

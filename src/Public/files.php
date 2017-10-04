@@ -1,6 +1,7 @@
 <?php
 $mobile = true;
 if($mobile){
+    $mobileWidth = 500;
     require_once './Mobile_Detect.php';
     $detect = new Mobile_Detect;
 }
@@ -34,14 +35,14 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                     if(isset($parts[1])){
                         if($mobile){
                             if ( $detect->isMobile() ) {
-                                $filename = $filename.'-'.'500';
+                                $height = $mobileWidth * ((int)$parts[0] / (int)$parts[1]);
+                                $parts[0] = $mobileWidth;
+                                $parts[1] = $height;
                             }
-                        }else{
-                            $filename = $filename.'-'.$parts[0];
                         }
 
+                        $filename = $filename.'-'.$parts[0];
                         $filename = $filename.'x'.$parts[1];
-
                         if(isset($_GET['fit'])){
 
                             $filename .= '-fit';
@@ -55,17 +56,16 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                     }else{
                         if($mobile){
                             if ( $detect->isMobile() ) {
-                                $filename = $filename.'-'.'500';
+                                $filename = $filename.'-'.$mobileWidth;
                             }
                         }else{
                             $filename = $filename.'-'.$uriParts[4];
                         }
-
                     }
                 }else{
                     if($mobile){
                         if ( $detect->isMobile() ) {
-                            $filename = $filename.'-'.'500';
+                            $filename = $filename.'-'.$mobileWidth;
                         }
                     }
                 }

@@ -85,5 +85,7 @@ return [
     'groupunpublish' => true,
 
 
-    'mobile' => true
+
+    'mobile' => true,
+    'mobileSize' => 500
 ];
