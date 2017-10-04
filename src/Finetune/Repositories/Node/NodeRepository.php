@@ -711,7 +711,7 @@ class NodeRepository implements NodeInterface
                 }
             }
         }
-        $items = $this->searchPackages($site);
+        $items = $this->searchPackages($site, $searchTerm);
         if(!empty($items)){
             $array = [];
             $nodes = $nodes->toArray();
@@ -743,13 +743,13 @@ class NodeRepository implements NodeInterface
 
     }
 
-    public function searchPackages($site){
+    public function searchPackages($site, $searchTerm){
         $packages = config('packages.search');
         $items = [];
         if(!empty($packages)){
             foreach($packages as $package){
                 $class = resolve($package['class']);
-                $items[$package['name']] = $class->{$package['function']}($site);
+                $items[$package['name']] = $class->{$package['function']}($site, $searchTerm);
             }
         }
         return $items;
