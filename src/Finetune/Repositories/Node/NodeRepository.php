@@ -723,11 +723,11 @@ class NodeRepository implements NodeInterface
             $packageItems = collect($packageItems);
             foreach($nodes as $node){
                 $array[] = $node;
-                if(!empty($packageItems)){
+                if(!$packageItems->isEmpty()){
                     $array[] = $packageItems->shift();
                 }
             }
-            if(!empty($packageItems)){
+            if(!$packageItems->isEmpty()){
                 foreach($packageItems as $packageItem){
                     $array[] = $packageItem;
                 }
