@@ -35,7 +35,7 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                     if(isset($parts[1])){
                         if($mobile){
                             if ( $detect->isMobile() ) {
-                                $height = $mobileWidth * ((int)$parts[0] / (int)$parts[1]);
+                                $height = $mobileWidth * ((int)$parts[1] / (int)$parts[0]);
                                 $parts[0] = $mobileWidth;
                                 $parts[1] = $height;
                             }

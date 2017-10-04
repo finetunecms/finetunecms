@@ -38,9 +38,9 @@ class MediaController extends BaseController
                 if(config('finetune.mobile')){
                     if ( $detect->isMobile() ) {
                         $width = config('finetune.mobileSize');
-                        $height = $width * ((int)$widths[0] / (int)$widths[1]);
-                        $parts[0] = $width;
-                        $parts[1] = $height;
+                        $height = $width * ((int)$widths[1] / (int)$widths[0]);
+                        $widths[0] = $width;
+                        $widths[1] = $height;
                     }
                 }
                 $name = $name . 'x' . $widths[1];
