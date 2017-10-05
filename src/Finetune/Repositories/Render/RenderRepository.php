@@ -512,7 +512,7 @@ class RenderRepository implements RenderInterface
                 if($this->contentArray['type']->today_future){
                     $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
-                        $publishOn = Carbon\Carbon::parse($value->publish_on);
+                        $publishOn = \Carbon\Carbon::parse($value->publish_on);
                         return ($publishOn->gte($date));
                     });
                 }else{
