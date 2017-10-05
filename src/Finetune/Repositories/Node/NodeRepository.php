@@ -530,6 +530,7 @@ class NodeRepository implements NodeInterface
             ->where('site_id', '=', $site->id)
             ->first();
 
+
         if (isset($node)) {
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
@@ -558,9 +559,16 @@ class NodeRepository implements NodeInterface
                 }
             } else {
                 if($node->type->today_future){
-                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                    if ($now->gte($publishOn)) {
-                        $node = null;
+                    if ($node->area != 1) {
+                        $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                        if ($now->gte($publishOn)) {
+                            $node = null;
+                        }
+                    }else{
+                        $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                        if ($now->lte($publishOn)) {
+                            $node = null;
+                        }
                     }
                 }else{
                     $publishOn = \Carbon\Carbon::parse($node->publish_on);
