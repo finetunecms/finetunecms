@@ -714,8 +714,10 @@ class NodeRepository implements NodeInterface
         if (config('finetune.groupunpublish')) {
             foreach ($nodes as $index => $node) {
                 $area = $node->area_node()->first();
-                if ($area->publish != 1) {
-                    unset($nodes[$index]);
+                if(!empty($area)){
+                    if ($area->publish != 1) {
+                        unset($nodes[$index]);
+                    }
                 }
             }
         }
