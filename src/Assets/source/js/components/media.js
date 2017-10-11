@@ -86,7 +86,7 @@
                         this.$http.put('/admin/api/media/' + that.mediaItem.id, {
                             media: that.mediaItem
                         }).then(function (response) {
-                            that.getMedia();
+                            //that.getMedia();
                             that.alertBox(true, response.data.alertType, response.data.alertMessage);
                         }, function (response){
                             this.renderError(response);
@@ -217,7 +217,7 @@
                                 media: that.selectedItems,
                                 folders: that.foldersSelected,
                             }).then(function (response) {
-                                that.getMedia();
+                                //that.getMedia();
                                 that.alertBox(true, response.data.alertType, response.data.alertMessage);
                             }, function (response){
                                 this.renderError(response);
