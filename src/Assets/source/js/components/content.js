@@ -537,7 +537,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         if (that.node.type.date == 1) {
                             this.date = true;
                         }
-                        if (that.node.type.files == 1) {
+                        if (that.node.type.file == 1) {
                             this.allowFiles = true;
                         }
                         if (that.node.type.spanning_date == 1) {
@@ -565,7 +565,7 @@ if (typeof(content) != 'undefined' && content != null) {
                             if (that.node.type.date == 1) {
                                 this.date = true;
                             }
-                            if (that.node.type.files == 1) {
+                            if (that.node.type.file == 1) {
                                 this.allowFiles = true;
                             }
                             if (that.node.type.spanning_date == 1) {
@@ -841,7 +841,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         if (this.node.type.date == 1) {
                             this.date = true;
                         }
-                        if (this.node.type.files == 1) {
+                        if (this.node.type.file == 1) {
                             this.allowFiles = true;
                         }
 

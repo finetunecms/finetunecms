@@ -152,11 +152,11 @@
                 @include('finetune::partials.fields',[
         'name' => 'file',
         'value' => (isset($type->file) ? $type->file : ''),
-        'required' => false,
-        'type' => 'text',
-        'placeholder' => 'ex 10',
-          'vmodel' => 'type.file',
-        'title' => 'Allow File'])
+       'type' => 'checkbox',
+            'class' => 'checkbox-primary',
+            'id' => 'file',
+              'vmodel' => 'type.file',
+            'title' => 'Allow Files'])
             </div>
         </div>
 
