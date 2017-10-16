@@ -27,10 +27,9 @@
             </div>
         </div>
         <div class="image-popup" v-if="media.length > 0">
-            <div class="row">
-                <table>
+            <table class="table table-striped">
                     <thead>
-                        <tr>
+                    <tr class="active">
                             <th>File Name</th>
                             <th>Action</th>
                         </tr>
@@ -44,7 +43,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
         </div>
         <div class="no-content">
             <h3 v-if="media.length == 0">{{ trans('finetune::content.filePopup.empty') }}</h3>

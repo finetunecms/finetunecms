@@ -171,8 +171,12 @@ class NodeRepository implements NodeInterface
         $node->dscpn = isset($request['dscpn']) ? strip_tags($request['dscpn']) : $node->title;
         $node->keywords = strip_tags($request['keywords']);
         $node->body = $this->filterContent($request['body']);
+
         if (isset($request['media'])) {
             $node->image = $request['media']['id'];
+        }
+        if (isset($request['file'])) {
+            $node->file = $request['file']['id'];
         }
 
         $node->parent = ($node->area == 1) ? 0 : $request['parent'];
@@ -239,6 +243,11 @@ class NodeRepository implements NodeInterface
         $node->keywords = strip_tags($request['keywords']);
         $node->body = $this->filterContent($request['body']);
         $node->image = $request['media']['id'];
+        if (isset($request['file'])) {
+            $node->file = $request['file']['id'];
+        }else{
+            $node->file = 0;
+        }
         if (isset($request['parent'])) {
             $node->parent = ($node->area == 1) ? 0 : $request['parent'];
         }

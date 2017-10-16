@@ -14,7 +14,7 @@
             <div class="table-responsive" v-if="nodes.length != 0">
                 <table class="table table-striped">
                     <thead>
-                    <tr class="active">
+                    w
                         <th class="th-select">{{ trans('finetune::content.list.select') }}</th>
                         <th class="th-publish">{{ trans('finetune::content.list.publish') }}</th>
                         <th class="th-title">{{ trans('finetune::content.list.title') }}</th>
