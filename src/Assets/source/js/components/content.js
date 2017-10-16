@@ -510,6 +510,7 @@ if (typeof(content) != 'undefined' && content != null) {
                 blockChange: {},
                 packages: [],
                 hasPackages: false,
+                allowFiles:false
             },
 
             ready: function () {
@@ -532,8 +533,12 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.endtime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
 
                         that.node.type = response.data.type;
+
                         if (that.node.type.date == 1) {
                             this.date = true;
+                        }
+                        if (that.node.type.files == 1) {
+                            this.allowFiles = true;
                         }
                         if (that.node.type.spanning_date == 1) {
                             this.spanning_date = true;
@@ -559,7 +564,11 @@ if (typeof(content) != 'undefined' && content != null) {
                             that.node.type = response.data.type;
                             if (that.node.type.date == 1) {
                                 this.date = true;
-                            } if (that.node.type.spanning_date == 1) {
+                            }
+                            if (that.node.type.files == 1) {
+                                this.allowFiles = true;
+                            }
+                            if (that.node.type.spanning_date == 1) {
                                 this.spanning_date = true;
                             }
                             if (response.data.area == 1) {
@@ -805,8 +814,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         }
                     }
                 },
-                changeFile: function changeImage() {
-                    this.blockId = blockId;
+                changeFile: function changeFile() {
                     this.cleanErrors();
                     this.getFolders();
                     this.getMedia();
@@ -816,14 +824,11 @@ if (typeof(content) != 'undefined' && content != null) {
                         this.node.file = {id: 0};
                 },
                 insertFile: function insertFile(itemId) {
-                    if (this.blockId == 'body') {
                         for (var i = 0; i < this.file.length; i++) {
                             if (this.file[i].id == itemId) {
                                 this.node.file = this.file[i];
                             }
                         }
-                    }
-                    window.vmContent.$set('blocks', this.blocks);
                     this.$broadcast('hide::modal', 'showModalFile')
                 },
                 typeChange: function typeChange(val) {
@@ -836,6 +841,10 @@ if (typeof(content) != 'undefined' && content != null) {
                         if (this.node.type.date == 1) {
                             this.date = true;
                         }
+                        if (this.node.type.files == 1) {
+                            this.allowFiles = true;
+                        }
+
                         if (this.node.type.spanning_date == 1) {
                             this.spanning_date = true;
                         }

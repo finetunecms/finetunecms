@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <label for="search">Search</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search images and documents"
+                        <input type="text" class="form-control" placeholder="Search files and documents"
                                v-model="searchTerm" @keyup.enter="search"/>
                         <span class="input-group-btn">
                 <button class="btn"><i class="fa fa-search"></i></button>

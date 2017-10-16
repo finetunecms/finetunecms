@@ -65,19 +65,21 @@
                                    v-if="node.media.id != 0">{{ trans('finetune::content.image.remove') }}</a>
                             </div>
 
+                            <div v-if="allowFiles">
+                                <input type="hidden" name="body-file" v-model="node.node_file.id"/>
+                                <div v-if="node.node_file.id != 0">
+                                    <p><strong>@{{ node.node_file.filename }}</strong></p>
+                                </div>
+                                <div class="content-image-btns">
+                                    <a href="#" class="btn btn-success btn-block" @click='changeFile("body")'
+                                       v-if="node.node_file.id == 0">{{ trans('finetune::content.file.add') }}</a>
+                                    <a href="#" class="btn btn-success" @click='changeFile("body")'
+                                       v-else>{{ trans('finetune::content.file.change') }}</a>
+                                    <a href="#" class="btn btn-danger hidden" @click='removeFile("body")'
+                                       v-if="node.node_file.id != 0">{{ trans('finetune::content.file.remove') }}</a>
+                                </div>
+                            </div>
 
-                            <input type="hidden" name="body-file" v-model="node.node_file.id"/>
-                            <div v-if="node.node_file.id != 0">
-                                <p><strong>@{{ node.node_file.filename }}</strong></p>
-                            </div>
-                            <div class="content-image-btns">
-                                <a href="#" class="btn btn-success btn-block" @click='changeFile("body")'
-                                   v-if="node.node_file.id == 0">{{ trans('finetune::content.file.add') }}</a>
-                                <a href="#" class="btn btn-success" @click='changeFile("body")'
-                                   v-else>{{ trans('finetune::content.file.change') }}</a>
-                                <a href="#" class="btn btn-danger hidden" @click='removeFile("body")'
-                                   v-if="node.node_file.id != 0">{{ trans('finetune::content.file.remove') }}</a>
-                            </div>
 
 
                             @if(isset($node->user))

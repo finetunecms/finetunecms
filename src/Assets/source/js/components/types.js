@@ -23,7 +23,8 @@ if (typeof(types) != 'undefined' && types != null) {
                 spanning_date:'',
                 access: '',
                 rss: '',
-                live: ''
+                live: '',
+                file: ''
             },
             typeId: 0,
         },
@@ -102,7 +103,8 @@ if (typeof(types) != 'undefined' && types != null) {
                     spanning_date: '',
                     access: '',
                     rss: '',
-                    live: ''
+                    live: '',
+                    file: '',
                 };
                 this.typeId = 0;
                 this.cleanErrors();
@@ -134,6 +136,7 @@ if (typeof(types) != 'undefined' && types != null) {
                 this.type.order_by = item.order_by;
                 this.type.rss = item.rss;
                 this.type.live = item.live;
+                this.type.file = item.file;
                 this.$broadcast('show::modal', 'showModelTypeUpdate')
             }
         }
