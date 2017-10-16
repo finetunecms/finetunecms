@@ -148,6 +148,15 @@
             'id' => 'default_type',
               'vmodel' => 'type.default_type',
             'title' => 'Default Type'])
+
+                @include('finetune::partials.fields',[
+        'name' => 'file',
+        'value' => (isset($type->file) ? $type->file : ''),
+        'required' => false,
+        'type' => 'text',
+        'placeholder' => 'ex 10',
+          'vmodel' => 'type.file',
+        'title' => 'Allow File'])
             </div>
         </div>
 
@@ -160,14 +169,7 @@
           'vmodel' => 'type.pagination_limit',
         'title' => 'Pagination Limit'])
 
-        @include('finetune::partials.fields',[
-        'name' => 'file',
-        'value' => (isset($type->file) ? $type->file : ''),
-        'required' => false,
-        'type' => 'text',
-        'placeholder' => 'ex 10',
-          'vmodel' => 'type.file',
-        'title' => 'Assign type'])
+
 
         <p> If you have changed the outputs field it could take along time to submit as its rendering the new url structure for the type's nodes</p>
     </div>
