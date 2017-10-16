@@ -531,7 +531,7 @@ if (typeof(content) != 'undefined' && content != null) {
                         that.node.area_fk = 0;
                         that.starttime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
                         that.endtime = moment(that.node.publish_on).format('DD-MM-YYYY HH:mm');
-
+                        that.node.file = that.node['node_file'];
                         that.node.type = response.data.type;
 
                         if (that.node.type.date == 1) {
