@@ -821,6 +821,7 @@ class NodeRepository implements NodeInterface
             'blocks',
             'type',
             'media',
+            'node_file',
             'site',
             'children',
             'roles',

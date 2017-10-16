@@ -773,12 +773,10 @@ if (typeof(content) != 'undefined' && content != null) {
                                             customFields[y]['value'].push(this.getValue(this.splitter(customFields[y]['values']), that.node.values[x]['value']));
                                         } else {
                                             customFields[y]['value'] = this.getValue(this.splitter(customFields[y]['values']), that.node.values[x]['value'])
-
                                         }
                                     } else {
                                         customFields[y]['value'] = that.node.values[x]['value'];
                                     }
-
                                 }
                             }
                         }
@@ -806,6 +804,27 @@ if (typeof(content) != 'undefined' && content != null) {
                             }
                         }
                     }
+                },
+                changeFile: function changeImage() {
+                    this.blockId = blockId;
+                    this.cleanErrors();
+                    this.getFolders();
+                    this.getMedia();
+                    this.$broadcast('show::modal', 'showModalFile')
+                },
+                removeFile: function removeFile() {
+                        this.node.file = {id: 0};
+                },
+                insertFile: function insertFile(itemId) {
+                    if (this.blockId == 'body') {
+                        for (var i = 0; i < this.file.length; i++) {
+                            if (this.file[i].id == itemId) {
+                                this.node.file = this.file[i];
+                            }
+                        }
+                    }
+                    window.vmContent.$set('blocks', this.blocks);
+                    this.$broadcast('hide::modal', 'showModalFile')
                 },
                 typeChange: function typeChange(val) {
                     if (typeof val === 'object') {

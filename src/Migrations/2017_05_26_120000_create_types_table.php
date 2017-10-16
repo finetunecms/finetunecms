@@ -33,6 +33,7 @@ class CreateTypesTable extends Migration {
             $table->boolean('access')->default(0)->nullable();
             $table->boolean('rss')->default(0)->nullable();
             $table->boolean('live')->default(0)->nullable();
+            $table->boolean('file')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

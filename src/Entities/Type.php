@@ -14,7 +14,7 @@ class Type extends Model
 
     protected $fillable = [
         'title', 'outputs', 'layout', 'order_by', 'nesting','children','date', 'today_future', 'today_past',
-        'pagination', 'pagination_limit', 'rss', 'blocks', 'live','ordering', 'default_type', 'spanning_date'
+        'pagination', 'pagination_limit', 'rss', 'blocks', 'live','ordering', 'default_type', 'spanning_date', 'file'
     ];
     protected $guarded = array('id');
 

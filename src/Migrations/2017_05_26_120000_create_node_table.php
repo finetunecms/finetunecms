@@ -34,7 +34,8 @@ class CreateNodeTable extends Migration {
             $table->string('dscpn');
             $table->string('keywords');
             $table->text('body');
-            $table->string('image')->nullable();
+            $table->integer('image')->nullable()->unsigned();
+            $table->integer('file')->nullable()->unsigned();
             $table->string('redirect')->nullable();
             $table->string('meta_title');
             $table->timestamp('publish_on')->nullable();

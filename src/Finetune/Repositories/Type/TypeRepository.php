@@ -79,6 +79,8 @@ class TypeRepository implements TypeInterface
         $request['rss'] = (isset($request['rss']) ? ($request['rss'] ? 1 : 0) : 0);
         $request['blocks'] = (isset($request['blocks']) ? preg_replace("/[\/_|+ -]+/ ", '-', strtolower(trim($request['blocks'], '-'))) : '');
         $request['default'] = (isset($request['default_type']) ? ($request['default_type'] ? 1 : 0) : 0);
+        $request['file'] = (isset($request['file']) ? ($request['file'] ? 1 : 0) : 0);
+
         $request['outputs'] = $this->outputs($request['outputs']);
         $type->fill($request);
         $type->save();
@@ -101,6 +103,7 @@ class TypeRepository implements TypeInterface
         $request['pagination'] = (isset($request['pagination']) ? ($request['pagination'] ? 1 : 0) : 0);
         $request['rss'] = (isset($request['rss']) ? ($request['rss'] ? 1 : 0) : 0);
         $request['blocks'] = (isset($request['blocks']) ? preg_replace("/[\/_|+ -]+/ ", '-', strtolower(trim($request['blocks'], '-'))) : '');
+        $request['file'] = (isset($request['file']) ? ($request['file'] ? 1 : 0) : 0);
         $request['outputs'] = $this->outputs($request['outputs']);
         $type->fill($request);
         $type->save();

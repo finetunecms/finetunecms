@@ -54,6 +54,13 @@ return array(
         'close' => 'Close',
     ],
 
+    'filePopup' => [
+        'title' => 'Add File',
+        'empty' => 'There are no files in your media area',
+        'insert' => 'Insert',
+        'close' => 'Close',
+    ],
+
     'attributes' => [
         'create' => 'Create Content',
         'delete' => 'Delete Selected Content',
@@ -107,6 +114,12 @@ return array(
         'add' => 'Add Image',
         'change' => 'Change Image',
         'remove' => 'Remove Image',
+    ],
+
+    'file' => [
+        'add' => 'Add File',
+        'change' => 'Change File',
+        'remove' => 'Remove File',
     ],
 
     'form' => [
