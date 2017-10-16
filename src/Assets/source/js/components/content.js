@@ -824,9 +824,9 @@ if (typeof(content) != 'undefined' && content != null) {
                         this.node.file = {id: 0};
                 },
                 insertFile: function insertFile(itemId) {
-                        for (var i = 0; i < this.file.length; i++) {
-                            if (this.file[i].id == itemId) {
-                                this.node.file = this.file[i];
+                        for (var i = 0; i < this.media.length; i++) {
+                            if (this.media[i].id == itemId) {
+                                this.node.file = this.media[i];
                             }
                         }
                     this.$broadcast('hide::modal', 'showModalFile')

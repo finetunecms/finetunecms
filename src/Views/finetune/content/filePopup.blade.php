@@ -28,13 +28,22 @@
         </div>
         <div class="image-popup" v-if="media.length > 0">
             <div class="row">
-                <div class="col-md-2" v-for="item in search('files')">
-                    <div class="insert-image">
-                        <p class="tiny" title="@{{ item.filename }}">@{{ item.filename.substring(0,10) }}
-                            <span v-id="item.filename.length > 20">...</span></p>
-                        <a href="#" class="btn btn-success btn-block" @click="insertFile(item.id)">{{ trans('finetune::content.filePopup.insert') }}</a>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in search('files')">
+                            <td>@{{ item.filename }}</td>
+                            <td><a href="#" class="btn btn-success btn-block"
+                                   @click="insertFile(item.id)">{{ trans('finetune::content.filePopup.insert') }}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="no-content">
@@ -42,6 +51,7 @@
         </div>
     </div>
     <div slot="modal-footer">
-        <button type="button" class="btn btn-default btn-block" @click="$broadcast('hide::modal', 'showModalFile')">{{ trans('finetune::content.filePopup.close') }}</button>
+        <button type="button" class="btn btn-default btn-block"
+                @click="$broadcast('hide::modal', 'showModalFile')">{{ trans('finetune::content.filePopup.close') }}</button>
     </div>
 </modal>
