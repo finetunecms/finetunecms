@@ -502,11 +502,21 @@ class RenderRepository implements RenderInterface
                 $list = $list->filter(function ($value, $key) use ($date) {
                     $start = \Carbon\Carbon::parse($value->start_at);
                     $end = \Carbon\Carbon::parse($value->end_at);
+                    if($this->contentArray['type']->today_future){
+                        if($date->lte($start)){
+                            return true;
+                        }
+                    }else{
+                        if($date->gte($start)){
+                            return true;
+                        }
+                    }
                     if(!$date->between($start,$end)){
                         return false;
                     }else{
                         return true;
                     }
+
                 });
             }else{
                 if($this->contentArray['type']->today_future){
