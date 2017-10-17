@@ -57,6 +57,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $this->app->register('\Lab404\Impersonate\ImpersonateServiceProvider');
         $this->app->register('\Laravel\Scout\ScoutServiceProvider');
         $this->app->register('\TeamTNT\Scout\TNTSearchScoutServiceProvider');
+        $this->app->register('\Barryvdh\DomPDF\ServiceProvider');
 
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 
@@ -69,6 +70,7 @@ class FinetuneServiceProvider extends ServiceProvider{
         $loader->alias('Tagging', 'Finetune\Finetune\Services\Tagging\TaggingFacade');
         $loader->alias('Media', 'Finetune\Finetune\Services\Media\MediaFacade');
         $loader->alias('Entrust', '\Zizaco\Entrust\EntrustFacade');
+        $loader->alias('PDF', '\Barryvdh\DomPDF\Facade');
 
         $this->commands($this->commands);
     }

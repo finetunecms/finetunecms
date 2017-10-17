@@ -56,8 +56,8 @@ class RenderRepository implements RenderInterface
             if ($catchAll['json']) {
                 return response()->json($catchAll['node']);
             } elseif ($catchAll['pdf']) {
-                //$pdf = \PDF::loadView($catchAll['node']['site']->theme . '::pdf', $this->contentArray);
-                //return $pdf->stream($catchAll['node']['node']->title . '.pdf');
+                $pdf = \PDF::loadView($catchAll['node']['site']->theme . '::pdf', $this->contentArray);
+                return $pdf->stream($catchAll['node']['node']->title . '.pdf');
             } elseif ($catchAll['rss']) {
                 /*
                 if (isset($catchAll['node']['list'])) {
