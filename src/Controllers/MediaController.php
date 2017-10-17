@@ -57,7 +57,7 @@ class MediaController extends BaseController
                     $canvas->extension = $img->extension;
                     $img = $canvas;
                 }else{
-                    $img = $this->media->fit($img, $widths[0], $widths[1]);
+                    $img = $this->media->fit($img, (int) $widths[0], (int) $widths[1]);
                 }
             } else {
                 if(config('finetune.mobile')){
