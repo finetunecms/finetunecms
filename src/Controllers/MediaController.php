@@ -49,15 +49,15 @@ class MediaController extends BaseController
                     $name = $name . '-fit';
                     $bg = empty($this->request->get('bg')) ? '000000' : $this->request->get('bg');
                     $name = $name . '-'.$bg;
-                    $canvas = Image::canvas($widths[0], $widths[1], '#'.$bg);
-                    $img->resize($widths[0], $widths[1], function ($constraint) {
+                    $canvas = Image::canvas((int)$widths[0], (int)$widths[1], '#'.$bg);
+                    $img->resize((int)$widths[0], (int)$widths[1], function ($constraint) {
                         $constraint->aspectRatio();
                     });
                     $canvas->insert($img, 'center');
                     $canvas->extension = $img->extension;
                     $img = $canvas;
                 }else{
-                    $img = $this->media->fit($img, (int) $widths[0], (int) $widths[1]);
+                    $img = $this->media->fit($img, (int)$widths[0], (int)$widths[1]);
                 }
             } else {
                 if(config('finetune.mobile')){
