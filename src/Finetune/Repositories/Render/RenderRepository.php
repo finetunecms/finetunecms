@@ -227,7 +227,7 @@ class RenderRepository implements RenderInterface
         $list->setPath($request->url());
         $list->appends('searchTerm', $searchTerm);
         $list->appends('area', $area);
-        $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'searchTerm' => $searchTerm, 'site' => $site]);
+        $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'rawResults' => $searchItems, 'searchTerm' => $searchTerm, 'site' => $site]);
         return $view;
     }
 
