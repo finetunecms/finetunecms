@@ -49,10 +49,6 @@ class PublicController extends BaseController
         return response()->json($searchItems);
     }
 
-
-
-
-
     public function email($form, Request $request)
     {
         $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);
