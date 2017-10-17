@@ -122,7 +122,7 @@ class NodeRepository implements NodeInterface
     public function find($id, $frontend = false)
     {
         $find = Node::with($this->getWithArray())->find($id);
-        return $this->eagerLoad($find, $frontend);
+        return $this->eagerLoad($find, $frontend, $find);
     }
 
     public function findByTag($site, $tag, $area, $frontend = false)
@@ -135,7 +135,7 @@ class NodeRepository implements NodeInterface
             $finder->where('area_fk', 0);
         }
         $find = $finder->where('tag', '=', $tag)->first();
-        return $this->eagerLoad($find, $frontend);
+        return $this->eagerLoad($find, $frontend, $find);
     }
 
     public function create($site, $request)
