@@ -41,6 +41,18 @@ class PublicController extends BaseController
         return $this->render->search($this->site, $request);
     }
 
+    public function predictivesearch(Request $request)
+    {
+        $searchTerm = $request->input('searchTerm');
+        $searchItems = $this->node->frontEndSearch($this->site, $searchTerm, null);
+
+        return response()->json($searchItems);
+    }
+
+
+
+
+
     public function email($form, Request $request)
     {
         $this->view->addNamespace($this->site->theme, public_path() . '/themes/' . $this->site->theme);

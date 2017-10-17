@@ -18,6 +18,7 @@ Route::group(['middleware' => ['Restrict']], function () {
 // Frontend Routes
 
 Route::any('search', '\Finetune\Finetune\Controllers\PublicController@search');
+Route::any('predictivesearch', '\Finetune\Finetune\Controllers\PublicController@predictivesearch');
 Route::any('sitemap', '\Finetune\Finetune\Controllers\PublicController@sitemap');
 Route::get('/image/{folder}/{image}/{width}', '\Finetune\Finetune\Controllers\MediaController@image');
 Route::get('/image/{folder}/{image}', '\Finetune\Finetune\Controllers\MediaController@image');
