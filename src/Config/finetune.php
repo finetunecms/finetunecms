@@ -76,6 +76,7 @@ return [
 
     'searchView' => 'search.display',
     'searchItems' => 10,
+    'predictiveItems' => '10',
 
 
     /*

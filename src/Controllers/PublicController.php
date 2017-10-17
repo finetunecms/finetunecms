@@ -44,8 +44,8 @@ class PublicController extends BaseController
     public function predictivesearch(Request $request)
     {
         $searchTerm = $request->input('searchTerm');
-        $searchItems = $this->node->frontEndSearch($this->site, $searchTerm, null);
-
+        $perPage = config('finetune.predictiveItems');
+        $searchItems = $this->node->frontEndSearch($this->site, $searchTerm, null)->take($perPage);
         return response()->json($searchItems);
     }
 
