@@ -14,14 +14,14 @@
             <div class="table-responsive" v-if="nodes.length != 0">
                 <table class="table table-striped">
                     <thead>
-                    w
-                        <th class="th-select">{{ trans('finetune::content.list.select') }}</th>
-                        <th class="th-publish">{{ trans('finetune::content.list.publish') }}</th>
-                        <th class="th-title">{{ trans('finetune::content.list.title') }}</th>
-                        <th class="th-type">{{ trans('finetune::content.list.type') }}</th>
-                        <th class="th-children">{{ trans('finetune::content.list.children') }}</th>
-                        <th class="th-actions">{{ trans('finetune::content.list.actions') }}</th>
-                    </tr>
+                        <tr>
+                            <th class="th-select">{{ trans('finetune::content.list.select') }}</th>
+                            <th class="th-publish">{{ trans('finetune::content.list.publish') }}</th>
+                            <th class="th-title">{{ trans('finetune::content.list.title') }}</th>
+                            <th class="th-type">{{ trans('finetune::content.list.type') }}</th>
+                            <th class="th-children">{{ trans('finetune::content.list.children') }}</th>
+                            <th class="th-actions">{{ trans('finetune::content.list.actions') }}</th>
+                        </tr>
                     </thead>
                     <tbody id="sortable"  v-sortable="{onUpdate:orderUpdate}">
                     <tr v-for="item in nodes" class="tr-@{{ item['tag'] }}" :class="renderSelectedRow(item)">
@@ -51,7 +51,6 @@
             </div>
         </div>
     </div>
-
 @stop
 
 @section('controls')
