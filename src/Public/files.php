@@ -18,6 +18,7 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                 $filename = '/'.$uriParts[2] .'/resized/';
                 $fileParts = explode('.', $uriParts[3]);
                 $filename = $filename.$fileParts[0];
+
                 if (isset($fileParts[1])) {
                     $fileExt = $fileParts[1];
                 } else {
@@ -57,6 +58,8 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                         if($mobile){
                             if ( $detect->isMobile() ) {
                                 $filename = $filename.'-'.$mobileWidth;
+                            }else{
+                                $filename = $filename.'-'.$uriParts[4];
                             }
                         }else{
                             $filename = $filename.'-'.$uriParts[4];
