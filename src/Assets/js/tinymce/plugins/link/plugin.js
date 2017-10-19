@@ -101,7 +101,7 @@ tinymce.PluginManager.add('link', function (editor) {
                 /*eslint dot-notation: 0*/
                 var href;
 
-                href = url;
+                href =  $('#url').val();
 
                 // Delay confirm since onSubmit will move focus
                 function delayedConfirm(message, callback) {
@@ -122,6 +122,8 @@ tinymce.PluginManager.add('link', function (editor) {
                         title: title ? title : ''
                     };
 
+
+                    console.log(linkAttrs);
                     if (anchorElm) {
                         editor.focus();
 
@@ -204,9 +206,9 @@ tinymce.PluginManager.add('link', function (editor) {
             $('#display').val(anchorElm ? (anchorElm.innerText || anchorElm.textContent) : selection.getContent({format: 'text'}));
             $('#title').val(dom.getAttrib(anchorElm, 'title'));
             for (var i = 0; i < window.links.length; i++) {
-              if(window.links[i].url_slug == page){
-                  $('#pages').val(i);
-              }
+                if(window.links[i].url_slug == page){
+                    $('#pages').val(i);
+                }
             }
 
             title = $('#title').val();

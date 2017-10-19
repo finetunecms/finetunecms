@@ -207,7 +207,7 @@ class NodeController extends BaseController
 
             $parent = $request->get('parent');
             if ($parent == 0) {
-                $nodes = $this->node->all($this->site, 1);
+                $nodes = $this->node->all($this->site, 0,1);
             } else {
                 $nodes = $this->node->all($this->site, $parent);
             }
