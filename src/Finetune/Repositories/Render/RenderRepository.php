@@ -543,8 +543,8 @@ class RenderRepository implements RenderInterface
             $this->contentArray['list'] = new LengthAwarePaginator(
                 $currentPageResults,
                 count($list),
-                $perPage,
-                ['path' => $this->contentArray['path'], 'query' => $request->query()]);
+                $perPage);
+            $this->contentArray['list']->withPath($this->contentArray['path']);
         } else {
             $this->contentArray['list'] = $list;
         }
