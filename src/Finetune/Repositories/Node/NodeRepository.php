@@ -511,7 +511,7 @@ class NodeRepository implements NodeInterface
     {
         $active = config('purifier.active');
         if ($active) {
-            $filters = ['em', 'strong', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+            $filters = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
             foreach ($filters as $filter) {
                 $content = preg_replace("/<" . $filter . ">@(.*?)<\/" . $filter . ">/", "@$1", $content);
                 $content = preg_replace("/<" . $filter . ">@(.*?)/", "@$1", $content);
