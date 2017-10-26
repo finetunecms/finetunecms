@@ -519,6 +519,7 @@ class NodeRepository implements NodeInterface
                 $content = preg_replace("/<" . $filter . "[^>]*>[\s|&nbsp;]*<\/" . $filter . ">/", '', $content);
                 $content = preg_replace("/<(\w+)\b(?:\s+[\w\-.:]+(?:\s*=\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\w\-.:]+))?)*\s*\/?>\s*<\/\1\s*>/", '', $content);
             }
+
             $content = preg_replace("/<span[^>]+\>/i", "", $content);
             $content = str_replace("<div class=\"embed\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the iframe in the embed divs
             $content = str_replace("<div class=\"table-wrap\">&nbsp;</div>", "", $content);  // This removes the left behinds from tinymce when wrapping the table with divs
@@ -540,38 +541,46 @@ class NodeRepository implements NodeInterface
             ->first();
 
 
-        if (isset($node)) {
+        if ((isset($node))){
             if ($node->publish != 1) {
                 if ($node->soft_publish != 1) {
                     $node = null;
                 }
             }
-            $now = \Carbon\Carbon::now();
-            if ($node->type->spanning_date) {
-                if ($node->area == 1) {
-                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                    if (!$now->gt($publishOn)) {
-                        $node = null;
+
+            if(!empty($node)){
+                $now = \Carbon\Carbon::now();
+                if ($node->type->spanning_date) {
+                    if ($node->area == 1) {
+                        $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                        if (!$now->gt($publishOn)) {
+                            $node = null;
+                        }
+                    } else {
+                        $start = \Carbon\Carbon::parse($node->start_at);
+                        $end = \Carbon\Carbon::parse($node->end_at);
+                        if($node->type->today_future){
+                            if (!$now->lt($end)) {
+                                $node = null;
+                            }
+                        }else{
+                            if (!$now->between($start, $end)) {
+                                $node = null;
+                            }
+                        }
                     }
                 } else {
-                    $start = \Carbon\Carbon::parse($node->start_at);
-                    $end = \Carbon\Carbon::parse($node->end_at);
                     if($node->type->today_future){
-                        if (!$now->lt($end)) {
-                            $node = null;
-                        }
-                    }else{
-                        if (!$now->between($start, $end)) {
-                            $node = null;
-                        }
-                    }
-                }
-            } else {
-                if($node->type->today_future){
-                    if ($node->area != 1) {
-                        $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                        if ($now->gte($publishOn)) {
-                            $node = null;
+                        if ($node->area != 1) {
+                            $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                            if ($now->gte($publishOn)) {
+                                $node = null;
+                            }
+                        }else{
+                            $publishOn = \Carbon\Carbon::parse($node->publish_on);
+                            if ($now->lte($publishOn)) {
+                                $node = null;
+                            }
                         }
                     }else{
                         $publishOn = \Carbon\Carbon::parse($node->publish_on);
@@ -579,14 +588,10 @@ class NodeRepository implements NodeInterface
                             $node = null;
                         }
                     }
-                }else{
-                    $publishOn = \Carbon\Carbon::parse($node->publish_on);
-                    if ($now->lte($publishOn)) {
-                        $node = null;
-                    }
-                }
 
+                }
             }
+
         }
         return $this->eagerLoad($node, true);
     }
