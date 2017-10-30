@@ -18,7 +18,7 @@ class GalleryService
         $images = [];
         foreach($folders as $folder){
             if($folder->tag == $tag){
-                $images = $folder->media()->orderBy('order')->get();
+                $images = $folder->media()->orderBy('order')->where('type', 'image')->get();
             }
         }
         return $images;
