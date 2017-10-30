@@ -82,4 +82,14 @@ class FoldersRepository implements FoldersInterface
             return $this->helper->buildTag($title);
         }
     }
+
+    private function checkExistence($tag,$orgTag, $index = 1){
+        $folder = $this->findByTag($tag);
+        if(!empty($folder)){
+            $tag = $orgTag.'-'.$index;
+            $index = $index + 1;
+            return $this->checkExistence($tag, $orgTag, $index);
+        }
+        return $tag;
+    }
 }
