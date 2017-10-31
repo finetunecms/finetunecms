@@ -18,10 +18,10 @@ window.VueLazyLoad = VueLazyload;
 
 Vue.use(VueLazyload, {
     preLoad: 1.3,
-    error: 'dist/error.png',
-    loading: 'dist/loading.gif',
+    error: '',
+    loading: '',
     attempt: 1
-})
+});
 
 window.FileUpload = require('vue-upload-component');
 
