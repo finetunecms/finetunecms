@@ -43,6 +43,4 @@ abstract class Request extends FormRequest {
             return $this->user->can($role);
         }
     }
-
-
 }
