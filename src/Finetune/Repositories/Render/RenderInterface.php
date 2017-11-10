@@ -17,5 +17,5 @@ interface RenderInterface
 
     public function pathSplit($path);
 
-    public function sitemap($site);
+    public function sitemap($site, $request);
 }

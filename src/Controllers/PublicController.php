@@ -96,9 +96,9 @@ class PublicController extends BaseController
         return response()->json($nodeArray);
     }
 
-    public function sitemap()
+    public function sitemap(Request $request)
     {
-        return $this->render->sitemap($this->site);
+        return $this->render->sitemap($this->site, $request);
     }
 
     public function testStyles()

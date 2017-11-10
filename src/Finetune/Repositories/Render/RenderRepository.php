@@ -315,18 +315,39 @@ class RenderRepository implements RenderInterface
         $this->contentArray['pathSplit'] = explode('/', $this->contentArray['path']);
     }
 
-    public function sitemap($site)
+    public function sitemap($site, $request)
     {
         $nodes = $this->node->all($site,0,0,$site->id, true, true);
-        $nodes = $nodes->filter(function ($value, $key) {
-            if ($value->exclude == 1) {
-                return false;
+        $forwarders = config('forwarders');
+        $url = $request->url();
+
+        if (!empty($forwarders)) {
+            foreach ($forwarders as $urlFowarder => $slug) {
+                if ($url == $urlFowarder) {
+                    $nodes = $nodes->filter(function ($value, $key) use($slug) {
+                        if ($value->exclude == 1) {
+                            return false;
+                        }
+                        $area = $value->area_node()->first();
+                        if($area->slug == $slug){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    });
+                }
             }
-            return true;
-        });
+        }else{
+            $nodes = $nodes->filter(function ($value, $key) {
+                if ($value->exclude == 1) {
+                    return false;
+                }
+                return true;
+            });
+        }
         $protocol = config('finetune.protocol');
         $sitemap = $this->app->make("sitemap");
-        $sitemap->setCache('laravel.sitemap', 60);
+        $sitemap->setCache($site->domain.'.sitemap', 60);
         if (!$sitemap->isCached()) {
             foreach ($nodes as $node) {
                 $images = $this->getSitemapImages($node);
