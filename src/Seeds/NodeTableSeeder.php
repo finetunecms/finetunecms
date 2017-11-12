@@ -28,7 +28,7 @@ class NodeTableSeeder extends Seeder {
                     'dscpn' => 'homepage',
                     'keywords' => 'home',
                     'body' => 'This is a homepage',
-                    'image' => '',
+                    'image' => 0,
                     'redirect' => '',
                     'meta_title' => 'Homepage',
                     'publish_on' => \Carbon\Carbon::now()->format('Y-m-d H:i:s')
