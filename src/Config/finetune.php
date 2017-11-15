@@ -88,5 +88,6 @@ return [
 
 
     'mobile' => true,
-    'mobileSize' => 500
+    'mobileSize' => 500,
+
 ];
