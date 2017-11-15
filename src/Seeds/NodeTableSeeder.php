@@ -35,5 +35,6 @@ class NodeTableSeeder extends Seeder {
                 )
             )
         );
+
     }
 }

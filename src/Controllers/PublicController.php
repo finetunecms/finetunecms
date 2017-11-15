@@ -72,8 +72,12 @@ class PublicController extends BaseController
                 $message->to($contact, 'Website Email')->subject('Website Message');
             });
         }
-        return redirect()->back()->with(['message' => $success, 'class' => 'success']);
-
+        $redirect = config('forms.'.$form.'.redirect');
+        if(!empty($redirect)){
+            return redirect($redirect)->with(['message' => $success, 'class' => 'success']);
+        }else{
+            return redirect()->back()->with(['message' => $success, 'class' => 'success']);
+        }
     }
 
     public function jsonNodes()
