@@ -13,7 +13,9 @@ const { mix } = require('laravel-mix');
 
 mix.js('./source/js/app.js', './js')
     .extract(['vue', 'lodash', 'vue-resource', 'vue-sortable', 'vuestrap-base-components','vue-select', 'vue-upload-component', 'moment'])
+    .version()
     .sourceMaps();
 
 
-mix.sass('./source/sass/app.scss', './css');
+mix.sass('./source/sass/app.scss', './css')
+    .version();
