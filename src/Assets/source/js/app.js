@@ -8,6 +8,10 @@ window.$ = $;
 window.chosen = require('chosen-js');
 window.datePicker = require('./datepicker.vue');
 
+import vuedraggable from "vuedraggable"
+window.vuedraggable = vuedraggable;
+Vue.use(vuedraggable);
+
 import vSelect from "vue-select"
 window.vSelect = vSelect;
 Vue.component('v-select', vSelect);
@@ -22,7 +26,6 @@ Vue.use(VueLazyload, {
     attempt: 1
 });
 
-Vue.use(require('vuedraggable'));
 
 window.FileUpload = require('vue-upload-component');
 
