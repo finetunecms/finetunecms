@@ -1,7 +1,7 @@
 window._ = require('lodash');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
-window.Sortable = require('vuedraggable');
+window.vuedraggable = require('vuedraggable');
 window.VueStrap = require('vuestrap-base-components');
 var $ = require('jquery');
 window.jQuery = $;
@@ -29,7 +29,7 @@ window.helper = require('./helper.js');
 window.pacakges = require('./packages.js');
 
 window.Vue.use(window.VueResource);
-window.Vue.use(Sortable);
+window.Vue.use(window.vuedraggable);
 
 window.Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
