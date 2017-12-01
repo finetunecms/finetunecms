@@ -1,7 +1,7 @@
 window._ = require('lodash');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
-window.Sortable = require('vue-sortable');
+window.Sortable = require('vuedraggable');
 window.VueStrap = require('vuestrap-base-components');
 var $ = require('jquery');
 window.jQuery = $;
