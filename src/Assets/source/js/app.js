@@ -1,7 +1,6 @@
 window._ = require('lodash');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
-window.vuedraggable = require('vuedraggable');
 window.VueStrap = require('vuestrap-base-components');
 var $ = require('jquery');
 window.jQuery = $;
@@ -23,13 +22,14 @@ Vue.use(VueLazyload, {
     attempt: 1
 });
 
+Vue.use(require('vuedraggable'));
+
 window.FileUpload = require('vue-upload-component');
 
 window.helper = require('./helper.js');
 window.pacakges = require('./packages.js');
 
 window.Vue.use(window.VueResource);
-window.Vue.use(window.vuedraggable);
 
 window.Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 

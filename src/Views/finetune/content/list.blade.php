@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody id="sortable"  v-sortable="{onUpdate:orderUpdate}">
-                    <tr v-for="item in nodes" class="tr-@{{ item['tag'] }}" :class="renderSelectedRow(item)">
+                    <tr v-draggable-for="item in nodes" class="tr-@{{ item['tag'] }}" :class="renderSelectedRow(item)">
                         @include('finetune::partials.select')
                         <td v-if="item.publish == 1" ><i class="fa fa-check" @click="togglePublish(item)"></i></td>
                         <td v-else><i class="fa fa-ban" @click="togglePublish(item)"></i></td>
