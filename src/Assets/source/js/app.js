@@ -8,8 +8,7 @@ window.$ = $;
 window.chosen = require('chosen-js');
 window.datePicker = require('./datepicker.vue');
 
-window.vuedraggable = require('./vuedraggable.js');
-Vue.use(vuedraggable);
+Vue.use(require('vuedraggable'));
 
 import vSelect from "vue-select"
 window.vSelect = vSelect;
