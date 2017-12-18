@@ -1,14 +1,13 @@
 window._ = require('lodash');
 window.Vue = require('vue');
 window.VueResource = require('vue-resource');
+window.Sortable = require('vue-sortable');
 window.VueStrap = require('vuestrap-base-components');
 var $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
 window.chosen = require('chosen-js');
 window.datePicker = require('./datepicker.vue');
-
-Vue.use(require('vuedraggable'));
 
 import vSelect from "vue-select"
 window.vSelect = vSelect;
@@ -19,11 +18,10 @@ window.VueLazyLoad = VueLazyload;
 
 Vue.use(VueLazyload, {
     preLoad: 1.3,
-    error: '',
-    loading: '',
+    error: 'dist/error.png',
+    loading: 'dist/loading.gif',
     attempt: 1
-});
-
+})
 
 window.FileUpload = require('vue-upload-component');
 
@@ -31,6 +29,7 @@ window.helper = require('./helper.js');
 window.pacakges = require('./packages.js');
 
 window.Vue.use(window.VueResource);
+window.Vue.use(Sortable);
 
 window.Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 

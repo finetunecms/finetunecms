@@ -164,7 +164,7 @@ class NodeRepository implements NodeInterface
         } else {
             $node->author_id = 1;
         }
-        $node->publish = isset($request['publish']) ? 1 : 0;
+        $node->publish = $request['publish'];
         $node->soft_publish = isset($request['soft_publish']) ? (($request['soft_publish'] == true) ? 1 : 0) : 0;
         $node->exclude = isset($request['exclude']) ? (($request['exclude'] == true) ? 1 : 0) : 0;
         $node->title = strip_tags($request['title']);
