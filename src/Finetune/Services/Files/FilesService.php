@@ -15,13 +15,13 @@ class FilesService
 
     public function getFileBank($site, $tag){
         $folders = $this->folders->all($site);
-        $images = [];
+        $files = [];
         foreach($folders as $folder){
             if($folder->tag == $tag){
-                $images = $folder->media()->orderBy('order')->where('type', 'files')->get();
+                $files = $folder->media()->orderBy('order')->where('type', 'file')->get();
             }
         }
-        return $images;
+        return $files;
     }
 
     public function renderFileBank($site, $folder){
