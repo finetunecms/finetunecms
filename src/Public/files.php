@@ -125,7 +125,7 @@ if (!empty($_SERVER['REQUEST_URI'])) {
                     exit;
                 }
 
-                $imageUrl = str_replace('/resized/', '', $imageUrl);
+                $imageUrl = str_replace('/resized', '', $imageUrl);
                 if (file_exists($imageUrl)) {
                     header("Content-Type: $fileMime");
                     header("Content-Length: " . filesize($imageUrl));
