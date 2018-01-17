@@ -28,6 +28,7 @@ class MediaController extends BaseController
         if($img == "Image Not Found"){
             return null;
         }
+        $origName = $img->filename;
         $name = $img->filename;
         if (!empty($width)) {
             $widths = explode('x', $width);
@@ -99,8 +100,10 @@ class MediaController extends BaseController
                 $name = $name.'.'.$img->extension;
                 $this->media->saveRender($this->site, $name, $img, $this->request->get('q'));
             }else{
-                $name = $name.'.'.$img->extension;
-                $this->media->saveRender($this->site, $name, $img, 100);
+                if ($name != $origName){
+                    $name = $name.'.'.$img->extension;
+                    $this->media->saveRender($this->site, $name, $img, 100);
+                }
             }
         }
         $response = $img->response($img->extension, $this->request->has('q') ?  $this->request->get('q') : 100);
