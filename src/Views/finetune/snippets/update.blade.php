@@ -83,13 +83,13 @@
                     <div id="snippet-custom-fields">
                         @foreach($fields as $index => $field)
                             @include('finetune::partials.fields',[
-                              'name' => $field['name'],
+                              'name' => $index,
                               'value' => '',
                               'required' => true,
                               'type' => $field['type'],
                               'placeholder' => $field['label'],
                               'vmodel' => 'snippet.values'.$index,
-                              'title' => $index])
+                              'title' => $field['label']])
                         @endforeach
                     </div>
                 </tab>
