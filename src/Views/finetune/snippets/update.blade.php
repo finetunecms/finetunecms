@@ -70,13 +70,30 @@
             <tab title="{{ trans('finetune::snippets.tabs.advanced') }}">
                 @include('finetune::partials.fields',[
                'name' => 'tag',
-              'value' => isset($snippet->tag) ? $snippet->tag : old('tag'),
+               'value' => isset($snippet->tag) ? $snippet->tag : old('tag'),
                'required' => true,
                'type' => 'text',
                'placeholder' => trans('finetune::snippets.form.tag'),
                'vmodel' => 'snippet.tag',
                'title' => trans('finetune::snippets.form.tag')])
             </tab>
+
+            @if(!empty($fields))
+                <tab title="custom fields">
+                    <div id="snippet-custom-fields">
+                        @foreach($fields as $index => $field)
+                            @include('finetune::partials.fields',[
+                              'name' => $field['name'],
+                              'value' => '',
+                              'required' => true,
+                              'type' => $field['type'],
+                              'placeholder' => $field['label'],
+                              'vmodel' => 'snippet.values'.$index,
+                              'title' => $index])
+                        @endforeach
+                    </div>
+                </tab>
+            @endif
         </tabs>
 
         @include('finetune::content.imagePopup')

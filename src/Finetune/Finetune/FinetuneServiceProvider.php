@@ -102,6 +102,7 @@ class FinetuneServiceProvider extends ServiceProvider{
             $this->path.'/Config/bannedtags.php' => config_path('bannedtags.php'),
             $this->path.'/Config/fields.php' => config_path('fields.php'),
             $this->path.'/Config/scout.php' => config_path('scout.php'),
+            $this->path.'/Config/snippetcf.php' => config_path('snippetcf.php'),
             $this->path.'/Lang' => resource_path('lang/vendor/finetune'),
             $this->path.'/Views/finetune' => resource_path('views/vendor/finetune'),
         ]);

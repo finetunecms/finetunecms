@@ -13,6 +13,7 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
             snippet: {
                 body: '',
                 title: '',
+                values: [{}],
                 media: {id: ''},
                 id: 0,
                 link_type: 0,

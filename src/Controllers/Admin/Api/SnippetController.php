@@ -32,7 +32,8 @@ class SnippetController extends BaseController
 
     public function show($id)
     {
-        return Response()->json($this->snippet->find($id), 200);
+        $snippet = $this->snippet->find($id);
+        return Response()->json($snippet, 200);
     }
 
     public function store(SnippetRequest $snippetRequest)
