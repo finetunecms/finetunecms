@@ -27,6 +27,7 @@ class CreateSnippetTable extends Migration
             $table->string('tag');
             $table->string('title');
             $table->text('body');
+            $table->text('values');
             $table->string('image');
             $table->timestamps();
             $table->softDeletes();
