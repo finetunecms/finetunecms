@@ -139,4 +139,11 @@ class SnippetController extends BaseController
             return response()->json(['No Permissions for managing snippets'], 403);
         }
     }
+
+    public function getFields(NormalRequest $request){
+        $groupId = $request->get('id');
+        $group = $this->snippet->find($groupId);
+        $fields = config('snippetcf.'.$group->tag);
+        return Response()->json($fields, 200);
+    }
 }

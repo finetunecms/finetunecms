@@ -21,6 +21,7 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
                 link_external: null,
                 node: null
             },
+            customFields: [],
             media: [],
             allMedia: [],
             mediaId: '',
@@ -60,6 +61,8 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
             }, function (response){
                 this.renderError(response);
             });
+
+            this.customFieldsBuild(this.groupId);
         },
         methods: {
 
@@ -185,6 +188,28 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
             },
             removeImage: function removeImage() {
                 this.snippet.media = null;
+            },
+
+            customFieldsBuild: function customFieldsBuild(group) {
+                var that = this;
+                this.$http.get('/admin/api/snippets/fields/' + group.id).then(function (response) {
+                    var customFields = response.data;
+                    for (var z = 0; z < customFields.length > 0; z++) {
+                        customFields[z]['value'] = '';
+                    }
+                    for (var y = 0; y < customFields.length > 0; y++) {
+                        for (var x = 0; x < that.snippets.values.length > 0; x++) {
+                            if (that.snippets.values[x]['name'] == customFields[y]['name']) {
+                                    customFields[y]['value'] = that.snippets.values[x]['value'];
+                            }
+                        }
+                    }
+                    for (var w = 0; w < customFields.length > 0; w++) {
+                        that.customFields.$set(w, customFields[w]);
+                    }
+                }, function (response) {
+                    this.renderError(response);
+                });
             },
 
         },

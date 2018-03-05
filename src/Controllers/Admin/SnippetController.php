@@ -36,7 +36,6 @@ class SnippetController extends BaseController
         $snippet = [];
         $url = '/admin/snippets/store';
         $method = 'post';
-        $fields = config('snippetcf.'.$group->tag);
         return view('finetune::snippets.update', compact('route','site','group', 'snippet', 'method', 'url', 'packages', 'fields'));
     }
 
@@ -60,7 +59,6 @@ class SnippetController extends BaseController
         $group = $snippet->snippet_groups;
         $url = '/admin/snippets/' . $group->id . '/snippet/' . $id;
         $method = 'PUT';
-        $fields = config('snippetcf.'.$group->tag);
         return view('finetune::snippets.update', compact('route','site','snippet', 'group', 'method', 'url', 'packages', 'fields'));
     }
 

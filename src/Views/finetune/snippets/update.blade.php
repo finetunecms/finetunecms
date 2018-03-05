@@ -78,22 +78,30 @@
                'title' => trans('finetune::snippets.form.tag')])
             </tab>
 
-            @if(!empty($fields))
-                <tab title="custom fields">
-                    <div id="snippet-custom-fields">
-                        @foreach($fields as $index => $field)
-                            @include('finetune::partials.fields',[
-                              'name' => $index,
-                              'value' => '',
-                              'required' => true,
-                              'type' => $field['type'],
-                              'placeholder' => $field['label'],
-                              'vmodel' => 'snippet.values'.$index,
-                              'title' => $field['label']])
-                        @endforeach
+            <tab id="custom" title="{{ trans('finetune::content.tabs.custom') }}">
+                <h4>{{ trans('finetune::content.customFields') }}</h4>
+                <div v-show="customFields.length > 0">
+                    <div v-for="(index, field) of customFields">
+                        <div class="field-group custom-field" v-if="field.type != 'select'">
+                                <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
+
+                                <input class="form-control" type="@{{ field.type }}" placeholder="@{{ field.name }}"
+                                       name="field[@{{ field.name }}]"
+                                       id="@{{ field.name }}-custom-field"
+                                       v-model="field.value"/>
+                        </div>
+                        <div class="field-group custom-field" v-if="field.type == 'select'">
+                            <label for="field[@{{ field.name }}]" class="control-label">@{{ field.label }}</label>
+                            <v-select v-if="field.multiple == 0" :value.sync="field.value"
+                                      :options="splitter(field.values)" label="label">
+                            </v-select>
+                            <v-select v-if="field.multiple == 1" :value.sync="field.value"
+                                      :options="splitter(field.values)" label="label" :multiple="true">
+                            </v-select>
+                        </div>
                     </div>
-                </tab>
-            @endif
+                </div>
+            </tab>
         </tabs>
 
         @include('finetune::content.imagePopup')
