@@ -55,6 +55,8 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
                     that.loading = false;
                     this.renderError(response);
                 });
+            }else{
+                that.customFieldsBuild(that.snippet.group_id);
             }
             this.getFolders();
             this.link = this.selected;
@@ -150,7 +152,7 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
                         that.customFieldsBuild(that.snippet.group_id);
                         that.alertBox(true, response.data.alertType, response.data.alertMessage);
                         that.saving = false;
-
+                        that.customFieldsBuild(that.snippet.group_id);
                     }, function (response) {
                         that.saving = false;
                         this.renderError(response);
