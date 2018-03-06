@@ -3,15 +3,18 @@
 namespace Finetune\Finetune\Services\Node;
 
 use Finetune\Finetune\Repositories\Node\NodeInterface;
+use Finetune\Finetune\Repositories\Render\RenderInterface;
 
 
 class NodeService
 {
     protected $nodeRepo;
+    protected $rederRepo;
 
-    public function __construct(NodeInterface $node)
+    public function __construct(NodeInterface $node, RenderInterface $render)
     {
         $this->nodeRepo = $node;
+        $this->renderRepo = $render;
     }
 
     public function all($site, $parent = 0, $area = 0)
@@ -136,6 +139,10 @@ class NodeService
     public function canViewNode($node){
         $user = auth()->user();
         return $this->nodeRepo->checkIfUserCanView($user,$node);
+    }
+
+    public function renderChild($site, $node){
+        return $this->renderRepo->renderService($site, $node, []);
     }
 
 }

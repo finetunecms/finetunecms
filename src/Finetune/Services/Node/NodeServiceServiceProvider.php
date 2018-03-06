@@ -8,9 +8,10 @@ class NodeServiceServiceProvider extends ServiceProvider
     public function register(){
         $this->app->bind('nodeService', function($app)
         {
-           return new NodeService(
-             $app->make('Finetune\Finetune\Repositories\Node\NodeInterface')
-           );
+            return new NodeService(
+                $app->make('Finetune\Finetune\Repositories\Node\NodeInterface'),
+                $app->make('Finetune\Finetune\Repositories\Render\RenderInterface')
+            );
         });
     }
 }

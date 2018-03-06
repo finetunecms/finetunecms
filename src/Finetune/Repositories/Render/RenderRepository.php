@@ -136,7 +136,7 @@ class RenderRepository implements RenderInterface
     public function buildPublic($site, $request, $path)
     {
         if (empty($path)) {
-            $path =  $request->path();
+            $path = $request->path();
         }
 
         $this->view->addNamespace($site->theme, public_path() . '/themes/' . $site->theme);
@@ -176,7 +176,7 @@ class RenderRepository implements RenderInterface
                 return $page;
             } else {
                 if (in_array('category', $this->contentArray['pathSplit'])) {
-                    $node = $this->node->findByTag($site,$this->contentArray['pathSplit'][0], 0);
+                    $node = $this->node->findByTag($site, $this->contentArray['pathSplit'][0], 0);
                     return $this->renderPage($site, $node, $request);
                 } else {
                     $date = end($this->contentArray['pathSplit']);
@@ -212,7 +212,8 @@ class RenderRepository implements RenderInterface
         }
     }
 
-    public function search($site, $request){
+    public function search($site, $request)
+    {
         $this->view->addNamespace($site->theme, public_path() . '/themes/' . $site->theme);
         $searchTerm = $request->input('searchTerm');
         $area = $request->input('area');
@@ -227,7 +228,7 @@ class RenderRepository implements RenderInterface
         $list->setPath($request->url());
         $list->appends('searchTerm', $searchTerm);
         $list->appends('area', $area);
-        $view = View($site->theme . '::'.config('finetune.searchView'), ['nodes' => $list, 'rawResults' => $searchItems, 'searchTerm' => $searchTerm, 'site' => $site]);
+        $view = View($site->theme . '::' . config('finetune.searchView'), ['nodes' => $list, 'rawResults' => $searchItems, 'searchTerm' => $searchTerm, 'site' => $site]);
         return $view;
     }
 
@@ -250,7 +251,7 @@ class RenderRepository implements RenderInterface
         $this->contentArray['area'] = $node->area_node;
         if (empty($this->contentArray['area'])) {
             $this->contentArray['area'] = $this->contentArray['node'];
-        }else{
+        } else {
             if (config('finetune.groupunpublish')) {
                 if ($this->contentArray['area']->publish === 0) {
                     return $this->renderError($site);
@@ -317,27 +318,27 @@ class RenderRepository implements RenderInterface
 
     public function sitemap($site, $request)
     {
-        $nodes = $this->node->all($site,0,0,$site->id, true, true);
+        $nodes = $this->node->all($site, 0, 0, $site->id, true, true);
         $forwarders = config('forwarders');
         $url = $request->url();
 
         if (!empty($forwarders)) {
             foreach ($forwarders as $urlFowarder => $slug) {
                 if ($url == $urlFowarder) {
-                    $nodes = $nodes->filter(function ($value, $key) use($slug) {
+                    $nodes = $nodes->filter(function ($value, $key) use ($slug) {
                         if ($value->exclude == 1) {
                             return false;
                         }
                         $area = $value->area_node()->first();
-                        if($area->slug == $slug){
+                        if ($area->slug == $slug) {
                             return true;
-                        }else{
+                        } else {
                             return false;
                         }
                     });
                 }
             }
-        }else{
+        } else {
             $nodes = $nodes->filter(function ($value, $key) {
                 if ($value->exclude == 1) {
                     return false;
@@ -347,17 +348,17 @@ class RenderRepository implements RenderInterface
         }
         $protocol = config('finetune.protocol');
         $sitemap = $this->app->make("sitemap");
-        $sitemap->setCache($site->domain.'.sitemap', 60);
+        $sitemap->setCache($site->domain . '.sitemap', 60);
         if (!$sitemap->isCached()) {
             foreach ($nodes as $node) {
                 $images = $this->getSitemapImages($node);
                 if ($node->homepage) {
-                    $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '1.0', 'daily', $images);
+                    $sitemap->add($protocol . $site->domain . $node->url_slug, $node->updated_at, '1.0', 'daily', $images);
                 } else {
                     if ($node->area) {
-                        $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '0.9', 'daily', $images);
+                        $sitemap->add($protocol . $site->domain . $node->url_slug, $node->updated_at, '0.9', 'daily', $images);
                     } else {
-                        $sitemap->add($protocol.$site->domain.$node->url_slug, $node->updated_at, '0.8', 'monthly', $images);
+                        $sitemap->add($protocol . $site->domain . $node->url_slug, $node->updated_at, '0.8', 'monthly', $images);
                     }
                 }
             }
@@ -378,7 +379,7 @@ class RenderRepository implements RenderInterface
                 }
             }
         }
-        $array['node'] = $this->buildPublic($site,$request,$path);
+        $array['node'] = $this->buildPublic($site, $request, $path);
         if (strpos($url, '.json')) {
             $array['exists'] = true;
             $array['json'] = true;
@@ -517,36 +518,36 @@ class RenderRepository implements RenderInterface
     {
 
         $list = $this->contentArray['children'];
-        if(!$listDate){
-            if($this->contentArray['type']->spanning_date){
+        if (!$listDate) {
+            if ($this->contentArray['type']->spanning_date) {
                 $date = \Carbon\Carbon::now();
                 $list = $list->filter(function ($value, $key) use ($date) {
                     $start = \Carbon\Carbon::parse($value->start_at);
                     $end = \Carbon\Carbon::parse($value->end_at);
-                    if($this->contentArray['type']->today_future){
-                        if($date->lte($start)){
+                    if ($this->contentArray['type']->today_future) {
+                        if ($date->lte($start)) {
                             return true;
                         }
-                    }else{
-                        if($date->gte($start)){
+                    } else {
+                        if ($date->gte($start)) {
                             return true;
                         }
                     }
-                    if(!$date->between($start,$end)){
+                    if (!$date->between($start, $end)) {
                         return false;
-                    }else{
+                    } else {
                         return true;
                     }
 
                 });
-            }else{
-                if($this->contentArray['type']->today_future){
+            } else {
+                if ($this->contentArray['type']->today_future) {
                     $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
                         $publishOn = \Carbon\Carbon::parse($value->publish_on);
                         return ($publishOn->gte($date));
                     });
-                }else{
+                } else {
                     $date = \Carbon\Carbon::now();
                     $list = $list->filter(function ($value, $key) use ($date) {
                         $publishOn = \Carbon\Carbon::parse($value->publish_on);
@@ -615,7 +616,7 @@ class RenderRepository implements RenderInterface
             }
             $now = \Carbon\Carbon::now();
             $publishOn = \Carbon\Carbon::parse($value->publish_on);
-            if($this->contentArray['type']->today_future != 1){
+            if ($this->contentArray['type']->today_future != 1) {
                 if ($now->lt($publishOn)) {
                     return false;
                 }
@@ -628,11 +629,11 @@ class RenderRepository implements RenderInterface
             if (isset($orderBy[0])) {
                 if (isset($orderBy[1])) {
                     if ($orderBy[1] == 'desc') {
-                        $filtered = $filtered->sortByDesc(function ($node, $key) use($orderBy) {
+                        $filtered = $filtered->sortByDesc(function ($node, $key) use ($orderBy) {
                             return $node->{$orderBy[0]};
                         });
                     } else {
-                        $filtered = $filtered->sortBy(function ($node, $key) use($orderBy) {
+                        $filtered = $filtered->sortBy(function ($node, $key) use ($orderBy) {
                             return $node->{$orderBy[0]};
                         });
                     }
@@ -674,5 +675,28 @@ class RenderRepository implements RenderInterface
             }
         }
         return $images;
+    }
+
+    public function renderService($site, $node)
+    {
+        $this->contentArray['node'] = $node;
+        $this->contentArray['area'] = $node->area_node;
+        $this->contentArray['area'] = $this->contentArray['node'];
+        $this->contentArray['parent'] = $node->parent_node;
+        if (empty($this->contentArray['parent'])) {
+            $this->contentArray['parent'] = $this->contentArray['node'];
+        }
+        $this->contentArray['tags'] = $node->tags;
+        $this->contentArray['blocks'] = $node->blocks;
+        $this->contentArray['type'] = $node->type;
+        $this->contentArray['media'] = $node->media;
+        $this->contentArray['site'] = $site;
+        $this->contentArray['roles'] = $node->roles;
+        $this->contentArray['values'] = $node->values;
+        $this->contentArray['children'] = $node->children;
+        $this->renderBlocks();
+        $this->renderBodyBlock();
+
+        return $this->contentArray;
     }
 }

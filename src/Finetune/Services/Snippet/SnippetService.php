@@ -6,7 +6,8 @@ use Finetune\Finetune\Repositories\Snippet\SnippetInterface;
 use Finetune\Finetune\Repositories\SnippetGroup\SnippetGroupInterface;
 use Illuminate\Contracts\View\Factory as View;
 
-class SnippetService {
+class SnippetService
+{
 
     protected $snippets;
     protected $group;
@@ -26,7 +27,8 @@ class SnippetService {
      */
     public function getSnippet($site, $tag)
     {
-        return $this->snippets->findSnippetByTag($site,$tag);
+        $snippet = $this->snippets->findSnippetByTag($site, $tag);
+        return $snippet;
     }
 
     /**
@@ -37,16 +39,18 @@ class SnippetService {
     {
         return $this->group->findGroupByTag($site, $tag);
     }
+
     public function getGroups($site)
     {
         return $this->group->all($site);
     }
+
     public function getGroupList($site)
     {
         $groupArray = [];
         $groupArray[0] = 'All Groups';
         $groups = $this->getGroups($site);
-        foreach($groups as $group){
+        foreach ($groups as $group) {
             $groupArray[$group->id] = $group->title;
         }
         return $groupArray;
@@ -55,9 +59,9 @@ class SnippetService {
     public function hasSnippets($site, $groupTag)
     {
         $group = $this->getGroup($site, $groupTag);
-        if(!empty($group->snippets)){
+        if (!empty($group->snippets)) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -70,6 +74,7 @@ class SnippetService {
             $groupObj = $this->getGroup($site, $group);
             if (!empty($groupObj)) {
                 $snippets = $groupObj->snippet()->whereNull('deleted_at')->where('publish', '=', 1)->get();
+
             }
         }
         $view = '';
@@ -89,7 +94,7 @@ class SnippetService {
         return $view;
     }
 
-    public function renderSnippet($site,$snippet)
+    public function renderSnippet($site, $snippet)
     {
         if (!empty($snippet)) {
             $snippetArray = $this->getSnippet($site, $snippet);
@@ -103,10 +108,14 @@ class SnippetService {
                 if ($this->view->exists($site->theme . '::snippets.' . $snippet)) {
                     return $this->view->make($site->theme . "::snippets." . $snippet, ['snippet' => $snippetArray])->render();
                 } else {
-                    if ($this->view->exists($site->theme . '::snippets.defaultSnippet')) {
-                        return $this->view->make($site->theme . "::snippets.defaultSnippet", ['snippet' => $snippetArray])->render();
+                    if ($this->view->exists($site->theme . '::snippets.snippet-' . $snippetArray->snippet_groups()->first()->tag)) {
+                        return $this->view->make($site->theme . "::snippets.snippet-" . $snippetArray->snippet_groups()->first()->tag, ['snippet' => $snippetArray])->render();
                     } else {
-                        return 'Snippet View File Not found';
+                        if ($this->view->exists($site->theme . '::snippets.defaultSnippet')) {
+                            return $this->view->make($site->theme . "::snippets.defaultSnippet", ['snippet' => $snippetArray])->render();
+                        } else {
+                            return 'Snippet View File Not found';
+                        }
                     }
                 }
             }
