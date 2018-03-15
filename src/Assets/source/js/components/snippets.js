@@ -56,7 +56,7 @@ if (typeof(snippet) != 'undefined' && snippet != null) {
                     this.renderError(response);
                 });
             }else{
-                that.customFieldsBuild(that.snippet.group_id);
+                that.customFieldsBuild(this.groupId);
             }
             this.getFolders();
             this.link = this.selected;
