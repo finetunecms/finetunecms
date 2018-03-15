@@ -58,7 +58,7 @@ Route::group(['middleware' => ['ability:Superadmin,can_administer_website'], 'na
         Route::resource('snippetgroups', 'Admin\Api\SnippetGroupController');
         Route::post('snippets/publish', 'Admin\Api\SnippetController@publish');
         Route::post('snippets/order', 'Admin\Api\SnippetController@saveOrder');
-        Route::get('snippets/fields/{groupId]', 'Admin\Api\SnippetController@getFields');
+        Route::get('snippets/fields/{groupId}', 'Admin\Api\SnippetController@getFields');
         Route::post('snippets/fields', 'Admin\Api\SnippetController@postFields');
         Route::resource('snippets', 'Admin\Api\SnippetController');
 
