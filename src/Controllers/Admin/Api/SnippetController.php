@@ -140,7 +140,13 @@ class SnippetController extends BaseController
         }
     }
 
-    public function getFields(NormalRequest $request){
+    public function getFields($groupId){
+        $group = $this->snippet->find($groupId);
+        $fields = config('snippetcf.'.$group->tag);
+        return Response()->json($fields, 200);
+    }
+
+    public function postFields(NormalRequest $request){
         $groupId = $request->get('id');
         $group = $this->snippet->find($groupId);
         $fields = config('snippetcf.'.$group->tag);
