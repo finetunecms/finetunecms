@@ -53,7 +53,9 @@ class SnippetRepository implements SnippetInterface
             $input['link_internal'] = null;
 
         }
-        $input['values'] = json_encode($input['values']);
+        if(isset($input['values'])){
+            $input['values'] = json_encode($input['values']);
+        }
         $snippet->fill($input);
         $snippet->save();
         return $this->find($snippet->id);
@@ -78,7 +80,9 @@ class SnippetRepository implements SnippetInterface
         if ($input['link_type'] == 2) {
             $input['link_internal'] = null;
         }
-        $input['values'] = json_encode($input['values']);
+        if(isset($input['values'])){
+            $input['values'] = json_encode($input['values']);
+        }
         $snippet->fill($input);
         $snippet->save();
         return $this->find($id);
