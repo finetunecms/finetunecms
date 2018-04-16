@@ -53,12 +53,13 @@ if (empty($value)) {
                               @if(isset($vmodel)) v-model="{{ $vmodel }}" @endif
                               @if(isset($von)) {!! $von !!} @endif
                               placeholder="{{ $placeholder }}" @if(isset($disable)) disabled @endif
-                              aria-describedby="input{{$name}}Status" @if(isset($disable)) disabled @endif @if(isset($vvalidate)) v-validate data-vv-rules="{{ $vvalidate }}" @endif>{{ $value }}</textarea>
+                              aria-describedby="input{{$name}}Status" @if(isset($disable)) disabled @endif @if(isset($vvalidate)) v-validate data-vv-rules="{{ $vvalidate }}" @endif> @if(!empty($value)) value="{{ $value }}" @endif </textarea>
                 @else
                     <input type="{{ $type }}" class="form-control @if(isset($class)) {{ $class }} @endif"
                            id="{{ isset($id) ? $id : $name }}"
                            name="{{ $name }}"
-                           value="{{ $value }}" aria-describedby="input{{$name}}Status"
+                           @if(!empty($value)) value="{{ $value }}" @endif
+                           aria-describedby="input{{$name}}Status"
                            @if(isset($vmodel)) v-model="{{ $vmodel }}" @endif
                            @if(isset($von)) {!! $von !!} @endif
                            placeholder="{{ $placeholder }}" @if(isset($disable)) disabled @endif @if(isset($vvalidate)) v-validate data-vv-rules="{{ $vvalidate }}" @endif/>
