@@ -76,6 +76,9 @@ class SnippetRepository implements SnippetInterface
         if ($input['link_type'] == 1) {
             $input['link_internal'] = $input['link_internal']['id'];
             $input['link_external'] = null;
+            if(!empty($input['node'])){
+                $input['link_internal'] = $input['node']['id'];
+            }
         }
         if ($input['link_type'] == 2) {
             $input['link_internal'] = null;
