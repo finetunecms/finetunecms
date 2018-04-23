@@ -169,7 +169,12 @@ class NodeRepository implements NodeInterface
         $node->exclude = isset($request['exclude']) ? (($request['exclude'] == true) ? 1 : 0) : 0;
         $node->title = strip_tags($request['title']);
         $node->dscpn = isset($request['dscpn']) ? strip_tags($request['dscpn']) : $node->title;
-        $node->keywords = strip_tags($request['keywords']);
+        if(isset($request['keywords'])){
+            $node->keywords = strip_tags($request['keywords']);
+        }else{
+            $node->keywords = $node->dscpn;
+        }
+
         $node->body = $this->filterContent($request['body']);
 
         if (isset($request['media'])) {
@@ -180,8 +185,16 @@ class NodeRepository implements NodeInterface
         }
 
         $node->parent = ($node->area == 1) ? 0 : $request['parent'];
-        $node->redirect = $request['redirect'];
-        $node->meta_title = strip_tags($request['meta_title']);
+        if(isset($request['redirect'])){
+            $node->redirect = $request['redirect'];
+        }
+
+        if(isset($request['meta_title'])){
+            $node->meta_title = strip_tags($request['meta_title']);
+        }else{
+            $node->meta_title = strip_tags($node->title);
+        }
+
         $node->publish_on = $this->parseDate($request['publish_on']);
         if ($request['type']['spanning_date'] == 1) {
             if (isset($request['starttime'])) {
