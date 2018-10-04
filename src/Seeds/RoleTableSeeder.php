@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class RoleTableSeeder extends Seeder {
- 
+
     public function run()
     {
 
@@ -136,10 +136,17 @@ class RoleTableSeeder extends Seeder {
         $managePlugins->save();
         $adminPerms[] = $managePlugins->id;
 
+        $managePlugins = new \Finetune\Finetune\Entities\Permission;
+        $managePlugins->name = 'can_manage_allcontent';
+        $managePlugins->display_name = 'Can Manage All Content';
+        $managePlugins->usable = 1;
+        $managePlugins->deleteable = 0;
+        $managePlugins->save();
+        $adminPerms[] = $managePlugins->id;
+
         // asign premissons to the roles
 		$superadmin->perms()->sync(array($manageAll->id, $canAdminister->id));
 		$admin->perms()->sync($adminPerms);
 
     }
-
 }
