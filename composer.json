@@ -37,7 +37,7 @@
     "zizaco/entrust": "~1.8@dev",
     "predis/predis": "~1.1@dev",
     "intervention/image": "2.*.*",
-    "roumen/feed": "~2.10",
+    "laravelium/feed": "3.0.*",
     "barryvdh/laravel-dompdf": "0.8.*",
     "guzzlehttp/guzzle": "^6.2",
     "laravelium/sitemap": "3.0.*",
