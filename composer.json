@@ -40,7 +40,7 @@
     "roumen/feed": "~2.10",
     "barryvdh/laravel-dompdf": "0.8.*",
     "guzzlehttp/guzzle": "^6.2",
-    "roumen/sitemap": "2.7.*",
+    "laravelium/sitemap": "3.0.*",
     "ezyang/htmlpurifier" : "4.*.*",
     "teamtnt/laravel-scout-tntsearch-driver": "^3.1"
   },
