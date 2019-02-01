@@ -222,7 +222,7 @@
     <div class="actions ">
         <div class="btn-group">
 
-            <a href="#" @click="moveMedia()" class="btn"> {{ trans('finetune::media.move') }}</a>
+            <a href="#" @click="moveMedia()" class="btn"> {{ trans('finetune::media.move.title') }}</a>
             <a href="#" @click="destroy()" class="btn">{{ trans('finetune::media.delete') }}</a>
             <a href="#" @click="addFolder()" class="btn">{{ trans('finetune::media.add') }}</a>
             <a title="{{ trans('finetune::content.attributes.save') }}" href="#" class="btn" @click="orderSave()" v-if="

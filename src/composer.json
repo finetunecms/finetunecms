@@ -1,0 +1,58 @@
+{
+  "name": "finetune/finetune",
+  "description": "The Finetune CMS. Built on the laravel framework",
+  "keywords": [
+    "framework",
+    "cms",
+    "finetune",
+    "laravel"
+  ],
+  "homepage":"http://finetunecms.co.uk",
+  "authors": [
+    {
+      "name": "Matt Tullett",
+      "email": "matt@designerscartel.com",
+      "homepage": "http://www.designerscartel.com",
+      "role": "Designer"
+    },
+    {
+      "name": "Christopher Thompson",
+      "email": "chris@homeragency.com",
+      "homepage": "https://www.homeragency.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Matt Sadler",
+      "email": "matt@homeragency.com",
+      "homepage": "https://www.homeragency.com",
+      "role": "Designer"
+    }
+  ],
+  "license": "MIT",
+  "type": "Laravel-Package",
+  "require": {
+    "php": ">=7.0",
+    "laravel/framework": "5.*.*",
+    "lab404/laravel-impersonate": "1.*.*",
+    "zizaco/entrust": "~1.8@dev",
+    "predis/predis": "~1.1@dev",
+    "intervention/image": "2.*.*",
+    "roumen/feed": "~2.10",
+    "barryvdh/laravel-dompdf": "0.8.*",
+    "guzzlehttp/guzzle": "^6.2",
+    "roumen/sitemap": "2.7.*",
+    "ezyang/htmlpurifier" : "4.*.*",
+    "laravel/scout": "^3.0",
+    "teamtnt/laravel-scout-tntsearch-driver": "^3.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "Finetune\\Finetune\\": "src/",
+      "Finetune\\Finetune\\Services\\": "src/Finetune/Services/"
+    },
+    "psr-4": {
+      "Finetune\\Finetune\\": "src/",
+      "Finetune\\Finetune\\Services\\": "src/Finetune/Services/"
+    }
+  }
+}

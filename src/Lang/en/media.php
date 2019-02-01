@@ -6,7 +6,6 @@ return [
     'upload' => 'Upload',
     'save' => 'Save',
     'saveOrder' => 'Save Order',
-    'move' => 'Move',
     'add' => 'Add Group',
     'delete' => 'Delete',
     'empty' => 'No Media Items Found',
@@ -78,6 +77,13 @@ return [
         'extension' => "Extension is not supported",
         'communicating' => "Lost connection to the server",
         'abort' => "File Aborted"
+    ],
+
+    'move' => [
+        'title' => 'Move',
+        'togroups' => 'Move to Groups',
+        'cancel' => "Cancel",
+        'Groups' => "Move Group"
     ]
 
 

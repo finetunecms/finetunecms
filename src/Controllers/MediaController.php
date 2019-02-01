@@ -113,6 +113,8 @@ class MediaController extends BaseController
 
     public function file($folder,$fileName)
     {
+
+
         $file = $this->media->findByFileName($this->site, $fileName);
         if(!empty($file)){
             if ($this->fileContract->exists($file->path)) {

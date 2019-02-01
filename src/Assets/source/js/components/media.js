@@ -210,14 +210,14 @@
                         this.$broadcast('show::modal', 'showModalMoveFiles');
                     },
                     addMediaFolder: function addMediaFolder() {
-                        this.$broadcast('hide::modal', 'showModelDelete');
+                        this.$broadcast('show::modal', 'showModalMoveFiles');
                         var that = this;
                         if (this.selectedItems.length > 0) {
                             this.$http.post('/admin/api/media/move', {
                                 media: that.selectedItems,
-                                folders: that.foldersSelected,
+                                folders: that.foldersSelected
                             }).then(function (response) {
-                                //that.getMedia();
+                                that.getMedia();
                                 that.alertBox(true, response.data.alertType, response.data.alertMessage);
                             }, function (response){
                                 this.renderError(response);

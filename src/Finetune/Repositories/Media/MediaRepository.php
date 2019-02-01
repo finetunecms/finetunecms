@@ -1,5 +1,4 @@
 <?php
-
 namespace Finetune\Finetune\Repositories\Media;
 
 use Finetune\Finetune\Entities\Media;
@@ -90,7 +89,7 @@ class MediaRepository implements MediaInterface
                     $media->save();
                     return $media;
                 } elseif (in_array($mime, $allowedFileMemeTypes)) {
-                    $newDestinationPath = '/uploads/' . $site->tag; // upload path
+                    $newDestinationPath = storage_path().'/uploads/' . $site->tag; // upload path
                     $file->storeAs($newDestinationPath, $fileName);
                     $media = new Media();
                     $media->site_id = $site->id;
@@ -308,10 +307,9 @@ class MediaRepository implements MediaInterface
         return $img;
     }
 
-    public function saveOrder($media, $folder)
-    {
+    public function saveOrder($media, $folder){
         $order = 0;
-        foreach ($media as $item) {
+        foreach($media as $item){
             $mediaItem = $this->find($item['id']);
             $mediaItem->order = $order;
             $mediaItem->save();

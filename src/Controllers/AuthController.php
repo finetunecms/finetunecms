@@ -75,6 +75,7 @@ class AuthController extends BaseController
 
     public function store(LoginRequest $request)
     {
+
         $userData = [];
         $identifier = $request->identity;
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
@@ -90,7 +91,6 @@ class AuthController extends BaseController
             }
             $userObj = $this->auth->user();
             $authorisedSites = $userObj->sites()->get();
-
             if($userObj->hasRole(config('auth.superadminRole'))){
                 return redirect('/admin/content');
             }else{
@@ -99,6 +99,7 @@ class AuthController extends BaseController
                         return redirect('/admin/content');
                     }
                 }
+
                 return $this->flush();
             }
 

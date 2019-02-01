@@ -2,7 +2,7 @@
 
 // Admin Interface Routes
 
-Route::group(['middleware' => ['ability:Superadmin,can_administer_website'], 'namespace' => 'Finetune\Finetune\Controllers'], function () {
+Route::group(['middleware' => ['ability:Superadmin,can_administer_website', 'web'], 'namespace' => 'Finetune\Finetune\Controllers'], function () {
     Route::resource('sites', 'Admin\SitesController');
 
     Route::group(array('middleware' => 'hasSite'), function () {

@@ -12,7 +12,12 @@ class BaseController extends Controller
 
     public function __construct(SiteInterface $siteInterface, Request $request)
     {
-        $this->route = explode('.', $request->route()->getName())[0];
-        $this->site = $siteInterface->getSite($request);
+        $this->middleware(function ($request, $next) use($siteInterface) {
+            $this->route = explode('.', $request->route()->getName())[0];
+
+            $this->site = $siteInterface->getSite($request);
+
+            return $next($request);
+        });
     }
 }

@@ -41,8 +41,10 @@ class NodeRepository implements NodeInterface
 
     public function all($site, $parent = 0, $area = 0, $frontend = false, $noEager = false)
     {
+        /*
         if (config('finetune.nodecache') > 0) {
             $nodes = $this->nodes($site);
+
             if (!empty($nodes)) {
                 return [];
             }
@@ -72,6 +74,8 @@ class NodeRepository implements NodeInterface
                 $nodes = $this->eagerLoad($nodes, $frontend, $nodes->first());
             }
         } else {
+        */
+
             $nodeAll = Node::with($this->getWithArray())
                 ->where('site_id', '=', $site->id)
                 ->orderBy('order');
@@ -92,7 +96,7 @@ class NodeRepository implements NodeInterface
             } else {
                 $nodes = $nodeAll->get();
             }
-        }
+       // }
 
         if (!$frontend) {
             if (!$this->auth->user()->ability('Superadmin', 'can_manage_allcontent')) {
